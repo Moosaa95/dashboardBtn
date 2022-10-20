@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import AuthContext from "../context/AuthContext";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -40,6 +41,10 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+
+  const { user, authTokens, logoutUser } = useContext(AuthContext);
+  
 
   return (
     <Box
@@ -96,19 +101,20 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  // src={`../../assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
               <Box textAlign="center">
-                <Typography
+                {authTokens && <Typography
                   variant="h2"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
-                </Typography>
+                  {authTokens.access}
+                  
+                </Typography>}
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   VP Fancy Admin
                 </Typography>
@@ -133,26 +139,26 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Manage Team"
+              title="Manage StakeHolders"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
+              title="Users"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Invoices Balances"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
               variant="h6"
@@ -162,8 +168,15 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Profile Form"
-              to="/form"
+              title="Add User"
+              to="/add-user"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Add StackHolders"
+              to="/add-stakeholder"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -182,8 +195,20 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            {authTokens ? (
+              <p onClick={logoutUser}>Logout</p>
+            ) : (
+              <Item
+              title="Login"
+              to="/login"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            )
+            } 
 
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -217,7 +242,7 @@ const Sidebar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>

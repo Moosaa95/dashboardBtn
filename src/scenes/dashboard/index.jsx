@@ -1,17 +1,17 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
+// import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
+// import LineChart from "../../components/LineChart";
+// import GeographyChart from "../../components/GeographyChart";
+// import BarChart from "../../components/BarChart";
+// import StatBox from "../../components/StatBox";
+// import ProgressCircle from "../../components/ProgressCircle";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -47,7 +47,7 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -65,8 +65,8 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -122,7 +122,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
 
         {/* ROW 2 */}
         <Box
@@ -161,9 +161,9 @@ const Dashboard = () => {
               </IconButton>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
+          {/* <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
-          </Box>
+          </Box> */}
         </Box>
         <Box
           gridColumn="span 4"
@@ -183,7 +183,7 @@ const Dashboard = () => {
               Recent Transactions
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {/* {mockTransactions.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"
@@ -213,7 +213,7 @@ const Dashboard = () => {
                 ${transaction.cost}
               </Box>
             </Box>
-          ))}
+          ))} */}
         </Box>
 
         {/* ROW 3 */}
@@ -226,7 +226,7 @@ const Dashboard = () => {
           <Typography variant="h5" fontWeight="600">
             Campaign
           </Typography>
-          <Box
+          {/* <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -241,7 +241,7 @@ const Dashboard = () => {
               $48,352 revenue generated
             </Typography>
             <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box>
+          </Box> */}
         </Box>
         <Box
           gridColumn="span 4"
@@ -255,9 +255,9 @@ const Dashboard = () => {
           >
             Sales Quantity
           </Typography>
-          <Box height="250px" mt="-20px">
+          {/* <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
-          </Box>
+          </Box> */}
         </Box>
         <Box
           gridColumn="span 4"
@@ -272,9 +272,9 @@ const Dashboard = () => {
           >
             Geography Based Traffic
           </Typography>
-          <Box height="200px">
+          {/* <Box height="200px">
             <GeographyChart isDashboard={true} />
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Box>
