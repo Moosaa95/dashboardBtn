@@ -7,9 +7,18 @@ export const mockDataTeam = [
     email: "jonsnow@gmail.com",
     age: 35,
     phone: "(665)121-5454",
+    city:"abuja",
     access: "admin",
   },
-  
+  {
+    id: 2,
+    name: "Danbaba",
+    email: "noway@gmail.com",
+    age: 35,
+    phone: "(665)121-5454",
+    city:"abuja",
+    access: "admin",
+  },
 ];
 
 export const mockDataStackholders = [

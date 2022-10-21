@@ -139,14 +139,14 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Manage StakeHolders"
-              to="/team"
+              title="Users"
+              to="/users"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Users"
+              title="StakeHolders"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}

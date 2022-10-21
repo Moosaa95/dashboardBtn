@@ -4,24 +4,65 @@ import { tokens } from "../../theme";
 import { mockDataStackholders } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../context/AuthContext";
+
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [stakeHolderVar, setStakeHolderVar] = useState([])
+  const [isLoaded, setIsLoaded] = useState(true)
+
+
+  console.log('ikloio');
+
+  const {authTokens} = useContext(AuthContext)
+
+
+
+  console.log('lol', stakeHolderVar);
+
+  useEffect(() => {
+
+    let stakeHolders = async () => {
+      // if(authTokens){
+          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022', {
+              method:"GET", 
+              headers: {
+                  'Content-Type' : 'application/json',
+                  'Authorization' : 'Bearer ' + authTokens.token.access
+              },
+
+          })
+          let data = await response.json()
+          setStakeHolderVar(data["data"])
+          if (response.ok){
+            setIsLoaded(false)
+          }
+          console.log(data, 'data');
+      // }else{
+      //     alert("something went wro")
+      // }
+      
+  }
+  stakeHolders()
+
+  }, [authTokens])
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    // { field: "registrarId", headerName: "Registrar ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "first_name",
+      headerName: "First Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
+      field: "last_name",
+      headerName: "Last Name",
+      type: "text",
       headerAlign: "left",
       align: "left",
     },
@@ -45,18 +86,18 @@ const Contacts = () => {
       headerName: "City",
       flex: 1,
     },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
-      flex: 1,
-    },
+    // {
+    //   field: "zipCode",
+    //   headerName: "Zip Code",
+    //   flex: 1,
+    // },
   ];
 
   return (
     <Box m="20px">
       <Header
         title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        subtitle="List of StakeHolders"
       />
       <Box
         m="40px 0 0 0"
@@ -91,7 +132,8 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataStackholders}
+          loading={isLoaded}
+          rows={stakeHolderVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

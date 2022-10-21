@@ -13,6 +13,9 @@ export const AuthProvider = ({children}) => {
     let [authTokens, setAuthTokens] = useState(()=>localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null);
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [stakeHolderVar, setStakeHolderVar] = useState([])
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null)
     
     const navigate = useNavigate()
     let registerUser = async ({
@@ -190,14 +193,87 @@ export const AuthProvider = ({children}) => {
     }
 
 
+    const forgotPassword = async({usernameoremail}) => {
+        console.log('hiii', usernameoremail);
+       
+
+        try {
+			let response = await fetch('https://nest-srm.up.railway.app/auth/user/password-reset/', {
+                method:"POST",
+                headers : {
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    usernameoremail
+                })
+            })
+            console.log('hiiiierhjfdjhdnsf', data);
+            let data = await response.json()
+            setSuccess(data)
+			// console.log(accessResponse, 'opopopopo');
+			// if (accessResponse && accessResponse.user) {
+			// 	setUser(accessResponse.user)
+            //     console.log(user, 'user now');
+			// }
+
+			// if (accessResponse && accessResponse.access) {
+			// 	setAccessToken(accessResponse.access)
+			// }
+
+			// router.push('/')
+		} catch(error) {
+            console.log(error);
+		//   if (error.response && error.response.data) {
+		//   	setError(error.response.data.message)
+		//   	return      
+	    //   } else if (error.request) {
+		//     setError({message:"something went wrong"})
+		//     return  
+	    //   } else {
+		//     setError({message:"something went wrong"})
+		// 	return
+	    //   }
+	
+        }
+
+        
+        // const {data} = await axios.post('https://nest-srm.up.railway.app/auth/user/login/', body, config)
+        
+    }
+    
+    // let stakeHolders = async () => {
+    //     if(authTokens){
+    //         let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022', {
+    //             method:"GET", 
+    //             headers: {
+    //                 'Content-Type' : 'application/json',
+    //                 'Authorization' : 'Bearer ' + authTokens.token.access
+    //             },
+
+    //         })
+    //         let data = await response.json()
+    //         setStakeHolderVar(data)
+    //         console.log(data, 'data');
+    //     }else{
+    //         alert("something went wrong")
+    //     }
+        
+    // }
+
+    
+
     let contextData = {
         authTokens:authTokens,
         user:user,
+        // stakeHolderVar: stakeHolderVar,
         loginUser : loginUser,
         registerUser:registerUser,
         logoutUser:logoutUser,
         addUser:addUser,
-        addStakeHolder:addStakeHolder
+        addStakeHolder:addStakeHolder,
+        forgotPassword:forgotPassword
+        // stakeHolders:stakeHolders,
     }
 
     // useEffect(() => {

@@ -19,6 +19,7 @@ import StackHolderForm from "./scenes/StackHoldersForm";
 import Login from "./scenes/login";
 import PrivateRoutes from "./scenes/utils/PrivateRoute";
 import SignUp from "./scenes/signup";
+import ForgotPassword from "./forgotPassword/forgotPassword";
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route exact path="/" element={<Dashboard />} />
-                <Route path="/team" element={<Team />} />
+                <Route path="/users" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
                 {/* <Route path="/invoices" element={<Invoices />} /> */}
                 <Route path="/add-user" element={<Form />} />
@@ -46,6 +47,7 @@ function App() {
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SignUp />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
           </main>
         </div>

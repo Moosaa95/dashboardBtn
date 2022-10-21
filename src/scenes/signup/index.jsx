@@ -2,6 +2,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Snackbar, Stack, InputLabel, Select,  MenuItem  } from "@mui/material";
 import { Form } from "formik";
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 
@@ -522,7 +523,7 @@ const SignUp = () => {
                   <p className="text-center mt-2">
                     <span>Already have an account?</span>
                     {/* <a href="auth-login-cover.html"> */}
-                    {/* <Link href="/login/">
+                    <Link to="/login">
                       <span
                         style={{
                           cursor: "pointer",
@@ -530,7 +531,7 @@ const SignUp = () => {
                       >
                         &nbsp;Sign in instead
                       </span>
-                    </Link> */}
+                    </Link>
                     {/* </a> */}
                   </p>
                 </form>

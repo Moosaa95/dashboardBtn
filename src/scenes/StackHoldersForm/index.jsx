@@ -1,10 +1,11 @@
-import { Box, Button, InputLabel, MenuItem, Select, TextField, Snackbar } from "@mui/material";
+import { Box, Button, InputLabel, MenuItem, TextField, Snackbar } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import Select from "react-select"
 
 const StackHolderForm = () => {
   const [errorMessage, setErrorMessage] = useState("")
@@ -30,7 +31,11 @@ const StackHolderForm = () => {
     const [jobTitle, setJobTitle] = useState("")
     const [businessSector, setBusinessSector] = useState("")
     const [businessSectorName, setBusinessSectorName] = useState("")
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [displayValue, getValue] = useState()
 
+
+    
     
 
 
@@ -77,8 +82,10 @@ const StackHolderForm = () => {
         );
         const businessJson = await getBusinessData.json();
         console.log(businessJson, "business ppp");
-        setBusinessSector(await businessJson);
-        if (getBusiness.ok){
+        setBusinessSector(businessJson["data"]);
+        if (getBusinessData.ok){
+          console.log('iron man');
+          setIsLoaded(true)
           
         }
       } catch (error) {
@@ -87,7 +94,21 @@ const StackHolderForm = () => {
     };
     getBusiness();
   }, []);
+  // if (isLoaded){
+  //   window.location.reload()
+  // }
 
+
+  
+
+  const businessOptions = businessSector
+  const bus = []
+
+ for (let i = 0; i < businessSector.length; i++){
+   console.log(businessSector[i], 'hello');
+   bus.push({value: businessSector[i].id, label:businessSector[i].id})
+ }
+  console.log('i am a business optioon', businessOptions, typeof businessOptions, bus);
 
 
   useEffect(() => {
@@ -162,9 +183,9 @@ const StackHolderForm = () => {
     const getCityId = event.target.value;
     console.log(getCityId, 'id');
     return city.map((target, index) => { 
-      console.log('targer', target["name"] == getCityId);
-      if (getCityId == target["name"]){
-        console.log('setter',target["pk"] );
+      console.log('targer', target["city"] == getCityId);
+      if (getCityId == target["city"]){
+        console.log('setter',target["pk"], 'city id', cityId );
         setCityId(target["pk"]);
         setCityName(getCityId)
       }
@@ -173,28 +194,40 @@ const StackHolderForm = () => {
     
   }
 
-  const handleBusinessSector = (event)=>{
-    const getBusinessSectorId = event.target.value;
-    console.log(getBusinessSectorId, 'id');
-    return businessSector["data"].map((target, index) => { 
-      console.log('targer', target["name"] == getBusinessSectorId);
-      if (getBusinessSectorId == target["name"]){
-        console.log('setter',target["pk"] );
-        setBusinessSectorId(target["pk"]);
-        setBusinessSectorName(getBusinessSectorId)
-      }
-    })
+  
+
+  // const handleBusinessSector = (event)=>{
+  //   const getBusinessSectorId = event.target.value;
+  //   console.log(getBusinessSectorId, 'id', 'business');
+  //   return businessSector["data"].map((target, index) => { 
+  //     console.log('targer', target["name"] == getBusinessSectorId);
+  //     if (getBusinessSectorId == target["name"]){
+  //       console.log('setter',target["pk"] );
+  //       setBusinessSectorId(target["pk"]);
+  //       setBusinessSectorName(getBusinessSectorId)
+  //     }
+  //   })
 
     
+  // }
+  const handleBusinessSector = (e) => {
+    getValue(Array.isArray(e)?e.map(x=>x.label):[])
+    console.log(displayValue, 'poppppppppp')
+
+
+    
+    
   }
+
+
   const onSubmitHandler = (e) => {
     e.preventDefault()
     addStakeHolder({
       first_name:firstName, 
       last_name:lastName, 
       stakeholder_type:stakeholderType,
-      business_category:["1", "2"],
-      business_sector:["1"],
+      business_category:businessCategory,
+      business_sector:displayValue,
       job_title:jobTitle,
       email : email,
       phone:phoneNumber, 
@@ -377,7 +410,7 @@ const StackHolderForm = () => {
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
                       <div className="mb-1">
-                        <label
+                        {/* <label
                           className="form-label"
                           htmlFor="businessCategory"
                         >
@@ -394,7 +427,20 @@ const StackHolderForm = () => {
                           tabIndex={1}
                           onChange={(e) => setBusinessCategory(e.target.value)}
                           value={businessCategory}
-                        />
+                        /> */}
+                        <label className="form-label" htmlFor="basicSelect">
+                          Stakeholder Type
+                        </label>
+                        <select className="form-select" id="basicSelect"
+                        onChange={e=>setBusinessCategory(e.target.value)}
+                        value={businessCategory}
+                        name="business_category"
+                        >
+                          <option>select business category</option>
+                          <option value="STARTUP">STARTUP</option>
+                          <option value="TIME">TIME</option>
+                        </select>
+                        
                       </div>
                     </div>
                   </div>
@@ -447,23 +493,42 @@ const StackHolderForm = () => {
                         <label className="form-label" htmlFor="basicSelect">
                           Business Sector
                         </label>
-                        <select className="form-select" id="basicSelect"
-                        // onChange={e=>handleBusinessSector(e)}
-                        name="business_sector"
-                        >
-                          <option>Select a Business Sector</option>
-                          {
-                            businessSector["data"].forEach(element => (
-                              <option value={element.id}>{element.name}</option>
-                              
-                            ))
+                        {/* <select className="form-select" id="basicSelect" */}
+                        {/* // onChange={e=>handleBusinessSector(e)} */}
+                       {/* / name="business_sector" */}
+                        {/* > */}
+                          {/* <option>Select a Business Sector</option> */}
+                          {isLoaded && 
+                            <Select
+                            isMulti
+                            name="businessSector"
+                            // defaultInputValue={[businessOptions["value"]]}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            onChange={handleBusinessSector}
+                            // value={displayValue}
+                            // value={businessSector}
+                            theme={(theme) => ({
+                              ...theme,
+                              borderRadius: 0,
+                              colors: {
+                              ...theme.colors,
+                                text: '#000',
+                                primary25: 'hotpink',
+                                primary: '#000',
+                                
+                              },
+                            })}
+                           
+                            options={bus} />
+                          
                           }
                           {/* {
                             businessSector["data"].map((busin, index) => (
                               <option value={busin.id} key={busin.id} >{busin.name}</option>
                             ))
                           } */}
-                        </select>
+                        {/* </select> */}
                       </div>
 
                     </div>
@@ -597,6 +662,7 @@ const StackHolderForm = () => {
                           value={stakeholderType}
                         />
                       </div>
+                      
                     </div>
                     {/* <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
                       <div className="mb-1">

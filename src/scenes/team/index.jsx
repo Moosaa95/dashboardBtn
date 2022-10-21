@@ -6,22 +6,30 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+
+  const {authTokens} = useContext(AuthContext)
+
+  console.log(authTokens.user, 'pop');
   const columns = [
     { field: "id", headerName: "ID" },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "First Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
+      field: "city",
+      headerName: "City",
+      type: "text",
       headerAlign: "left",
       align: "left",
     },

@@ -1,7 +1,8 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { Form } from "formik";
 import React, { useState, useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "./Login.css";
 
@@ -67,11 +68,36 @@ const Login = () => {
               Submit
             </button>
           </div>
-          <p className="forgot-password text-right mt-2">
+         <Link
+         to="/forgot-password"
+         >
+         <p className="forgot-password text-right mt-2">
             Forgot <a href="#">password?</a>
           </p>
+         </Link>
+
         </div>
       </form>
+      <Link to='/register'
+      style={{
+        cursor:'pointer'
+      }}
+      >
+        <span style={{
+          cursor:'pointer'
+        }}>&nbsp;Create an account</span>
+
+      </Link>
+      {/* <Typography>
+        <Navigate
+        
+        >
+
+      <span style={{
+        cursor:'pointer'
+      }}>&nbsp;Create an account</span>
+      </Navigate>
+      </Typography> */}
     </div>
   );
 };
