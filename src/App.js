@@ -25,15 +25,17 @@ import ForgotPassword from "./forgotPassword/forgotPassword";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+          {loggedIn? (<Sidebar isSidebar={isSidebar}/>) : <></>}
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+            {/* <Topbar setIsSidebar={setIsSidebar} /> */}
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route exact path="/" element={<Dashboard />} />
@@ -45,8 +47,8 @@ function App() {
                 <Route path="/calendar" element={<Calendar />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<SignUp />} />
+              <Route path="/login" element={<Login loggedIn={loggedIn} />} />
+              <Route path="/register" element={<SignUp loggedIn={loggedIn} />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
           </main>

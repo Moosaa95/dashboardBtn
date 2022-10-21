@@ -58,6 +58,9 @@ export const AuthProvider = ({children}) => {
         })
         let data = await response.json()
         console.log(data, 'data');
+        if (response.ok){
+            navigate('/login')
+        }
 
 
     }
@@ -193,7 +196,7 @@ export const AuthProvider = ({children}) => {
     }
 
 
-    const forgotPassword = async({usernameoremail}) => {
+    let forgotPassword = async({usernameoremail}) => {
         console.log('hiii', usernameoremail);
        
 

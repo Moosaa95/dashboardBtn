@@ -36,10 +36,6 @@ const ForgotPassword = () => {
         <div className="auth-wrapper auth-cover">
           <div className="auth-inner row m-0">
             {/* Brand logo*/}
-            <a className="brand-logo" href="index-2.html">
-              <img src="./images/logo/logo.png" alt="png" height={52} />
-              <h2 className="brand-text text-primary ms-1" />
-            </a>
             {/* /Brand logo*/}
             {/* Register*/}
             <div className="row">
