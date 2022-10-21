@@ -26,18 +26,22 @@ function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
-  
 
+  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {loggedIn? (<Sidebar isSidebar={isSidebar}/>) : <></>}
+          {loggedIn ? (
+            <Sidebar isSidebar={isSidebar} setLoggedIn={setLoggedIn} />
+          ) : (
+            <></>
+          )}
           <main className="content">
             {/* <Topbar setIsSidebar={setIsSidebar} /> */}
             <Routes>
-              <Route element={<PrivateRoutes />}>
+              <Route element={<PrivateRoutes setLoggedIn={setLoggedIn} />}>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
@@ -47,8 +51,14 @@ function App() {
                 <Route path="/calendar" element={<Calendar />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
-              <Route path="/login" element={<Login loggedIn={loggedIn} />} />
-              <Route path="/register" element={<SignUp loggedIn={loggedIn} />} />
+              <Route
+                path="/login"
+                element={<Login setLoggedIn={setLoggedIn} />}
+              />
+              <Route
+                path="/register"
+                element={<SignUp setLoggedIn={setLoggedIn} />}
+              />
               <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
           </main>

@@ -7,7 +7,7 @@ import AuthContext from "../context/AuthContext";
 
 
 
-const SignUp = () => {
+const SignUp = ({setLoggedIn}) => {
     const [adminFirstName, setAdminFirstName] = useState("");
     const [adminLastName, setAdminLastName] = useState("");
     const [adminEmail, setAdminEmail] = useState("");
@@ -34,6 +34,7 @@ const SignUp = () => {
   
   
     const { registerUser } = useContext(AuthContext);
+    setLoggedIn(false)
   console.log('hello signupo');
   const handleClose = () => {
     console.log( password);

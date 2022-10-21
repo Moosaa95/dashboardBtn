@@ -6,7 +6,7 @@ import { Link, Navigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "./Login.css";
 
-const Login = ({loggedIn}) => {
+const Login = ({setLoggedIn}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [values, setValues] = useState({
@@ -19,8 +19,11 @@ const Login = ({loggedIn}) => {
   
   const { loginUser, user, authTokens } = useContext(AuthContext);
 
-  if (authTokens){
-    loggedIn = true
+  if (!authTokens){
+    setLoggedIn(false)
+  }
+  else{
+    setLoggedIn(true)
   }
   // const handleSubmit = () => {
   //   console.log(email, password, name);
