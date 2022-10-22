@@ -148,7 +148,7 @@ const Sidebar = () => {
             />
             <Item
               title="StakeHolders"
-              to="/contacts"
+              to="/stakeholders"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

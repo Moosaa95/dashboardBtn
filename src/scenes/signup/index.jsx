@@ -1,44 +1,77 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Snackbar, Stack, InputLabel, Select,  MenuItem  } from "@mui/material";
-import { Form } from "formik";
-import React, { useState, useContext, useEffect } from "react";
+import {
+  Box,
+  Snackbar,
+  Stack,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  Button,
+  FormControl,
+  Typography,
+} from "@mui/material";
+import { Form, Formik, Field, useFormik } from "formik";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+// import { useFormik } from "formik";
+import * as yup from "yup";
+import Header from "../../components/Header";
+import { useMediaQuery } from "@mui/material";
 
 
+const SignUp = () => {
+  const [age, setAge] = useState("");
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [countriesId, setCountriesId] = useState("");
+  const [countryName, setCountryName] = useState("");
+  const [countries, setCountries] = useState([]);
+  const [stateName, setStateName] = useState("");
+  const [cityName, setCityName] = useState("");
+  const [cityId, setCityId] = useState("");
+  const [city, setCity] = useState([]);
+  const [statesId, setStatesId] = useState("");
+  const [state, setState] = useState([]);
+  const [msg, setMsg] = useState("")
 
-const SignUp = ({setLoggedIn}) => {
-    const [adminFirstName, setAdminFirstName] = useState("");
-    const [adminLastName, setAdminLastName] = useState("");
-    const [adminEmail, setAdminEmail] = useState("");
-    const [companyName, setCompanyName] = useState("");
-    const [companyEmail, setCompanyEmail] = useState("");
-    const [adminUsername, setAdminUserame] = useState("");
-    const [password, setPassword] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [country, setCountry] = useState("");
-    const [state, setState] = useState([]);
-    const [address, setAddress] = useState("");
-    const [gender, setGender] = useState("");
-    const [open, setOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [countries, setCountries] = useState([]);
-    const [countriesId, setCountriesId] = useState("")
-    const [statesId, setStatesId] = useState("")
-    const [stateName, setStateName] = useState("")
-    const [countryName, setCountryName] = useState("");
-    const [cityName, setCityName] = useState("")
-    const [cityId, setCityId] = useState("")
-    const [city, setCity] = useState([])
-    
   
-  
-    const { registerUser } = useContext(AuthContext);
-    setLoggedIn(false)
-  console.log('hello signupo');
+
+  const ref = useRef(null);
+
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const { registerUser, success, error, clearError, clearSuccess } = useContext(AuthContext);
+
+  // console.log("hi", initialValues, "heyyo");
+
+  // const handleChange = (event) => {
+  //   setAge(event.target.value);
+  // };
+
   const handleClose = () => {
-    console.log( password);
-  }
+    setOpen(false);
+  };
+
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+
+  useEffect(() =>{
+    if (success) {
+      setMsg(success)
+      setOpen(true)
+      clearSuccess();
+    }
+    else{
+      setMsg(error)
+      setOpen(true)
+      clearError();
+
+    }
+  }, [error, success])
+
   useEffect(() => {
     const getCountry = async () => {
       try {
@@ -48,8 +81,7 @@ const SignUp = ({setLoggedIn}) => {
         const countryJson = await getCountryData.json();
         console.log(countryJson["country"], "ppp");
         setCountries(await countryJson["country"]);
-        if (getCountryData.ok){
-          
+        if (getCountryData.ok) {
         }
       } catch (error) {
         setErrorMessage(error);
@@ -58,30 +90,30 @@ const SignUp = ({setLoggedIn}) => {
     getCountry();
   }, []);
 
-
+ 
 
   useEffect(() => {
-    if (countriesId){
-      // console.log('hi i am inside', countriesId);
+    if (countriesId) {
+      console.log("hi i am inside", countriesId);
       const getState = async () => {
         try {
           const getState = await fetch(
             `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
-            );
-            const stateJson = await getState.json();
-            console.log(stateJson, "state");
-            setState(await stateJson["state"]);
-          } catch (error) {
-            setErrorMessage(error);
-          }
-        };
-        getState();
-      }
-  }, [countryName]);
+          );
+          const stateJson = await getState.json();
+          console.log(stateJson, "state");
+          setState(await stateJson["state"]);
+        } catch (error) {
+          setErrorMessage(error);
+        }
+      };
+      getState();
+    }
+  }, [countriesId]);
 
   useEffect(() => {
-    if (stateName){
-      // console.log('hi i am inside', countriesId);
+    if (statesId){
+      console.log('hi i am inside states', statesId);
       const getCity = async () => {
         try {
           const getCities = await fetch(
@@ -96,466 +128,386 @@ const SignUp = ({setLoggedIn}) => {
         };
         getCity();
       }
-  }, [stateName]);
+  }, [statesId]);
 
-  const handleCountry = (event)=>{
-    const getCountryId = event.target.value;
-    console.log(getCountryId, 'id');
-    return countries.map((target, index) => {
-      console.log('targer', target["country_name"] == getCountryId);
-      if (getCountryId == target["country_name"]){
-        console.log('setter',target["country_pk"] );
-        setCountriesId(target["country_pk"]);
-        setCountryName(target["country_name"])
-      }
-    })
-
-    
-  }
-
-  const handleState = (event)=>{
-    const getStateId = event.target.value;
-    console.log(getStateId, 'id');
-    return state.map((target, index) => { 
-      console.log('targer', target["name"] == getStateId);
-      if (getStateId == target["name"]){
-        console.log('setter',target["pk"] );
-        setStatesId(target["pk"]);
-        setStateName(getStateId)
-      }
-    })
-
-    
-  }
-
-  const handleCity = (event)=>{
-    const getCityId = event.target.value;
-    console.log(getCityId, 'id');
-    return city.map((target, index) => { 
-      console.log('targer', target["name"] == getCityId);
-      if (getCityId == target["name"]){
-        console.log('setter',target["pk"] );
-        setCityId(target["pk"]);
-        setCityName(getCityId)
-      }
-    })
-
-    
-  }
-
-  const onSubmitHandler = (e) => {
-    e.preventDefault()
-    registerUser({
-      admin_email : adminEmail,
-      admin_first_name : adminFirstName,
-      address : address,
-      password : password,
-      phone_number : phoneNumber,
-      company_email : companyEmail,
-      company_name : companyName,
-      country : countriesId,
-      state : statesId,
-      gender: gender,
-      admin_username: adminUsername,
-      admin_last_name: adminLastName,
-      city: cityId
-    })
-  }
-
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
+ 
+  const handleFormSubmit = (values, actions) => {
+    console.log(values, "ation valeus");
+    // values.preventDefault()
+    [values].map((value) => {
+      console.log(values, "jury values");
+      registerUser({
+        admin_email: value.adminEmail,
+        admin_first_name: value.adminFirstName,
+        address: value.address,
+        password: value.password,
+        phone_number: value.phoneNumber,
+        company_email: value.companyEmail,
+        company_name: value.companyName,
+        country: value.country,
+        state: value.state,
+        gender: value.gender,
+        admin_username: value.adminUsername,
+        admin_last_name: value.adminLastName,
+        city: value.city,
+      });
+    });
+    actions.resetForm();
+    console.log(values);
   };
-  
+
+   console.log('country id', statesId);
+  // console.log(ref.current.values, 'lopghjnjk');
+
   return (
-    <div className="container">
-    <Snackbar
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      open={open}
-      onClose={handleClose}
-      autoHideDuration={6000}
-      message={errorMessage}
-      key={"top_center"}
-    />
-    
-    <div className="content-overlay" />
-    <div className="header-navbar-shadow" />
-    <div className="content-wrapper">
-      <div className="content-header row"></div>
-      <div className="content-body">
-        <div className="auth-wrapper auth-cover">
-          <div className="auth-inner row m-0">
-            {/* Brand logo*/}
-            <a className="brand-logo" href="index-2.html">
-              <img src="./images/logo/logo.png" alt="png" height={52} />
-              <h2 className="brand-text text-primary ms-1" />
-            </a>
-            {/* /Brand logo*/}
-            {/* Register*/}
-            <div className="row">
-              <div className="col-lg-6 align-items-center auth-bg px-2 p-lg-5 mx-auto my-auto">
-                <h2 className="card-title fw-bold mb-1">Sign Up</h2>
-                <p className="card-text mb-2">
-                  Start tracking your Stakeholder progress
-                </p>
-                <form
-                  className="auth-register-form mt-2"
-                  action=""
-                  method="POST"
-                  onSubmit={onSubmitHandler}
-                >
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-adminFirstName"
-                        >
-                          Admin First Name
-                        </label>
-                        <input
-                          className="form-control"
-                          id="adminFirstName"
-                          type="text"
-                          name="admin_first_name"
-                          placeholder="Aiivon Innovation Hub"
-                          aria-describedby="adminFirstName"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) =>
-                            setAdminFirstName(e.target.value)
-                          }
-                          value={adminFirstName}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-adminLastName"
-                        >
-                          Admin Last Name
-                        </label>
-                        <input
-                          className="form-control"
-                          id="adminLastName"
-                          type="text"
-                          name="admin_Last_name"
-                          placeholder="Aiivon Innovation Hub"
-                          aria-describedby="adminLastName"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) => setAdminLastName(e.target.value)}
-                          value={adminLastName}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-username"
-                        >
-                          Username
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-username"
-                          type="text"
-                          name="admin_username"
-                          placeholder="Aiivon Innovation Hub"
-                          aria-describedby="register-username"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) => setAdminUserame(e.target.value)}
-                          value={adminUsername}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label className="form-label" htmlFor="basicSelect">
-                          Gender
-                        </label>
-                        <select className="form-select" id="basicSelect"
-                        onChange={e=>setGender(e.target.value)}
-                        value={gender}
-                        name="gender"
-                        >
-                          <option>select your gender</option>
-                          <option>MALE</option>
-                          <option>FEMALE</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-email"
-                        >
-                          Company Email
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-company-email"
-                          type="text"
-                          name="company_email"
-                          placeholder="aiivonglobal@yahoomail.com"
-                          aria-describedby="register-company-email"
-                          tabIndex={2}
-                          onChange={(e) => setCompanyEmail(e.target.value)}
-                          value={companyEmail}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-16 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-email"
-                        >
-                          Email
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-email"
-                          type="text"
-                          name="admin_email"
-                          placeholder="aiivonglobal@yahoomail.com"
-                          aria-describedby="register-email"
-                          tabIndex={2}
-                          onChange={(e) => setAdminEmail(e.target.value)}
-                          value={adminEmail}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-16 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-number"
-                        >
-                          Phone Number
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-number"
-                          type="tel"
-                          name="phone_number"
-                          placeholder="08012345678"
-                          aria-describedby="register-number"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                          value={phoneNumber}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label className="form-label" htmlFor="basicSelect">
-                          Country
-                        </label>
-                        <select className="form-select" id="basicSelect"
-                        onChange={e=>handleCountry(e)}
-                        name="country"
-                        >
-                          <option>Select a country</option>
-                          {
-                            countries.map((country, index) => (
-                              <option value={country.country_id} key={country.country_pk}>{country.country_name}</option>
-                            ))
-                          }
-                        </select>
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label className="form-label" htmlFor="basicSelect">
-                          State
-                        </label>
-                        <select className="form-select" id="basicSelect"
-                        onChange={e=>handleState(e)}
-                        name="state"
-                        >
-                          <option>Select a State</option>
-                          {
-                            state.map((stat, index) => (
-                              <option value={stat.id} key={stat.pk}>{stat.name}</option>
+    <Box
+      m="20px"
+      display="flex"
+      width="100%"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="Column"
+      color="#000"
+      
 
-                            ))
-                            }
-                          
-                        </select>
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label className="form-label" htmlFor="basicSelect">
-                          City
-                        </label>
-                        <select className="form-select" id="basicSelect"
-                        onChange={e=>handleCity(e)}
-                        name="city"
-                        >
-                          <option>Select a City</option>
-                          {
-                            city.map((cit, index) => (
-                              <option value={cit.id} key={cit.pk}>{cit.city}</option>
-
-                            ))
-                            }
-                          
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-company-name"
-                        >
-                          Company Name
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-company-name"
-                          type="text"
-                          name="company_name"
-                          placeholder="Aiivon Innovation Hub"
-                          aria-describedby="register-company-name"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) => setCompanyName(e.target.value)}
-                          value={companyName}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-password"
-                        >
-                          Password
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-password"
-                          type="password"
-                          name="password"
-                          placeholder="**********"
-                          aria-describedby="register-password"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) => setPassword(e.target.value)}
-                          value={password}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-address"
-                        >
-                          Address
-                        </label>
-                        <input
-                          className="form-control"
-                          id="register-address"
-                          type="text"
-                          name="address"
-                          placeholder="167 St. James house off Adetokunbo Ademola Crescent, Wuse 2, Abuja-FCT."
-                          aria-describedby="register-username"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) => setAddress(e.target.value)}
-                          value={address}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="mb-1">
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          id="register-privacy-policy"
-                          type="checkbox"
-                          tabIndex={4}
-                        />
-                        <div className="row">
-                          <div className="col-6">
-                            <label
-                              className="form-check-label"
-                              htmlFor="register-privacy-policy"
-                            >
-                              Remember me
-                            </label>
-                          </div>
-                          <div className="col-6">
-                            <p>
-                              <a href="#" style={{ float: "right" }}>
-                                Forget Password
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button className="btn btn-primary w-100" tabIndex={5}>
-                    Sign up
-                  </button>
-                  <p className="text-center mt-2">
-                    <span>Already have an account?</span>
-                    {/* <a href="auth-login-cover.html"> */}
-                    <Link to="/login">
-                      <span
-                        style={{
-                          cursor: "pointer",
-                        }}
-                      >
-                        &nbsp;Sign in instead
-                      </span>
-                    </Link>
-                    {/* </a> */}
-                  </p>
-                </form>
-              </div>
-              <div className="d-none d-lg-flex col-lg-6 align-items-center p-5">
-                <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
-                  <img
-                    className="img-fluid"
-                    src="./images/banner/auth-image.png"
-                    alt="Register V2"
-                  />
-                </div>
-              </div>
-            </div>
-            {/* /Register*/}
-            {/* Left Text*/}
-            {/* /Left Text*/}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    >
+      <Snackbar
+        
+        anchorOrigin={{ vertical:"top", horizontal:"center" }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        message={msg}
+        key={'top_center'}
+        color="#000"
+        />
+      <Header title="Registration" subtitle="Sign up a new user" />
+      <Formik
+        onSubmit={handleFormSubmit}
+        initialValues={initialValues}
+        validationSchema={checkoutSchema}
+        innerRef={ref}
+        enableReinitialize={true}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              width="190%"
+              gap="30px"
+              // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              sx={{
+                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              }}
+            >
+              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Admin First Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.adminFirstName}
+                name="adminFirstName"
+                error={!!touched.adminFirstName && !!errors.adminFirstName}
+                helperText={touched.adminFirstName && errors.adminFirstName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Last Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.adminLastName}
+                name="adminLastName"
+                error={!!touched.adminLastName && !!errors.adminLastName}
+                helperText={touched.adminLastName && errors.adminLastName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              </Box>
+              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Company email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.companyEmail}
+                name="companyEmail"
+                error={!!touched.companyEmail && !!errors.companyEmail}
+                helperText={touched.companyEmail && errors.companyEmail}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Company Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.companyName}
+                name="companyName"
+                error={!!touched.companyName && !!errors.companyName}
+                helperText={touched.companyName && errors.companyName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              </Box>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Admin Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.adminEmail}
+                name="adminEmail"
+                error={!!touched.adminEmail && !!errors.adminEmail}
+                helperText={touched.adminEmail && errors.adminEmail}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="admin Username"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.adminUsername}
+                name="adminUsername"
+                error={!!touched.adminUsername && !!errors.adminUsername}
+                helperText={touched.adminUsername && errors.adminUsername}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="Gender"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.gender}
+                name="gender"
+                error={!!touched.gender && !!errors.gender}
+                helperText={touched.gender && errors.gender}
+                sx={{ gridColumn: "span 4" }}
+              >
+                <MenuItem value="MALE">MALE</MenuItem>
+                  <MenuItem value="FEMALE">FEMALE</MenuItem> 
+              </TextField>
+              </Box>
+              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
+              <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label="Password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password}
+                name="password"
+                error={!!touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label="Confirm Password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.confirmPassword}
+                name="confirmPassword"
+                error={!!touched.confirmPassword && !!errors.confirmPassword}
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                sx={{ gridColumn: "span 4" }}
+              />
+              </Box>
+              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Phone Number"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.phoneNumber}
+                name="phoneNumber"
+                error={!!touched.phoneNumber && !!errors.phoneNumber}
+                helperText={touched.phoneNumber && errors.phoneNumber}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Address"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address}
+                name="address"
+                error={!!touched.address && !!errors.address}
+                helperText={touched.address && errors.address}
+                sx={{ gridColumn: "span 4" }}
+              />
+              </Box>
+              
+              <Box
+              display="flex"
+              width="100%"
+              gap="20px"
+              >
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="Country"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.country}
+                name="country"
+                error={!!touched.country && !!errors.country}
+                helperText={touched.country && errors.country}
+                sx={{ gridColumn: "span 2" }}
+                onClick={setCountriesId(values.country)}
+              >
+                {countries.map((country, index) => (
+                  <MenuItem value={country.country_pk} key={country.country_pk}>
+                    {country.country_name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="State"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.state}
+                name="state"
+                error={!!touched.state && !!errors.state}
+                helperText={touched.state && errors.state}
+                sx={{ gridColumn: "span 2" }}
+                onClick={setStatesId(values.state)}
+              >
+                {state.map((stat, index) => (
+                  <MenuItem value={stat.pk} key={stat.pk}>
+                    {stat.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="City"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.city}
+                name="city"
+                error={!!touched.city && !!errors.city}
+                helperText={touched.city && errors.city}
+                sx={{ gridColumn: "span 2" }}
+                onClick={setCityId(values.city)}
+              >
+                {
+                city.map((cit, index) => (
+                  <MenuItem value={cit.pk} key={cit.pk}>
+                    {cit.city}
+                  </MenuItem>
+                ))}
+              </TextField>
+              </Box>
+            </Box>
+            <Box display="flex" width="100%" mr="20px" justifyContent="space-between" mt="20px">
+              <Button
+                disabled={isSubmitting}
+                type="submit"
+                color="secondary"
+                variant="contained"
+                
+              >
+                Register
+              </Button>
+              <Typography>
+                   or Already have an Account? 
+                </Typography>
+              <Link to="/login">
+                 <Typography>
+                   Sign in
+                 </Typography>
+              </Link>
+            </Box>
+          </form>
+        )}
+      </Formik>
+    </Box>
   );
+};
+
+const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+
+const checkoutSchema = yup.object().shape({
+  adminFirstName: yup.string().required("required"),
+  adminLastName: yup.string().required("required"),
+  adminEmail: yup.string().email("invalid email").required("required"),
+  gender: yup.string().required("required"),
+  password: yup
+    .string()
+    .min(5)
+    .matches(passwordRules, { message: "please Create a Stronger Password" })
+    .required("Required"),
+  phoneNumber: yup
+    .string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Required"),
+  country: yup.string()
+  .required("Required"),
+  city: yup.string()
+  .required("Required"),
+  state: yup.string()
+  .required("Required")
+});
+const initialValues = {
+  adminFirstName: "",
+  adminLastName: "",
+  adminEmail: "",
+  gender: "",
+  phoneNumber: "",
+  password: "",
+  confirmPassword: "",
+  country: "",
+  address: "",
+  // state : "",
+  // city : ""
 };
 
 export default SignUp;

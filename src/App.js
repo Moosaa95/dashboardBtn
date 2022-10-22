@@ -39,12 +39,12 @@ function App() {
             <></>
           )}
           <main className="content">
-            {/* <Topbar setIsSidebar={setIsSidebar} /> */}
+            {loggedIn ? (<Topbar setIsSidebar={setIsSidebar} setLoggedIn={setLoggedIn} />) : <></>}
             <Routes>
               <Route element={<PrivateRoutes setLoggedIn={setLoggedIn} />}>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
-                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/stakeholders" element={<Contacts />} />
                 {/* <Route path="/invoices" element={<Invoices />} /> */}
                 <Route path="/add-user" element={<Form />} />
                 <Route path="/add-stakeholder" element={<StackHolderForm />} />

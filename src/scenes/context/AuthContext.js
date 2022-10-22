@@ -59,7 +59,12 @@ export const AuthProvider = ({children}) => {
         let data = await response.json()
         console.log(data, 'data');
         if (response.ok){
-            navigate('/login')
+            // navigate('/login')
+            setSuccess("Account Created Successfully")
+
+        }else{
+            setError()
+            
         }
 
 
@@ -263,19 +268,29 @@ export const AuthProvider = ({children}) => {
     //     }
         
     // }
+    const clearError = () => {
+        setError(null)
+    }
 
+    const clearSuccess = () => {
+        setSuccess(null)
+    }
     
 
     let contextData = {
         authTokens:authTokens,
         user:user,
         // stakeHolderVar: stakeHolderVar,
+        error:error, 
+        success:success,
         loginUser : loginUser,
         registerUser:registerUser,
         logoutUser:logoutUser,
         addUser:addUser,
         addStakeHolder:addStakeHolder,
-        forgotPassword:forgotPassword
+        forgotPassword:forgotPassword,
+        clearError:clearError,
+        clearSuccess:clearSuccess
         // stakeHolders:stakeHolders,
     }
 
