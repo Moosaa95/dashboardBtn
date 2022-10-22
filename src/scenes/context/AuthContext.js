@@ -146,6 +146,28 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    let addSector = async({
+        name, 
+    }) => {
+        if(authTokens){
+            let response = await fetch('https://nest-srm.up.railway.app/tenant/business-sector/', {
+                method:"POST", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+                body: JSON.stringify({
+                    name,
+                })
+
+            })
+            let data = await response.json()
+            console.log(data, 'data');
+        }else{
+            alert("something went wrong")
+        }
+    }
+
     let addStakeHolder = async ({
         first_name, 
         last_name, 
@@ -274,6 +296,7 @@ export const AuthProvider = ({children}) => {
         registerUser:registerUser,
         logoutUser:logoutUser,
         addUser:addUser,
+        addSector:addSector,
         addStakeHolder:addStakeHolder,
         forgotPassword:forgotPassword
         // stakeHolders:stakeHolders,
