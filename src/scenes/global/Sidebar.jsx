@@ -150,12 +150,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-<<<<<<< Updated upstream
-            <Item
-              title="StakeHolders"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
-=======
              <Item
               title="Stackholder List"
               to="/stakeholders"
@@ -195,7 +189,6 @@ const Sidebar = () => {
               title="Program Status"
               to="/programs"
               icon={<PersonOutlinedIcon />}
->>>>>>> Stashed changes
               selected={selected}
               setSelected={setSelected}
             />

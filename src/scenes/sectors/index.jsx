@@ -8,7 +8,7 @@ import AuthContext from "../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 
-const BusinessSector = () => {
+const Sectors = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
@@ -124,7 +124,7 @@ const BusinessSector = () => {
     )
 }
 
-export default BusinessSector
+export default Sectors
 
 const checkoutSchema = yup.object().shape({
     name: yup.string().required("Business sector is required"),

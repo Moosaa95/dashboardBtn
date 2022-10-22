@@ -20,7 +20,8 @@ import Login from "./scenes/login";
 import PrivateRoutes from "./scenes/utils/PrivateRoute";
 import SignUp from "./scenes/signup";
 import ForgotPassword from "./forgotPassword/forgotPassword";
-import BusinessSector from "./scenes/sectors";
+import Sectors from "./scenes/sectors";
+import BusinessSector from "./scenes/sectors/add-sector";
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
 function App() {
@@ -45,16 +46,13 @@ function App() {
               <Route element={<PrivateRoutes setLoggedIn={setLoggedIn} />}>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
-<<<<<<< Updated upstream
-                <Route path="/contacts" element={<Contacts />} />
-=======
                 <Route path="/project" element={<Project />} />
->>>>>>> Stashed changes
                 {/* <Route path="/invoices" element={<Invoices />} /> */}
                 <Route path="/add-user" element={<Form />} />
                 <Route path="/add-stakeholder" element={<StackHolderForm />} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route path="/sectors" element={<BusinessSector />} />
+                <Route path="/sectors" element={<Sectors />} />
+                <Route path="/add-sector" element={<BusinessSector />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
               <Route
