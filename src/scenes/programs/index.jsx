@@ -56,6 +56,19 @@ const Programs = () => {
             valueFormatter: params => 
             moment(params?.value).format("DD-MM-YYYY"),
           },
+          {
+            field: "action",
+            headerName: "Action",
+            renderCell: (params) => {
+                return (
+                  <div className="cellAction">
+                    <Link to="" style={{ textDecoration: "none" }}>
+                        <Button variant="outlined" size="small" style={{ borderColor: "#fff", color: "#fff" }}>View</Button>
+                    </Link>
+                  </div>
+                );
+              },
+          },
       ];
 
     useEffect(() => {
