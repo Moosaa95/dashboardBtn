@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataStackholders } from "../../data/mockData";
@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 
 const Contacts = () => {
@@ -95,10 +96,22 @@ const Contacts = () => {
 
   return (
     <Box m="20px">
+      <Box 
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      >
       <Header
-        title="CONTACTS"
+        title="STAKEHOLDERS"
         subtitle="List of StakeHolders"
       />
+      <Link to="/add-stakeholder">
+        <Button
+         color="secondary"
+         variant="contained"
+        >Add Stakeholder</Button>
+      </Link>
+      </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"

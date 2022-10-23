@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Snackbar, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 // import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -7,22 +7,53 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-// import LineChart from "../../components/LineChart";
-// import GeographyChart from "../../components/GeographyChart";
-// import BarChart from "../../components/BarChart";
-// import StatBox from "../../components/StatBox";
-// import ProgressCircle from "../../components/ProgressCircle";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../context/AuthContext";
+
 
 const Dashboard = () => {
+  const [open, setOpen] = useState(true)
+  const [msg, setMsg] = useState("")
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+
+  const {success, error} = useContext(AuthContext)
+
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+  // setMsg(success?success:error)
+  useEffect(()=>{
+    if(success){
+      setMsg(success)
+    }
+    else{
+      setMsg(error)
+    }
+  }, [success, error])
+
+    console.log(success);
+
+  
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
+        {
+          msg && 
+          <Snackbar
+          
+          anchorOrigin={{ vertical:"top", horizontal:"center" }}
+          open={open}
+          onClose={handleClose}
+          autoHideDuration={6000}
+          message={msg}
+          key={'top_center'}
+          color="#000"
+          />}
         <Box>
           <Button
             sx={{

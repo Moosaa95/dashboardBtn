@@ -71,27 +71,31 @@ export const AuthProvider = ({children}) => {
     }
 
 
-    let loginUser = async (e) => {
-        e.preventDefault()
+    let loginUser = async ({
+        username, 
+        password
+    }) => {
+        // e.preventDefault()
         
-        console.log(e.target.email.value);
+        // console.log(e.target.email.value);
         
         let response = await fetch("https://nest-srm.up.railway.app/auth/user/login/", {
             method:"POST", 
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({'username':e.target.email.value, 'password':e.target.password.value})
+            body: JSON.stringify({username, password})
         })
         let data = await response.json()
         console.log(data, 'data');
         if (response.status == 200){
+            setSuccess(data.message)
             setAuthTokens(data)
             setUser(jwt_decode(data.token["access"]))
             localStorage.setItem('authTokens', JSON.stringify(data))
             navigate("/")
         }else{
-            alert("something wrong")
+            setError(data.message)
         }
     }
 
@@ -168,6 +172,7 @@ export const AuthProvider = ({children}) => {
         interest
 
     }) => {
+        console.log('hi insde dstkaeholdwe');
         if(authTokens){
             let response = await fetch('https://nest-srm.up.railway.app/stakeholder/signup/', {
                 method:"POST", 
@@ -194,7 +199,16 @@ export const AuthProvider = ({children}) => {
 
             })
             let data = await response.json()
-            console.log(data, 'data');
+            if (response.ok){
+                setSuccess(data.message)
+                console.log(data, 'data');
+
+            }else{
+
+                
+                setError(data.message)
+            }
+
         }else{
             alert("something went wrong")
         }

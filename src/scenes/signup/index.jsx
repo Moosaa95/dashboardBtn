@@ -37,6 +37,7 @@ const SignUp = () => {
   const [msg, setMsg] = useState("")
 
   
+  
 
   const ref = useRef(null);
 
@@ -168,8 +169,6 @@ const SignUp = () => {
       alignItems="center"
       flexDirection="Column"
       color="#000"
-      
-
     >
       <Snackbar
         
