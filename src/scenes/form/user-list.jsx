@@ -43,13 +43,13 @@ const UserList = () => {
         },
         {
             field: "first_name",
-            headerName: "Stakeholder Type",
+            headerName: "First Name",
             flex: 1,
             cellClassName: "name-column--cell",
           },
           {
             field: "last_name",
-            headerName: "Lastname",
+            headerName: "Last Name",
             flex: 1,
             cellClassName: "name-column--cell",
           },

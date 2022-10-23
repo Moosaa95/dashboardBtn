@@ -140,12 +140,17 @@ export const AuthProvider = ({children}) => {
 
             })
             let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("User created successfully")
+                navigate("/user-list")
+            }
+            console.log(data, 'data');
             // if (response.ok){
             //     setSuccess("business sector created successfully")
             //     // navigate("/sectors")
                 
             // }
-            console.log(data, 'data');
         }else{
             alert("something went wrong")
             setError("something went wrong try again")
@@ -173,6 +178,41 @@ export const AuthProvider = ({children}) => {
                 
                 setSuccess("business sector created successfully")
                 navigate("/sectors")
+            }
+            console.log(data, 'data');
+        }else{
+            alert("something went wrong")
+            setError("something went wrong try again")
+        }
+    }
+
+    let addProgram = async({
+        program_name, 
+        organizer_sponsor,
+        program_description,
+        date_approved,
+    }) => {
+        if(authTokens){
+            console.log('hi im in add sector');
+            let response = await fetch('https://nest-srm.up.railway.app/program-create', {
+                method:"POST", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+                body: JSON.stringify({
+                    program_name,
+                    organizer_sponsor,
+                    program_description,
+                    date_approved,
+                })
+
+            })
+            let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("business sector created successfully")
+                navigate("/programs")
             }
             console.log(data, 'data');
         }else{
@@ -340,6 +380,7 @@ export const AuthProvider = ({children}) => {
         logoutUser:logoutUser,
         addUser:addUser,
         addSector:addSector,
+        addProgram:addProgram,
         addStakeHolder:addStakeHolder,
         addStakeholderType:addStakeholderType,
         forgotPassword:forgotPassword

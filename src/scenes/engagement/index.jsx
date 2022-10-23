@@ -8,9 +8,8 @@ import AuthContext from "../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
-import moment from "moment/moment";
 
-const Programs = () => {
+const Engagements = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
@@ -53,16 +52,14 @@ const Programs = () => {
             headerName: "Date Approved",
             flex: 1,
             cellClassName: "name-column--cell",
-            valueFormatter: params => 
-            moment(params?.value).format("DD-MM-YYYY"),
           },
       ];
 
     useEffect(() => {
 
-        let program = async () => {
+        let engagememt = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/program-list', {
+              let response = await fetch('https://nest-srm.up.railway.app/stakeholder-engagement/list', {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',
@@ -82,7 +79,7 @@ const Programs = () => {
           // }
           
       }
-      program()
+      engagememt()
     
       }, [authTokens])
 
@@ -91,10 +88,10 @@ const Programs = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="All Programs" subtitle="All your stakeholder programs" />
+        <Header title="All Engagement" subtitle="All your stakeholder engagement" />
 
         <Box>
-            <Link to="/add-program">
+            <Link to="/add-engagement">
                 <Button
                 sx={{
                     backgroundColor: colors.blueAccent[700],
@@ -105,7 +102,7 @@ const Programs = () => {
                 }}
                 >
                 <PersonAddIcon sx={{ mr: "10px" }} />
-                Add Program
+                Add Engagememt
                 </Button>
             </Link>
         </Box>
@@ -154,4 +151,4 @@ const Programs = () => {
     )
 }
 
-export default Programs
+export default Engagements

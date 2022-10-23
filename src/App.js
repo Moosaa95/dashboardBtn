@@ -25,6 +25,10 @@ import BusinessSector from "./scenes/sectors/add-sector";
 import AddStakeholderType from "./scenes/stakeholder-type/add-stakeholder-type"
 import StakeholderType from "./scenes/stakeholder-type/"
 import UserList from "./scenes/form/user-list";
+import AddProgram from "./scenes/programs/add-programs";
+import Programs from "./scenes/programs";
+import AddEngagement from "./scenes/engagement/add-engagement";
+import Engagements from "./scenes/engagement";
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
 function App() {
@@ -59,6 +63,10 @@ function App() {
                 <Route path="/add-stakeholder-type" element={<AddStakeholderType />} />
                 <Route path="/stakeholder-types" element={<StakeholderType />} />
                 <Route path="/user-list" element={<UserList />} />
+                <Route path="/add-program" element={<AddProgram />} />
+                <Route path="/programs" element={<Programs />} />
+                <Route path="/add-engagement" element={<AddEngagement />} />
+                <Route path="/engagements" element={<Engagements />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
               <Route

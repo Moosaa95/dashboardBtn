@@ -151,42 +151,14 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
              <Item
-              title="Stackholder List"
-              to="/stakeholders"
-              icon={<ersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-             <Item
-              title="Add Engagement"
-              to="/stakeholders"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-             <Item
-              title="Engagement List"
+              title="Engagements"
               to="/engagements"
-              icon={<ersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-             <Item
-              title="Add Program"
-              to="/add-program"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
              <Item
-              title="Program List"
-              to="/programs"
-              icon={<ersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Program Status"
+              title="Programs"
               to="/programs"
               icon={<PersonOutlinedIcon />}
               selected={selected}
