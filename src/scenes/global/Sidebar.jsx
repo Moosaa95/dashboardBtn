@@ -85,9 +85,13 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
-                </Typography>
+                <img
+                  alt="profile-user"
+                  width="104px"
+                  height="48px"
+                  src={`../../assets/nest-logo.png`}
+                  // style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -95,7 +99,7 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          {!isCollapsed && (
+          {/* {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
@@ -117,11 +121,11 @@ const Sidebar = () => {
                   
                 </Typography>}
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+        
                 </Typography>
               </Box>
             </Box>
-          )}
+          )} */}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
@@ -137,19 +141,33 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+              Stakeholder
             </Typography>
             <Item
-              title="Users"
-              to="/users"
-              icon={<PeopleOutlinedIcon />}
+              title="Add Stackholder"
+              to="/add-stakeholder"
+              icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+<<<<<<< HEAD
             <Item
               title="StakeHolders"
               to="/stakeholders"
               icon={<ContactsOutlinedIcon />}
+=======
+             <Item
+              title="Engagements"
+              to="/engagements"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             <Item
+              title="Programs"
+              to="/programs"
+              icon={<PersonOutlinedIcon />}
+>>>>>>> development
               selected={selected}
               setSelected={setSelected}
             />
@@ -166,32 +184,32 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Settings
             </Typography>
             <Item
-              title="Add User"
-              to="/add-user"
+              title="Users"
+              to="/user-list"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Add StackHolders"
-              to="/add-stakeholder"
+              title="Business Sector"
+              to="/sectors"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
-              to="/calendar"
+              title="Stakeholder Type"
+              to="/stakeholder-types"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="FAQ Page"
-              to="/faq"
+              title="General Settings"
+              to="/settings"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
