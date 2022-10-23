@@ -399,10 +399,7 @@ export const AuthProvider = ({children}) => {
         authTokens:authTokens,
         user:user,
         // stakeHolderVar: stakeHolderVar,
-<<<<<<< HEAD
         error:error, 
-=======
->>>>>>> development
         success:success,
         loginUser : loginUser,
         registerUser:registerUser,
@@ -411,14 +408,12 @@ export const AuthProvider = ({children}) => {
         addSector:addSector,
         addProgram:addProgram,
         addStakeHolder:addStakeHolder,
-<<<<<<< HEAD
         forgotPassword:forgotPassword,
         clearError:clearError,
-        clearSuccess:clearSuccess
-=======
+        clearSuccess:clearSuccess,
         addStakeholderType:addStakeholderType,
-        forgotPassword:forgotPassword
->>>>>>> development
+        forgotPassword:forgotPassword,
+
         // stakeHolders:stakeHolders,
     }
 

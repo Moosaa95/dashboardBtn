@@ -29,6 +29,8 @@ import AddProgram from "./scenes/programs/add-programs";
 import Programs from "./scenes/programs";
 import AddEngagement from "./scenes/engagement/add-engagement";
 import Engagements from "./scenes/engagement";
+import StakeHolders from "./scenes/contacts";
+
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
 function App() {
@@ -53,11 +55,8 @@ function App() {
               <Route element={<PrivateRoutes setLoggedIn={setLoggedIn} />}>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
-<<<<<<< HEAD
-                <Route path="/stakeholders" element={<Contacts />} />
-=======
+                <Route path="/stakeholders" element={<StakeHolders />} />
                 <Route path="/project" element={<Project />} />
->>>>>>> development
                 {/* <Route path="/invoices" element={<Invoices />} /> */}
                 <Route path="/add-user" element={<Form />} />
                 <Route path="/add-stakeholder" element={<StackHolderForm />} />

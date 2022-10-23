@@ -150,12 +150,11 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-<<<<<<< HEAD
             <Item
               title="StakeHolders"
               to="/stakeholders"
               icon={<ContactsOutlinedIcon />}
-=======
+              />
              <Item
               title="Engagements"
               to="/engagements"
@@ -167,7 +166,6 @@ const Sidebar = () => {
               title="Programs"
               to="/programs"
               icon={<PersonOutlinedIcon />}
->>>>>>> development
               selected={selected}
               setSelected={setSelected}
             />

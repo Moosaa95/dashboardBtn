@@ -9,7 +9,7 @@ import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 
-const Contacts = () => {
+const StakeHolders = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [stakeHolderVar, setStakeHolderVar] = useState([])
@@ -28,7 +28,7 @@ const Contacts = () => {
 
     let stakeHolders = async () => {
       // if(authTokens){
-          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022', {
+          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/23/2022', {
               method:"GET", 
               headers: {
                   'Content-Type' : 'application/json',
@@ -155,4 +155,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default StakeHolders;
