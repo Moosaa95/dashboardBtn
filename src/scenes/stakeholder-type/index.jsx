@@ -9,7 +9,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 
-const Sectors = () => {
+const StakeholderType = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
@@ -37,7 +37,7 @@ const Sectors = () => {
         // { field: "registrarId", headerName: "Registrar ID" },
         {
           field: "name",
-          headerName: "Business Sector Name",
+          headerName: "Stakeholder Type",
           flex: 1,
           cellClassName: "name-column--cell",
         },
@@ -47,7 +47,7 @@ const Sectors = () => {
 
         let stakeHolders = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/business-sector', {
+              let response = await fetch('https://nest-srm.up.railway.app/stakeholder-type/list', {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',
@@ -76,10 +76,10 @@ const Sectors = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
+        <Header title="Stakeholder Type" subtitle="Add your stakeholder type" />
 
         <Box>
-        <Link to="/add-sector">
+          <Link to="/add-stakeholder-type">
             <Button
               sx={{
                 backgroundColor: colors.blueAccent[700],
@@ -90,7 +90,7 @@ const Sectors = () => {
               }}
             >
               <PersonAddIcon sx={{ mr: "10px" }} />
-              Add Business Sector
+              Add Stakeholder Type
             </Button>
           </Link>
         </Box>
@@ -139,12 +139,4 @@ const Sectors = () => {
     )
 }
 
-export default Sectors
-
-const checkoutSchema = yup.object().shape({
-    name: yup.string().required("Business sector is required"),
-    
-  });
-  const initialValues = {
-    name: "",
-  };
+export default StakeholderType

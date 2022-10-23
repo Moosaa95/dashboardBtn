@@ -22,6 +22,9 @@ import SignUp from "./scenes/signup";
 import ForgotPassword from "./forgotPassword/forgotPassword";
 import Sectors from "./scenes/sectors";
 import BusinessSector from "./scenes/sectors/add-sector";
+import AddStakeholderType from "./scenes/stakeholder-type/add-stakeholder-type"
+import StakeholderType from "./scenes/stakeholder-type/"
+import UserList from "./scenes/form/user-list";
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
 function App() {
@@ -53,6 +56,9 @@ function App() {
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/sectors" element={<Sectors />} />
                 <Route path="/add-sector" element={<BusinessSector />} />
+                <Route path="/add-stakeholder-type" element={<AddStakeholderType />} />
+                <Route path="/stakeholder-types" element={<StakeholderType />} />
+                <Route path="/user-list" element={<UserList />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
               <Route

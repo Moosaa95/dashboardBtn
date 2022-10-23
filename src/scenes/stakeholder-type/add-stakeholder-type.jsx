@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme, TextField, Snackbar } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme, TextField } from "@mui/material";
 import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -7,45 +7,19 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
-import { useState } from "react";
-import { useEffect } from "react";
 
-const BusinessSector = () => {
+const AddStakeholderType = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const [open, setOpen] = useState(false);
-    const [msg, setMsg] = useState("")
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const {addSector, success} = useContext(AuthContext)
-
-
-    useEffect(() => {
-      if(success) {
-        // setMsg(success)
-        alert(success)
-      }
-    }, [success])
-
-    
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
+    const {addStakeholderType} = useContext(AuthContext)
 
     const handleFormSubmit = (values) => {
         // values.preventDefault()
         [values].map(value => {
-        addSector({
+        addStakeholderType({
             name : value.name,
         })
         })
@@ -55,17 +29,9 @@ const BusinessSector = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
+        <Header title="Stakeholder Type" subtitle="Add your stakeholder business sector" />
 
       </Box>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={msg}
-        
-      />
 
       <Box 
         sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
@@ -107,9 +73,9 @@ const BusinessSector = () => {
                     sx={{ gridColumn: "span 4" }}
                 />
                 </Box>
-                <Box display="flex" justifyContent="end" mt="20px">
+                <Box display="flex" justifyContent="center" mt="20px">
                 <Button type="submit" color="secondary" variant="contained">
-                    Add Business Sector
+                    Add Stakeholder Type
                 </Button>
                 </Box>
             </form>
@@ -120,7 +86,7 @@ const BusinessSector = () => {
     )
 }
 
-export default BusinessSector
+export default AddStakeholderType
 
 const checkoutSchema = yup.object().shape({
     name: yup.string().required("required"),

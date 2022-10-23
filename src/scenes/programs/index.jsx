@@ -9,7 +9,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 
-const Sectors = () => {
+const Program = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
@@ -36,18 +36,30 @@ const Sectors = () => {
         { field: "id", headerName: "ID", flex: 0.5 },
         // { field: "registrarId", headerName: "Registrar ID" },
         {
-          field: "name",
-          headerName: "Business Sector Name",
+          field: "organizer_sponsor",
+          headerName: "Organizer Sponsor",
           flex: 1,
           cellClassName: "name-column--cell",
         },
+        {
+            field: "program_description",
+            headerName: "Program Description",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
+          {
+            field: "date_approved",
+            headerName: "Date Approved",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
       ];
 
     useEffect(() => {
 
-        let stakeHolders = async () => {
+        let program = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/business-sector', {
+              let response = await fetch('https://nest-srm.up.railway.app/stakeholder-engagement/list', {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',
@@ -67,7 +79,7 @@ const Sectors = () => {
           // }
           
       }
-      stakeHolders()
+      program()
     
       }, [authTokens])
 
@@ -79,20 +91,18 @@ const Sectors = () => {
         <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
 
         <Box>
-        <Link to="/add-sector">
-            <Button
-              sx={{
-                backgroundColor: colors.blueAccent[700],
-                color: colors.grey[100],
-                fontSize: "14px",
-                fontWeight: "bold",
-                padding: "10px 20px",
-              }}
-            >
-              <PersonAddIcon sx={{ mr: "10px" }} />
-              Add Business Sector
-            </Button>
-          </Link>
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+          >
+            <PersonAddIcon sx={{ mr: "10px" }} />
+            <Link to="/add-sector">Add Business Sector</Link>
+          </Button>
         </Box>
       </Box>
 
@@ -139,7 +149,7 @@ const Sectors = () => {
     )
 }
 
-export default Sectors
+export default Program
 
 const checkoutSchema = yup.object().shape({
     name: yup.string().required("Business sector is required"),

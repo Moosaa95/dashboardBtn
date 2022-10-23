@@ -9,7 +9,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 
-const Sectors = () => {
+const UserList = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
@@ -36,18 +36,48 @@ const Sectors = () => {
         { field: "id", headerName: "ID", flex: 0.5 },
         // { field: "registrarId", headerName: "Registrar ID" },
         {
-          field: "name",
-          headerName: "Business Sector Name",
+          field: "username",
+          headerName: "Username",
           flex: 1,
           cellClassName: "name-column--cell",
         },
+        {
+            field: "first_name",
+            headerName: "Stakeholder Type",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
+          {
+            field: "last_name",
+            headerName: "Lastname",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
+          {
+            field: "email",
+            headerName: "Email",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
+          {
+            field: "phone_number",
+            headerName: "Phone Number",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
+          {
+            field: "all_user_permissions_display",
+            headerName: "Permission",
+            flex: 1,
+            cellClassName: "name-column--cell",
+          },
       ];
 
     useEffect(() => {
 
         let stakeHolders = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/business-sector', {
+              let response = await fetch('https://nest-srm.up.railway.app/auth/users/', {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',
@@ -76,10 +106,10 @@ const Sectors = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
+        <Header title="All Admin User" subtitle="all system admin" />
 
         <Box>
-        <Link to="/add-sector">
+          <Link to="/add-user">
             <Button
               sx={{
                 backgroundColor: colors.blueAccent[700],
@@ -90,7 +120,7 @@ const Sectors = () => {
               }}
             >
               <PersonAddIcon sx={{ mr: "10px" }} />
-              Add Business Sector
+              Add User
             </Button>
           </Link>
         </Box>
@@ -139,12 +169,4 @@ const Sectors = () => {
     )
 }
 
-export default Sectors
-
-const checkoutSchema = yup.object().shape({
-    name: yup.string().required("Business sector is required"),
-    
-  });
-  const initialValues = {
-    name: "",
-  };
+export default UserList

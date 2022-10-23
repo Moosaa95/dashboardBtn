@@ -208,14 +208,14 @@ const Sidebar = () => {
               Settings
             </Typography>
             <Item
-              title="Add User"
-              to="/add-user"
+              title="Users"
+              to="/user-list"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Add Sectors"
+              title="Business Sector"
               to="/sectors"
               icon={<PersonOutlinedIcon />}
               selected={selected}
@@ -223,7 +223,7 @@ const Sidebar = () => {
             />
             <Item
               title="Stakeholder Type"
-              to="/stakeholder-type"
+              to="/stakeholder-types"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
