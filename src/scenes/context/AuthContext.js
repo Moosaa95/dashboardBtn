@@ -149,9 +149,113 @@ export const AuthProvider = ({children}) => {
 
             })
             let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("User created successfully")
+                navigate("/user-list")
+            }
+            console.log(data, 'data');
+            // if (response.ok){
+            //     setSuccess("business sector created successfully")
+            //     // navigate("/sectors")
+                
+            // }
+        }else{
+            alert("something went wrong")
+            setError("something went wrong try again")
+        }
+    }
+
+    let addSector = async({
+        name, 
+    }) => {
+        if(authTokens){
+            console.log('hi im in add sector');
+            let response = await fetch('https://nest-srm.up.railway.app/tenant/business-sector/', {
+                method:"POST", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+                body: JSON.stringify({
+                    name,
+                })
+
+            })
+            let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("business sector created successfully")
+                navigate("/sectors")
+            }
             console.log(data, 'data');
         }else{
             alert("something went wrong")
+            setError("something went wrong try again")
+        }
+    }
+
+    let addProgram = async({
+        program_name, 
+        organizer_sponsor,
+        program_description,
+        date_approved,
+    }) => {
+        if(authTokens){
+            console.log('hi im in add sector');
+            let response = await fetch('https://nest-srm.up.railway.app/program-create', {
+                method:"POST", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+                body: JSON.stringify({
+                    program_name,
+                    organizer_sponsor,
+                    program_description,
+                    date_approved,
+                })
+
+            })
+            let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("business sector created successfully")
+                navigate("/programs")
+            }
+            console.log(data, 'data');
+        }else{
+            alert("something went wrong")
+            setError("something went wrong try again")
+        }
+    }
+
+    let addStakeholderType = async({
+        name, 
+    }) => {
+        if(authTokens){
+            console.log('hi im in add sector');
+            let response = await fetch('https://nest-srm.up.railway.app/stakeholder-type/create', {
+                method:"POST", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+                body: JSON.stringify({
+                    name,
+                })
+
+            })
+            let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("business sector created successfully")
+                navigate("/stakeholder-types")
+            }
+            console.log(data, 'data');
+        }else{
+            alert("something went wrong")
+            setError("something went wrong try again")
         }
     }
 
@@ -301,10 +405,15 @@ export const AuthProvider = ({children}) => {
         registerUser:registerUser,
         logoutUser:logoutUser,
         addUser:addUser,
+        addSector:addSector,
+        addProgram:addProgram,
         addStakeHolder:addStakeHolder,
         forgotPassword:forgotPassword,
         clearError:clearError,
-        clearSuccess:clearSuccess
+        clearSuccess:clearSuccess,
+        addStakeholderType:addStakeholderType,
+        forgotPassword:forgotPassword,
+
         // stakeHolders:stakeHolders,
     }
 

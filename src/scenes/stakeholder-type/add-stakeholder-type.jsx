@@ -29,7 +29,11 @@ const AddStakeholderType = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
+<<<<<<< HEAD
         <Header title="Stakeholder Type" subtitle="Add your stakeholder type" />
+=======
+        <Header title="Stakeholder Type" subtitle="Add your stakeholder business sector" />
+>>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
 
       </Box>
 

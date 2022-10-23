@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataStackholders } from "../../data/mockData";
@@ -6,10 +6,9 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import { Link } from "react-router-dom";
 
 
-const StakeHolders = () => {
+const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [stakeHolderVar, setStakeHolderVar] = useState([])
@@ -28,7 +27,7 @@ const StakeHolders = () => {
 
     let stakeHolders = async () => {
       // if(authTokens){
-          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/23/2022', {
+          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022', {
               method:"GET", 
               headers: {
                   'Content-Type' : 'application/json',
@@ -96,22 +95,10 @@ const StakeHolders = () => {
 
   return (
     <Box m="20px">
-      <Box 
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      >
       <Header
-        title="STAKEHOLDERS"
+        title="CONTACTS"
         subtitle="List of StakeHolders"
       />
-      <Link to="/add-stakeholder">
-        <Button
-         color="secondary"
-         variant="contained"
-        >Add Stakeholder</Button>
-      </Link>
-      </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -155,4 +142,4 @@ const StakeHolders = () => {
   );
 };
 
-export default StakeHolders;
+export default Contacts;

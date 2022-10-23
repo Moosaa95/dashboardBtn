@@ -4,6 +4,12 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
+<<<<<<< HEAD
+=======
+// import Invoices from "./scenes/invoices";
+import Project from "./scenes/project";
+// import Bar from "./scenes/bar";
+>>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
 import Form from "./scenes/form";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
@@ -22,6 +28,10 @@ import AddProgram from "./scenes/programs/add-programs";
 import Programs from "./scenes/programs";
 import AddEngagement from "./scenes/engagement/add-engagement";
 import Engagements from "./scenes/engagement";
+<<<<<<< HEAD
+=======
+import StakeHolders from "./scenes/contacts";
+>>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
@@ -47,6 +57,12 @@ function App() {
               <Route element={<PrivateRoutes setLoggedIn={setLoggedIn} />}>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
+<<<<<<< HEAD
+=======
+                <Route path="/stakeholders" element={<StakeHolders />} />
+                <Route path="/project" element={<Project />} />
+                {/* <Route path="/invoices" element={<Invoices />} /> */}
+>>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
                 <Route path="/add-user" element={<Form />} />
                 <Route path="/add-stakeholder" element={<StackHolderForm />} />
                 <Route path="/calendar" element={<Calendar />} />
@@ -59,6 +75,10 @@ function App() {
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/add-engagement" element={<AddEngagement />} />
                 <Route path="/engagements" element={<Engagements />} />
+<<<<<<< HEAD
+=======
+                {/* <Route path="/geography" element={<Geography />} /> */}
+>>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
               </Route>
               <Route
                 path="/login"
