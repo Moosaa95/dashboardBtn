@@ -4,12 +4,9 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
-<<<<<<< HEAD
-=======
 // import Invoices from "./scenes/invoices";
 import Project from "./scenes/project";
 // import Bar from "./scenes/bar";
->>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
 import Form from "./scenes/form";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
