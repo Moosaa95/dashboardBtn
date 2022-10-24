@@ -11,7 +11,7 @@ export const EmailVerify = () => {
   useEffect(() => {
     const verifyEmailUrl = async () => {
       try{
-        const response = await fetch(`https://nest-srm.up.railway.app/auth/?token=${param.token}&uidb64=${param.uidb64}`)
+        const response = await fetch(`https://nest-srm.up.railway.app/auth/email-verify/?token=${param.token}&uidb64=${param.uidb64}`)
         const data = await response.json()
         if (response.ok){
           setValidUrl(true)
