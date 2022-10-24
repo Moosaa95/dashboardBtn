@@ -57,7 +57,7 @@ export const AuthProvider = ({children}) => {
             })
         })
         let data = await response.json()
-        console.log(data, 'data');
+        // console.log(data, 'data');
         if (response.ok){
             navigate('/login')
         }
@@ -145,7 +145,7 @@ export const AuthProvider = ({children}) => {
                 setSuccess("User created successfully")
                 navigate("/user-list")
             }
-            console.log(data, 'data');
+            // console.log(data, 'data');
             // if (response.ok){
             //     setSuccess("business sector created successfully")
             //     // navigate("/sectors")
@@ -179,7 +179,7 @@ export const AuthProvider = ({children}) => {
                 setSuccess("business sector created successfully")
                 navigate("/sectors")
             }
-            console.log(data, 'data');
+            // console.log(data, 'data');
         }else{
             alert("something went wrong")
             setError("something went wrong try again")
@@ -214,7 +214,7 @@ export const AuthProvider = ({children}) => {
                 setSuccess("business sector created successfully")
                 navigate("/programs")
             }
-            console.log(data, 'data');
+            // console.log(data, 'data');
         }else{
             alert("something went wrong")
             setError("something went wrong try again")
@@ -243,7 +243,7 @@ export const AuthProvider = ({children}) => {
                 setSuccess("business sector created successfully")
                 navigate("/stakeholder-types")
             }
-            console.log(data, 'data');
+            // console.log(data, 'data');
         }else{
             alert("something went wrong")
             setError("something went wrong try again")
@@ -267,6 +267,10 @@ export const AuthProvider = ({children}) => {
         interest
 
     }) => {
+<<<<<<< Updated upstream
+=======
+        // console.log('hi insde dstkaeholdwe');
+>>>>>>> Stashed changes
         if(authTokens){
             let response = await fetch('https://nest-srm.up.railway.app/stakeholder/signup/', {
                 method:"POST", 
@@ -293,7 +297,20 @@ export const AuthProvider = ({children}) => {
 
             })
             let data = await response.json()
+<<<<<<< Updated upstream
             console.log(data, 'data');
+=======
+            if (response.ok){
+                setSuccess(data.message)
+                // console.log(data, 'data');
+
+            }else{
+
+                
+                setError(data.message)
+            }
+
+>>>>>>> Stashed changes
         }else{
             alert("something went wrong")
         }

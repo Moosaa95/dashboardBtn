@@ -1,7 +1,20 @@
+<<<<<<< Updated upstream
 import { Box, Button, InputLabel, MenuItem, TextField, Snackbar } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+=======
+import {
+  Box,
+  Snackbar,
+  MenuItem,
+  TextField,
+  Button,
+} from "@mui/material";
+import Select from "react-select";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import AuthContext from "../context/AuthContext";
+>>>>>>> Stashed changes
 import Header from "../../components/Header";
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
@@ -43,9 +56,25 @@ const StackHolderForm = () => {
 
 
 
+<<<<<<< Updated upstream
   const {addStakeHolder, authTokens} = useContext(AuthContext)
   console.log(authTokens);
 
+=======
+
+
+  useEffect(() => {
+    if (success) {
+      setMsg(success);
+      setOpen(true);
+      clearSuccess();
+    } else {
+      setMsg(error);
+      setOpen(true);
+      clearError();
+    }
+  }, [error, success]);
+>>>>>>> Stashed changes
 
   useEffect(() => {
     const getCountry = async () => {
@@ -71,6 +100,7 @@ const StackHolderForm = () => {
     const getBusiness = async () => {
       try {
         const getBusinessData = await fetch(
+<<<<<<< Updated upstream
           "https://nest-srm.up.railway.app/business-sector", 
           {method:"GET", 
           headers: {
@@ -79,6 +109,16 @@ const StackHolderForm = () => {
           }
         },
 
+=======
+          "https://nest-srm.up.railway.app/business-sector",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authTokens.token.access,
+            },
+          }
+>>>>>>> Stashed changes
         );
         const businessJson = await getBusinessData.json();
         console.log(businessJson, "business ppp");
@@ -111,6 +151,7 @@ const StackHolderForm = () => {
   console.log('i am a business optioon', businessOptions, typeof businessOptions, bus);
 
 
+<<<<<<< Updated upstream
   useEffect(() => {
     if (countriesId){
       console.log('hi i am inside', countriesId);
@@ -156,42 +197,64 @@ const StackHolderForm = () => {
       console.log('targer', target["country_name"] == getCountryId);
       if (getCountryId == target["country_name"]){
         console.log('setter',target["country_pk"] );
+=======
+  const handleCountry = (event) => {
+    const getCountryId = event.target.value;
+    console.log(getCountryId, 'id');
+    return countries.map((target, index) => {
+      console.log('targer', target["country_pk"] == getCountryId);
+      if (getCountryId == target["country_pk"]) {
+        console.log('setter', target["country_pk"]);
+>>>>>>> Stashed changes
         setCountriesId(target["country_pk"]);
         setCountryName(target["country_name"])
       }
     })
 
-    
+
   }
 
-  const handleState = (event)=>{
+  const handleState = (event) => {
     const getStateId = event.target.value;
+<<<<<<< Updated upstream
     console.log(getStateId, 'id');
     return state.map((target, index) => { 
       console.log('targer', target["name"] == getStateId);
       if (getStateId == target["name"]){
         console.log('setter',target["pk"] );
+=======
+    console.log(getStateId, 'state id');
+    return state.map((target, index) => {
+      console.log('state targer', target["name"] == getStateId);
+      if (getStateId == target["pk"]) {
+        console.log('setter', target["pk"]);
+>>>>>>> Stashed changes
         setStatesId(target["pk"]);
         setStateName(getStateId)
       }
     })
 
-    
+
   }
 
-  const handleCity = (event)=>{
+  const handleCity = (event) => {
     const getCityId = event.target.value;
     console.log(getCityId, 'id');
-    return city.map((target, index) => { 
+    return city.map((target, index) => {
       console.log('targer', target["city"] == getCityId);
+<<<<<<< Updated upstream
       if (getCityId == target["city"]){
         console.log('setter',target["pk"], 'city id', cityId );
+=======
+      if (getCityId == target["pk"]) {
+        console.log('setter', target["pk"], 'city id', cityId);
+>>>>>>> Stashed changes
         setCityId(target["pk"]);
         setCityName(getCityId)
       }
     })
 
-    
+
   }
 
   
@@ -222,6 +285,7 @@ const StackHolderForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
+<<<<<<< Updated upstream
     addStakeHolder({
       first_name:firstName, 
       last_name:lastName, 
@@ -238,6 +302,26 @@ const StackHolderForm = () => {
       city:cityId,
       interest:interest,
       
+=======
+    console.log("=======================");
+    console.log(e, "ation valeue")
+    addStakeHolder({
+      first_name: firstName,
+      last_name: lastName,
+      stakeholder_type: stakeholderType,
+      business_category: businessCategory,
+      business_sector: displayValue,
+      job_title: jobTitle,
+      email: email,
+      phone: phoneNumber,
+      address: address,
+      country: countriesId,
+      state: statesId,
+      postal_code: postalCode,
+      city: cityId,
+      interest: interest,
+
+>>>>>>> Stashed changes
     })
   }
 
@@ -247,6 +331,7 @@ const StackHolderForm = () => {
   };
   
 
+<<<<<<< Updated upstream
   const handleClose = (values) => {
     console.log(values);
   };
@@ -713,3 +798,347 @@ const StackHolderForm = () => {
 };
 
 export default StackHolderForm;
+=======
+  console.log("country id", statesId);
+  // console.log(ref.current.values, 'lopghjnjk');
+  const handleBusinessSector = (e) => {
+    getValue(Array.isArray(e) ? e.map(x => x.label) : [])
+    console.log(displayValue, 'poppppppppp')
+
+
+  }
+  //   const initialValues = {
+  //     firstName : "",
+  //     lastName : "",
+  //     stakeholderType: "",
+  //     businessCategory: "",
+  //     businessSector : displayValue,
+  //     jobTitle : "",
+  //     email : "",
+  //     phoneNumber : "",
+  //     address : "",
+  //     // country : "",
+  //     // state : "",
+  //     postalCode : "",
+  //     // city : "",
+  //     interest : ""
+
+  // };
+
+  return (
+    <Box m="20px"
+    // m="20px"
+    // display="flex"
+    // width="100%"
+    // justifyContent="center"
+    // alignItems="center"
+    // flexDirection="Column"
+    // color="#000"
+    >
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
+        {
+          msg &&
+          <Snackbar
+
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={open}
+            onClose={handleClose}
+            autoHideDuration={6000}
+            message={msg}
+            key={'top_center'}
+            color="#000"
+          />}
+      </Box>
+      <Box sx={{ width: "800px", margin: "auto", marginTop: "70px" }}>
+        <form
+          onSubmit={e => handleSubmit(e)}
+        >
+          <Box
+            display="grid"
+            gap="30px"
+            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            sx={{
+              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+            }}
+          >
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="First Name"
+                // onBlur={handleBlur}
+                onChange={e => setFirstName(e.target.value)}
+                value={firstName}
+                name="firstName"
+                // error={!!touched.firstName && !!errors.firstName}
+                // helperText={touched.firstName && errors.firstName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Last Name"
+                // onBlur={handleBlur}
+                onChange={e => setLastName(e.target.value)}
+                value={lastName}
+                name="LastName"
+                // error={lastName ? && !!errors.lastName}
+                // helperText={touched.lastName && errors.lastName}
+                sx={{ gridColumn: "span 2" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="email"
+                // onBlur={handleBlur}
+                onChange={e => setEmail(e.target.value)}
+                value={email}
+                name="email"
+                // error={!!touched.email && !!errors.email}
+                // helperText={touched.email && errors.email}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="StakeHolder Type"
+                // onBlur={handleBlur}
+                onChange={e => setBusinessCategory(e.target.value)}
+                value={businessCategory}
+                name="business_category"
+                // error={!!touched.stakeholderType && !!errors.stakeholderType}
+                // helperText={touched.stakeholderType && errors.stakeholderType}
+                sx={{ gridColumn: "span 2" }}
+              >
+                {/* <MenuItem value="OLD">OLD</MenuItem> */}
+                <MenuItem value="STARTUP">STARTUP</MenuItem>
+                <MenuItem value="SME's">SME's</MenuItem>
+              </TextField>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Interest"
+                // onBlur={handleBlur}
+                onChange={e => setInterest(e.target.value)}
+                value={interest}
+                name="interest"
+                // error={!!touched.interest && !!errors.interest}
+                // helperText={touched.interest && errors.interest}
+                sx={{ gridColumn: "span 2" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="stake holder"
+                // onBlur={handleBlur}
+                onChange={e => setStakeholderType(e.target.value)}
+                value={stakeholderType}
+                name="stakeHolderType"
+                // error={
+                // //   !!touched.businessCategory && !!errors.businessCategory
+                // }
+                // helperText={
+                //   touched.businessCategory && errors.businessCategory
+                // }
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Job Title"
+                // onBlur={handleBlur}
+                onChange={e => setJobTitle(e.target.value)}
+                value={jobTitle}
+                name="jobTitle"
+                // error={!!touched.jobTitle && !!errors.jobTitle}
+                // helperText={touched.jobTitle && errors.jobTitle}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Postal code"
+                // onBlur={handleBlur}
+                onChange={e => setPostalCode(e.target.value)}
+                value={postalCode}
+                name="postalCode"
+                // error={!!touched.postalCode && !!errors.postalCode}
+                // helperText={touched.postalCode && errors.postalCode}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <label className="form-label" htmlFor="basicSelect">
+                Business Sector
+              </label>
+              {/* <select className="form-select" id="basicSelect" */}
+              {/* // onChange={e=>handleBusinessSector(e)} */}
+              {/* / name="business_sector" */}
+              {/* > */}
+              {/* <option>Select a Business Sector</option> */}
+              {isLoaded &&
+                <Select
+                  isMulti
+                  name="businessSector"
+                  // defaultInputValue={[businessOptions["value"]]}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={handleBusinessSector}
+                  // getOptionValue={displayValue}
+                  // onClick={handleClick}
+                  // value={displayValue}
+
+                  // value={multiSelect}
+                  // theme={(theme) => ({
+                  //   ...theme,
+                  //   borderRadius: 0,
+                  //   colors: {
+                  //     ...theme.colors,
+                  //     text: '#000',
+                  //     primary25: 'hotpink',
+                  //     primary: '#000',
+
+                  //   },
+                  // })}
+
+                  options={bus} />
+
+              }
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Phone Number"
+                // onBlur={handleBlur}
+                onChange={e => setPhoneNumber(e.target.value)}
+                value={phoneNumber}
+                name="phoneNumber"
+                // error={!!touched.phoneNumber && !!errors.phoneNumber}
+                // helperText={touched.phoneNumber && errors.phoneNumber}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Address"
+                // onBlur={handleBlur}
+                onChange={e => setAddress(e.target.value)}
+                value={address}
+                name="address"
+                // error={!!touched.address && !!errors.address}
+                // helperText={touched.address && errors.address}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="Country"
+                // onBlur={handleBlur}
+                onChange={e => handleCountry(e)}
+                // value={countryName}
+                name="country"
+                // error={!!touched.country && !!errors.country}
+                // helperText={touched.country && errors.country}
+                sx={{ gridColumn: "span 2" }}
+              // onClick={setCountriesId(values.country)}
+              >
+                {countries.map((country, index) => (
+                  <MenuItem
+                    value={country.country_pk}
+                    key={country.country_pk}
+                  >
+                    {country.country_name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="State"
+                // onBlur={handleBlur}
+                onChange={e => handleState(e)}
+                // value={stateName}
+                name="state"
+                // error={!!touched.state && !!errors.state}
+                // helperText={touched.state && errors.state}
+                sx={{ gridColumn: "span 2" }}
+              // onClick={setStatesId(values.state)}
+              >
+                {state.map((stat, index) => (
+                  <MenuItem value={stat.pk} key={stat.pk}>
+                    {stat.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                select
+                label="City"
+                // onBlur={handleBlur}
+                onChange={e => handleCity(e)}
+                // value={city}
+                name="city"
+                // error={!!touched.city && !!errors.city}
+                // helperText={touched.city && errors.city}
+                sx={{ gridColumn: "span 2" }}
+              // onClick={setCityId(values.city)}
+              >
+                {city.map((cit, index) => (
+                  <MenuItem value={cit.pk} key={cit.pk}>
+                    {cit.city}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+            <Box display="flex" justifyContent="center" mt="20px">
+                <Button type="submit" color="secondary" variant="contained">
+                    Add Stakeholder
+                </Button>
+            </Box>
+        </form>
+      </Box>
+    </Box>
+  );
+};
+
+// const phoneRegExp =
+//   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+// const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+
+// const checkoutSchema = yup.object().shape({
+//   firstName: yup.string().required("required"),
+//   lastName: yup.string().required("required"),
+//   stakeholderType: yup.string().required("required"),
+//   businessCategory: yup.string().required("required"),
+// //   country: yup.string().required("Required"),
+// //   city: yup.string().required("Required"),
+// //   state: yup.string().required("Required"),
+//   address: yup.string().required("Required"),
+//   interest: yup.string().required("Required"),
+//   jobTitle: yup.string().required("Required"),
+//   phoneNumber: yup.string().matches(phoneRegExp, "Phone is not valid").required("Required"),
+//   email: yup.string().email("invalid email").required("required"),
+
+
+// });
+
+
+export default StackHolderForm;
+>>>>>>> Stashed changes
