@@ -19,7 +19,7 @@ export const EmailVerify = ({setLoggedIn}) => {
     setLoggedIn(true)
   }
 
-  console.log(param, 'lol');
+  console.log(params, 'lol');
 
   useEffect(() => {
     const verifyEmailUrl = async () => {
