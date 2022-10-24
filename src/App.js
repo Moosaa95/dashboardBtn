@@ -30,6 +30,7 @@ import Programs from "./scenes/programs";
 import AddEngagement from "./scenes/engagement/add-engagement";
 import Engagements from "./scenes/engagement";
 import StakeHolders from "./scenes/contacts";
+import { EmailVerify } from "./scenes/EmailVerify";
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
@@ -70,6 +71,7 @@ function App() {
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/add-engagement" element={<AddEngagement />} />
                 <Route path="/engagements" element={<Engagements />} />
+                <Route path="/:token/:uidb64" element={<EmailVerify />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
               <Route
