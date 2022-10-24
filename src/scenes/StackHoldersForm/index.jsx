@@ -1,23 +1,13 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Snackbar,
-  Stack,
-  InputLabel,
-//   Select,
   MenuItem,
   TextField,
   Button,
-  FormControl,
-  Typography,
 } from "@mui/material";
 import Select from "react-select";
-import { Form, Formik, Field, useFormik } from "formik";
 import React, { useState, useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-// import { useFormik } from "formik";
-import * as yup from "yup";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
 
@@ -69,8 +59,7 @@ const StackHolderForm = () => {
   //   setOpen(true);
   // };
 
-  
-  
+
   useEffect(() => {
     if (success) {
       setMsg(success);
@@ -150,7 +139,7 @@ const StackHolderForm = () => {
               "Content-Type": "application/json",
               Authorization: "Bearer " + authTokens.token.access,
             },
-          } 
+          }
         );
         const businessJson = await getBusinessData.json();
         console.log(businessJson, "business ppp");
@@ -179,10 +168,10 @@ const StackHolderForm = () => {
       }
     })
 
-    
+
   }
 
-  const handleState = (event)=>{
+  const handleState = (event) => {
     const getStateId = event.target.value;
     console.log(getStateId, 'state id');
     return state.map((target, index) => { 
@@ -194,13 +183,13 @@ const StackHolderForm = () => {
       }
     })
 
-    
+
   }
 
-  const handleCity = (event)=>{
+  const handleCity = (event) => {
     const getCityId = event.target.value;
     console.log(getCityId, 'id');
-    return city.map((target, index) => { 
+    return city.map((target, index) => {
       console.log('targer', target["city"] == getCityId);
       if (getCityId == target["pk"]){
         console.log('setter',target["pk"], 'city id', cityId );
@@ -209,7 +198,7 @@ const StackHolderForm = () => {
       }
     })
 
-    
+
   }
   console.log('i am a country name', countryName);
 

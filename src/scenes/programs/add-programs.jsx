@@ -7,7 +7,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import AuthContext from "../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
-// import { useContext } from "react";
 import { useState, useEffect, useContext } from "react";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -19,6 +18,7 @@ const AddProgram = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState("")
+
     const [programDescription, setProgramDescription] = useState("")
     const [programName, setProgramName] = useState("")
     const [organizerSponsor, setOrganizerSponsor] = useState("")
@@ -28,7 +28,7 @@ const AddProgram = () => {
 
     const {addProgram, success} = useContext(AuthContext)
 
-    const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+    const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
 
     // const handleChange = (newValue) => {
     //     setValue(newValue);
@@ -66,7 +66,7 @@ const AddProgram = () => {
             program_name : programName,
             organizer_sponsor : organizerSponsor,
             program_description : programDescription,
-            date_approved : value.format('DD/MM/YYYY'),
+            date_approved : value.format('MM/DD/YYYY'),
         })
         // })
         // console.log(values);
@@ -90,20 +90,6 @@ const AddProgram = () => {
       <Box 
         sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
         >
-        {/* <Formik
-            onSubmit={e=>handleFormSubmit(e)}
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            sx={{padding: "50px",}}
-        >
-            {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            }) => ( */}
             <form onSubmit={e=>handleSubmit(e)}>
                 <Box
                 display="grid"
@@ -154,8 +140,8 @@ const AddProgram = () => {
                     name="programDescription"
                     // error={!!touched.programDescription && !!errors.programDescription}
                     // helperText={touched.programDescription && errors.programDescription}
-                    // onBlur={handleBlur}
-                  />
+                    sx={{ gridColumn: "span 4" }}
+                />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Stack spacing={10}>
                         <DesktopDatePicker
@@ -166,9 +152,6 @@ const AddProgram = () => {
                             onChange={(newValue) => {
                                 setValue(newValue);
                             }}
-                            // error={!!touched.programDescription && !!errors.programDescription}
-                            // helperText={touched.programDescription && errors.programDescription}
-
                             // error={!!touched.programDescription && !!errors.programDescription}
                             // helperText={touched.programDescription && errors.programDescription}
                             sx={{ gridColumn: "span 4" }}
@@ -183,8 +166,6 @@ const AddProgram = () => {
                 </Button>
                 </Box>
             </form>
-            {/* )} */}
-        {/* </Formik> */}
             {/* )}
         </Formik> */}
       </Box>
@@ -197,18 +178,13 @@ export default AddProgram
 const checkoutSchema = yup.object().shape({
     organizerSponsor: yup.string().required("Organizer Sponsor is required"),
     programDescription: yup.string().required("Description is required"),
-    dateApproved: yup.string().required("Invalid Date required"),
     // dateApproved: yup.string().required("Invalid Date required"),
-
     programName: yup.string().required("Program name is required"),
     
   });
   const initialValues = {
     organizerSponsor: "",
     programDescription: "",
-    dateApproved: "",
     // dateApproved: "",
-
     programName: "",
   };
-  
