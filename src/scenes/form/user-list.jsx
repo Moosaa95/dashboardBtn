@@ -59,18 +59,6 @@ const UserList = () => {
             flex: 1,
             cellClassName: "name-column--cell",
           },
-          {
-            field: "phone_number",
-            headerName: "Phone Number",
-            flex: 1,
-            cellClassName: "name-column--cell",
-          },
-          {
-            field: "all_user_permissions_display",
-            headerName: "Permission",
-            flex: 1,
-            cellClassName: "name-column--cell",
-          },
       ];
 
     useEffect(() => {
