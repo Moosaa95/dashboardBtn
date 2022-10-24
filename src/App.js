@@ -67,7 +67,7 @@ function App() {
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/add-engagement" element={<AddEngagement />} />
                 <Route path="/engagements" element={<Engagements />} />
-                <Route path="/:uidb64/:token" element={<EmailVerify />} />
+                <Route path="/user?:uidb64/:token" element={<EmailVerify />} />
                 {/* <Route path="/geography" element={<Geography />} /> */}
               </Route>
               <Route

@@ -31,9 +31,11 @@ export const EmailVerify = () => {
         <div className={styles.container}>
           <h1>Verified successfully</h1>
         </div>
-      ):(
-        <h1>404 Not Found</h1>
-      )
+      ):{
+        alert()
+      }
+        // <h1>404 Not Found</h1>
+      
     }
     </Fragment>
     </>
