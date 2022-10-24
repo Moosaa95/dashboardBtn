@@ -267,10 +267,7 @@ export const AuthProvider = ({children}) => {
         interest
 
     }) => {
-<<<<<<< Updated upstream
-=======
         // console.log('hi insde dstkaeholdwe');
->>>>>>> Stashed changes
         if(authTokens){
             let response = await fetch('https://nest-srm.up.railway.app/stakeholder/signup/', {
                 method:"POST", 
@@ -297,9 +294,6 @@ export const AuthProvider = ({children}) => {
 
             })
             let data = await response.json()
-<<<<<<< Updated upstream
-            console.log(data, 'data');
-=======
             if (response.ok){
                 setSuccess(data.message)
                 // console.log(data, 'data');
@@ -310,7 +304,6 @@ export const AuthProvider = ({children}) => {
                 setError(data.message)
             }
 
->>>>>>> Stashed changes
         }else{
             alert("something went wrong")
         }

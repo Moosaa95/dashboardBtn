@@ -107,11 +107,7 @@ const BusinessSector = () => {
                     sx={{ gridColumn: "span 4" }}
                 />
                 </Box>
-<<<<<<< Updated upstream
-                <Box display="flex" justifyContent="end" mt="20px">
-=======
                 <Box display="flex" justifyContent="center" mt="20px">
->>>>>>> Stashed changes
                 <Button type="submit" color="secondary" variant="contained">
                     Add Business Sector
                 </Button>
