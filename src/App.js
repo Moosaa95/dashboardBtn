@@ -18,8 +18,8 @@ import SignUp from "./scenes/signup";
 import ForgotPassword from "./forgotPassword/forgotPassword";
 import Sectors from "./scenes/sectors";
 import BusinessSector from "./scenes/sectors/add-sector";
-import AddStakeholderType from "./scenes/stakeholder-type/add-stakeholder-type"
-import StakeholderType from "./scenes/stakeholder-type/"
+import AddStakeholderType from "./scenes/stakeholder-type/add-stakeholder-type";
+import StakeholderType from "./scenes/stakeholder-type/";
 import UserList from "./scenes/form/user-list";
 import AddProgram from "./scenes/programs/add-programs";
 import Programs from "./scenes/programs";
@@ -35,7 +35,6 @@ function App() {
   const [isSidebar, setIsSidebar] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -60,8 +59,14 @@ function App() {
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/sectors" element={<Sectors />} />
                 <Route path="/add-sector" element={<BusinessSector />} />
-                <Route path="/add-stakeholder-type" element={<AddStakeholderType />} />
-                <Route path="/stakeholder-types" element={<StakeholderType />} />
+                <Route
+                  path="/add-stakeholder-type"
+                  element={<AddStakeholderType />}
+                />
+                <Route
+                  path="/stakeholder-types"
+                  element={<StakeholderType />}
+                />
                 <Route path="/user-list" element={<UserList />} />
                 <Route path="/add-program" element={<AddProgram />} />
                 <Route path="/programs" element={<Programs />} />
@@ -78,7 +83,10 @@ function App() {
                 element={<SignUp setLoggedIn={setLoggedIn} />}
               />
               <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/user?:uuid64/verify/:token" element={<EmailVerify setLoggedIn={setLoggedIn} />} />
+              <Route
+                path="/user"
+                element={<EmailVerify setLoggedIn={setLoggedIn} />}
+              />
             </Routes>
           </main>
         </div>
