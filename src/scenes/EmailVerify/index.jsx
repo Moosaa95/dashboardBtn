@@ -49,7 +49,7 @@ export const EmailVerify = ({setLoggedIn}) => {
     <Fragment>
       {validUrl ? (
         <div className={styles.container}>
-          <img src={successful} alt="success" className='success-img' />
+          <img src={successful} alt="success" height="50%" width="50%" className='success-img' />
           <h1>Email Verified successfully</h1>
           <Link to="/login">
             <button className={styles.green_btn}>Login</button>
