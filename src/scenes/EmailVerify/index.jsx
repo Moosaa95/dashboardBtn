@@ -39,7 +39,7 @@ export const EmailVerify = ({setLoggedIn}) => {
       }
     }
     verifyEmailUrl()
-  }, [param])
+  }, [params])
 
   return (
     <>
