@@ -29,11 +29,7 @@ const AddStakeholderType = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-<<<<<<< Updated upstream
-        <Header title="Stakeholder Type" subtitle="Add your stakeholder business sector" />
-=======
         <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
->>>>>>> Stashed changes
 
       </Box>
 
