@@ -84,7 +84,7 @@ function App() {
               />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route
-                path="/user"
+                path="/auth/user/:uuid64/verify/:token"
                 element={<EmailVerify setLoggedIn={setLoggedIn} />}
               />
             </Routes>
