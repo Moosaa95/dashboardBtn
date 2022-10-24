@@ -25,14 +25,8 @@ import AddProgram from "./scenes/programs/add-programs";
 import Programs from "./scenes/programs";
 import AddEngagement from "./scenes/engagement/add-engagement";
 import Engagements from "./scenes/engagement";
-<<<<<<< HEAD
-=======
 import StakeHolders from "./scenes/contacts";
-<<<<<<< HEAD
 import { EmailVerify } from "./scenes/EmailVerify";
-=======
->>>>>>> 68b4e76084e3b6bdc8a106b7bd779f4661473861
->>>>>>> 4efb6a545fd3dcf104b28ea847f84be3dc38afde
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
