@@ -230,6 +230,48 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    let addEngagement = async({
+        stakeholder_name, 
+        engagement_rate,
+        project,
+        engagement_diary,
+        engagement_conclusion,
+        stakeholder_issues,
+        stakeholder_assigned_task,
+
+    }) => {
+        if(authTokens){
+            console.log('hi im in add sector');
+            let response = await fetch('https://nest-srm.up.railway.app/stakeholder-engagement/create', {
+                method:"POST", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+                body: JSON.stringify({
+                    stakeholder_name, 
+                    engagement_rate,
+                    project,
+                    engagement_diary,
+                    engagement_conclusion,
+                    stakeholder_issues,
+                    stakeholder_assigned_task,
+                })
+
+            })
+            let data = await response.json()
+            if (response.ok){
+                
+                setSuccess("business sector created successfully")
+                navigate("/engagements")
+            }
+            // console.log(data, 'data');
+        }else{
+            alert("something went wrong")
+            setError("something went wrong try again")
+        }
+    }
+
     let addStakeholderType = async({
         name, 
     }) => {
@@ -405,6 +447,7 @@ export const AuthProvider = ({children}) => {
         registerUser:registerUser,
         logoutUser:logoutUser,
         addUser:addUser,
+        addEngagement:addEngagement,
         addSector:addSector,
         addProgram:addProgram,
         addStakeHolder:addStakeHolder,

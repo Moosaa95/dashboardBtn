@@ -14,9 +14,10 @@ const AddEngagement = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
-    const [stakeholders, setStakeholder] = useState([]);
+    const [stakeholders, setStakeholders] = useState([]);
     const [stakeholderId, setStakeholderId] = useState("");
-    const [engagememtRate, setEngagememtRate] = useState([]);
+    const [engagementRate, setengagementRate] = useState([]);
+    const [projects, setProjects] = useState([])
     const [msg, setMsg] = useState("")
 
     const theme = useTheme();
@@ -46,9 +47,10 @@ const AddEngagement = () => {
               }
             );
             const stakeholderJson = await getStakeholderData.json();
-            console.log(stakeholderJson["stakeholder"], "ppp");
-            setStakeholder(await stakeholderJson["stakeholder"]);
+            console.log(stakeholderJson["data"], "ppp");
+            // setStakeholder(await stakeholderJson["stakeholder"]);
             if (getStakeholderData.ok) {
+              setStakeholders(await stakeholderJson["data"])
             }
           } catch (error) {
             setErrorMessage(error);
@@ -56,6 +58,34 @@ const AddEngagement = () => {
         };
         getStakeholder();
       }, []);
+
+      useEffect(() => {
+        const getProject = async () => {
+          try {
+            const getProjectData = await fetch(
+              "https://nest-srm.up.railway.app/project-list",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + authTokens.token.access,
+                },
+              }
+            );
+            const projectJson = await getProjectData.json();
+            console.log(projectJson, "jrtfnhjkrn");
+            // setStakeholder(await stakeholderJson["stakeholder"]);
+            if (getProjectData.ok) {
+              setProjects(await projectJson["data"])
+            }
+          } catch (error) {
+            setErrorMessage(error);
+          }
+        };
+        getProject();
+      }, []);
+
+      
     
 
   const handleClick = () => {
@@ -85,6 +115,8 @@ const AddEngagement = () => {
         })
         console.log(values);
     };
+
+    console.log('i m a stake ', stakeholders);
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -105,7 +137,7 @@ const AddEngagement = () => {
         sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
         >
               <Formik
-            onSubmit={handleFormSubmit}
+            onSubmit={e=>handleFormSubmit(e)}
             initialValues={initialValues}
             validationSchema={checkoutSchema}
             sx={{padding: "50px",}}
@@ -143,32 +175,32 @@ const AddEngagement = () => {
                     onClick={setStakeholderId(values.stakeholderName)}
                 >
                     {stakeholders && stakeholders.map((stakeholder, index) => (
-                    <MenuItem value={stakeholder.stakeholder_pk} key={stakeholder.stakeholder_pk}>
-                        {stakeholder.stakeholder_name}
+                    <MenuItem value={stakeholder.id} key={stakeholder.id}>
+                        {stakeholder.tenant}
                     </MenuItem>
                     ))}
                 </TextField>
                 <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                select
-                label="Engagement Rate"
-                // onBlur={handleBlur}
-                onChange={e => setEngagememtRate(e.target.value)}
-                value={engagememtRate}
-                name="engagementRate"
-                // error={!!touched.stakeholderType && !!errors.stakeholderType}
-                // helperText={touched.stakeholderType && errors.stakeholderType}
-                sx={{ gridColumn: "span 2" }}
-              >
-                {/* <MenuItem value="OLD">OLD</MenuItem> */}
-                <MenuItem value={1}>1  Poor Performance</MenuItem>
-                <MenuItem value={2}>2  Fair Performance</MenuItem>
-                <MenuItem value={3}>3  Good Performance</MenuItem>
-                <MenuItem value={4}>4  Very Good Performance</MenuItem>
-                <MenuItem value={5}>5  Excellent Performance</MenuItem>
-              </TextField>
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    select
+                    label="Engagement Rate"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.engagementRate}
+                    name="engagementRate"
+                    error={!!touched.engagementRate && !!errors.engagementRate}
+                    helperText={touched.stakeholderName && errors.engagementRate}
+                    sx={{ gridColumn: "span 2" }}
+                    onClick={setengagementRate(values.engagementRate)}
+                >
+                    <MenuItem value={1}>1  Poor Performance</MenuItem>
+                    <MenuItem value={2}>2  Fair Performance</MenuItem>
+                    <MenuItem value={3}>3  Good Performance</MenuItem>
+                    <MenuItem value={4}>4  Very Good Performance</MenuItem>
+                    <MenuItem value={5}>5  Excellent Performance</MenuItem>
+                </TextField>
                 <TextField
                     fullWidth
                     variant="filled"
@@ -182,7 +214,13 @@ const AddEngagement = () => {
                     error={!!touched.project && !!errors.project}
                     helperText={touched.project && errors.project}
                     sx={{ gridColumn: "span 2" }}
-                />
+                >
+                 {projects && projects.map((proj, index) => (
+                    <MenuItem value={proj.id} key={proj.id}>
+                        {proj.program}
+                    </MenuItem>
+                    ))}
+                    </TextField>
                 <TextField
                     fullWidth
                     variant="filled"
@@ -213,12 +251,12 @@ const AddEngagement = () => {
                 <TextField
                     fullWidth
                     variant="filled"
-                    type="email"
+                    type="text"
                     label="Stakeholder Issues"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.stakeholderIssues}
-                    name="name"
+                    name="stakeholderIssues"
                     error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
                     helperText={touched.stakeholderIssues && errors.stakeholderIssues}
                     sx={{ gridColumn: "span 4" }}
@@ -254,20 +292,20 @@ export default AddEngagement
 
 const checkoutSchema = yup.object().shape({
     stakeholderName: yup.string().required("required"),
-    engagement_rate: yup.string().required("required"),
+    engagementRate: yup.number().positive().integer().required("required"),
     project: yup.string().required("required"),
     engagementDiary: yup.string().required("required"),
-    engagement_conclusion: yup.string().required("required"),
-    stakeholder_issues: yup.string().required("required"),
-    stakeholder_assigned_task: yup.string().required("required"),
+    engagementConclusion: yup.string().required("required"),
+    stakeholderIssues: yup.string().required("required"),
+    stakeholderAssignedTask: yup.string().required("required"),
     
   });
   const initialValues = {
     stakeholderName: "",
-    engagement_rate: "",
+    engagementRate: "",
     project: "",
     engagementDiary: "",
-    engagement_conclusion: "",
-    stakeholder_issues: "",
-    stakeholder_assigned_task: "",
+    engagementConclusion: "",
+    stakeholderIssues: "",
+    stakeholderAssignedTask: "",
   };

@@ -268,12 +268,6 @@ const StackHolderForm = () => {
   return (
     <Box
       m="20px"
-      display="flex"
-      width="100%"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="Column"
-      color="#000"
     >
        {
           msg && 
@@ -287,334 +281,273 @@ const StackHolderForm = () => {
           key={'top_center'}
           color="#000"
           />}
-      <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
-          <form 
-          onSubmit={e=>handleSubmit(e)}
-          >
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              width="190%"
-              gap="30px"
-              // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
+          </Box>
+
+          <Box sx={{ width: "800px", margin: "auto", marginTop: "70px" }}>
+            <form 
+            onSubmit={e=>handleSubmit(e)}
             >
               <Box
-                display="flex"
-                mr="15px"
-                justifyContent="space-between"
-                width="100%"
-                gap="20px"
-              >
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="First Name"
-                  // onBlur={handleBlur}
-                  onChange={e=>setFirstName(e.target.value)}
-                  value={firstName}
-                  name="firstName"
-                  // error={!!touched.firstName && !!errors.firstName}
-                  // helperText={touched.firstName && errors.firstName}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Last Name"
-                  // onBlur={handleBlur}
-                  onChange={e=>setLastName(e.target.value)}
-                  value={lastName}
-                  name="LastName"
-                  // error={lastName ? && !!errors.lastName}
-                  // helperText={touched.lastName && errors.lastName}
-                  sx={{ gridColumn: "span 2" }}
-                />
-               </Box>
-               <Box
-                display="flex"
-                mr="15px"
-                justifyContent="space-between"
-                width="100%"
-                gap="20px"
-              >
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="email"
-                  // onBlur={handleBlur}
-                  onChange={e=>setEmail(e.target.value)}
-                  value={email}
-                  name="email"
-                  // error={!!touched.email && !!errors.email}
-                  // helperText={touched.email && errors.email}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  select
-                  label="StakeHolder Type"
-                  // onBlur={handleBlur}
-                  onChange={e=>setBusinessCategory(e.target.value)}
-                  value={businessCategory}
-                  name="business_category"
-                  // error={!!touched.stakeholderType && !!errors.stakeholderType}
-                  // helperText={touched.stakeholderType && errors.stakeholderType}
-                  sx={{ gridColumn: "span 2" }}
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
                 >
-                  {/* <MenuItem value="OLD">OLD</MenuItem> */}
-                  <MenuItem value="STARTUP">STARTUP</MenuItem>
-                </TextField>
-              </Box>
-              <Box
-                display="flex"
-                mr="15px"
-                justifyContent="space-between"
-                width="100%"
-                gap="20px"
-              >
-               
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="First Name"
+                    // onBlur={handleBlur}
+                    onChange={e=>setFirstName(e.target.value)}
+                    value={firstName}
+                    name="firstName"
+                    // error={!!touched.firstName && !!errors.firstName}
+                    // helperText={touched.firstName && errors.firstName}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Last Name"
+                    // onBlur={handleBlur}
+                    onChange={e=>setLastName(e.target.value)}
+                    value={lastName}
+                    name="LastName"
+                    // error={lastName ? && !!errors.lastName}
+                    // helperText={touched.lastName && errors.lastName}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="email"
+                    label="Email"
+                    // onBlur={handleBlur}
+                    onChange={e=>setEmail(e.target.value)}
+                    value={email}
+                    name="email"
+                    // error={!!touched.email && !!errors.email}
+                    // helperText={touched.email && errors.email}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    select
+                    label="Business Category"
+                    // onBlur={handleBlur}
+                    onChange={e=>setBusinessCategory(e.target.value)}
+                    value={businessCategory}
+                    name="business_category"
+                    // error={!!touched.stakeholderType && !!errors.stakeholderType}
+                    // helperText={touched.stakeholderType && errors.stakeholderType}
+                    sx={{ gridColumn: "span 2" }}
+                  >
+                    {/* <MenuItem value="OLD">OLD</MenuItem> */}
+                    <MenuItem value="STARTUP">STARTUP</MenuItem>
+                  </TextField>
 
-                 <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Interest"
-                  // onBlur={handleBlur}
-                  onChange={e=>setInterest(e.target.value)}
-                  value={interest}
-                  name="interest"
-                  // error={!!touched.interest && !!errors.interest}
-                  // helperText={touched.interest && errors.interest}
-                  sx={{ gridColumn: "span 4" }}
-                /> 
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Interest"
+                    // onBlur={handleBlur}
+                    onChange={e=>setInterest(e.target.value)}
+                    value={interest}
+                    name="interest"
+                    // error={!!touched.interest && !!errors.interest}
+                    // helperText={touched.interest && errors.interest}
+                    sx={{ gridColumn: "span 2" }}
+                  /> 
 
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="stake holder"
-                  // onBlur={handleBlur}
-                  onChange={e=>setStakeholderType(e.target.value)}
-                  value={stakeholderType}
-                  name="stakeHolderType"
-                  // error={
-                  // //   !!touched.businessCategory && !!errors.businessCategory
-                  // }
-                  // helperText={
-                  //   touched.businessCategory && errors.businessCategory
-                  // }
-                  sx={{ gridColumn: "span 2" }}
-                />
-              </Box>
-              <Box
-                display="flex"
-                mr="15px"
-                justifyContent="space-between"
-                width="100%"
-                gap="20px"
-              >
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Job Title"
-                  // onBlur={handleBlur}
-                  onChange={e=>setJobTitle(e.target.value)}
-                  value={jobTitle}
-                  name="jobTitle"
-                  // error={!!touched.jobTitle && !!errors.jobTitle}
-                  // helperText={touched.jobTitle && errors.jobTitle}
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Postal code"
-                  // onBlur={handleBlur}
-                  onChange={e=>setPostalCode(e.target.value)}
-                  value={postalCode}
-                  name="postalCode"
-                  // error={!!touched.postalCode && !!errors.postalCode}
-                  // helperText={touched.postalCode && errors.postalCode}
-                  sx={{ gridColumn: "span 4" }}
-                />
-              </Box>
-              <Box
-                display="flex"
-                mr="15px"
-                justifyContent="space-between"
-                width="100%"
-                gap="20px"
-              >
-                <label className="form-label" htmlFor="basicSelect">
-                          Business Sector
-                        </label>
-                        {/* <select className="form-select" id="basicSelect" */}
-                        {/* // onChange={e=>handleBusinessSector(e)} */}
-                       {/* / name="business_sector" */}
-                        {/* > */}
-                          {/* <option>Select a Business Sector</option> */}
-                          {isLoaded && 
-                            <Select
-                            isMulti
-                            name="businessSector"
-                            // defaultInputValue={[businessOptions["value"]]}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            onChange={handleBusinessSector}
-                            // getOptionValue={displayValue}
-                            // onClick={handleClick}
-                            // value={displayValue}
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Stakeholder Type"
+                    // onBlur={handleBlur}
+                    onChange={e=>setStakeholderType(e.target.value)}
+                    value={stakeholderType}
+                    name="stakeHolderType"
+                    // error={
+                    // //   !!touched.businessCategory && !!errors.businessCategory
+                    // }
+                    // helperText={
+                    //   touched.businessCategory && errors.businessCategory
+                    // }
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Job Title"
+                    // onBlur={handleBlur}
+                    onChange={e=>setJobTitle(e.target.value)}
+                    value={jobTitle}
+                    name="jobTitle"
+                    // error={!!touched.jobTitle && !!errors.jobTitle}
+                    // helperText={touched.jobTitle && errors.jobTitle}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Postal code"
+                    // onBlur={handleBlur}
+                    onChange={e=>setPostalCode(e.target.value)}
+                    value={postalCode}
+                    name="postalCode"
+                    // error={!!touched.postalCode && !!errors.postalCode}
+                    // helperText={touched.postalCode && errors.postalCode}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <label className="form-label" htmlFor="basicSelect">
+                            Business Sector
+                          </label>
+                          {/* <select className="form-select" id="basicSelect" */}
+                          {/* // onChange={e=>handleBusinessSector(e)} */}
+                        {/* / name="business_sector" */}
+                          {/* > */}
+                            {/* <option>Select a Business Sector</option> */}
+                            {isLoaded && 
+                              <Select
+                              isMulti
+                              name="businessSector"
+                              // defaultInputValue={[businessOptions["value"]]}
+                              className="basic-multi-select"
+                              classNamePrefix="select"
+                              onChange={handleBusinessSector}
+                              // getOptionValue={displayValue}
+                              // onClick={handleClick}
+                              // value={displayValue}
+                              
+                              // value={multiSelect}
+                              theme={(theme) => ({
+                                ...theme,
+                                borderRadius: 0,
+                                colors: {
+                                ...theme.colors,
+                                  text: '#000',
+                                  primary25: 'hotpink',
+                                  primary: '#000',
+                                  
+                                },
+                              })}
                             
-                            // value={multiSelect}
-                            theme={(theme) => ({
-                              ...theme,
-                              borderRadius: 0,
-                              colors: {
-                              ...theme.colors,
-                                text: '#000',
-                                primary25: 'hotpink',
-                                primary: '#000',
-                                
-                              },
-                            })}
-                           
-                            options={bus} />
-                          
-                          }
-              </Box>
-              <Box
-                display="flex"
-                mr="15px"
-                justifyContent="space-between"
-                width="100%"
-                gap="20px"
-              >
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Phone Number"
-                  // onBlur={handleBlur}
-                  onChange={e=>setPhoneNumber(e.target.value)}
-                  value={phoneNumber}
-                  name="phoneNumber"
-                  // error={!!touched.phoneNumber && !!errors.phoneNumber}
-                  // helperText={touched.phoneNumber && errors.phoneNumber}
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Address"
-                  // onBlur={handleBlur}
-                  onChange={e=>setAddress(e.target.value)}
-                  value={address}
-                  name="address"
-                  // error={!!touched.address && !!errors.address}
-                  // helperText={touched.address && errors.address}
-                  sx={{ gridColumn: "span 4" }}
-                />
-              </Box>
-              <Box display="flex" width="100%" gap="20px">
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  select
-                  label="Country"
-                  // onBlur={handleBlur}
-                  onChange={e=>handleCountry(e)}
-                  // value={countryName}
-                  name="country"
-                  // error={!!touched.country && !!errors.country}
-                  // helperText={touched.country && errors.country}
-                  sx={{ gridColumn: "span 2" }}
-                  // onClick={setCountriesId(values.country)}
-                >
-                  {countries.map((country, index) => (
-                    <MenuItem
-                      value={country.country_pk}
-                      key={country.country_pk}
-                    >
-                      {country.country_name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  select
-                  label="State"
-                  // onBlur={handleBlur}
-                  onChange={e=>handleState(e)}
-                  // value={stateName}
-                  name="state"
-                  // error={!!touched.state && !!errors.state}
-                  // helperText={touched.state && errors.state}
-                  sx={{ gridColumn: "span 2" }}
-                  // onClick={setStatesId(values.state)}
-                >
-                  {state.map((stat, index) => (
-                    <MenuItem value={stat.pk} key={stat.pk}>
-                      {stat.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  select
-                  label="City"
-                  // onBlur={handleBlur}
-                  onChange={e=>handleCity(e)}
-                  // value={city}
-                  name="city"
-                  // error={!!touched.city && !!errors.city}
-                  // helperText={touched.city && errors.city}
-                  sx={{ gridColumn: "span 2" }}
-                  // onClick={setCityId(values.city)}
-                >
-                  {city.map((cit, index) => (
-                    <MenuItem value={cit.pk} key={cit.pk}>
-                      {cit.city}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Box>
+                              options={bus} />
+                            
+                            }
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Phone Number"
+                    // onBlur={handleBlur}
+                    onChange={e=>setPhoneNumber(e.target.value)}
+                    value={phoneNumber}
+                    name="phoneNumber"
+                    // error={!!touched.phoneNumber && !!errors.phoneNumber}
+                    // helperText={touched.phoneNumber && errors.phoneNumber}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Address"
+                    // onBlur={handleBlur}
+                    onChange={e=>setAddress(e.target.value)}
+                    value={address}
+                    name="address"
+                    // error={!!touched.address && !!errors.address}
+                    // helperText={touched.address && errors.address}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    select
+                    label="Country"
+                    // onBlur={handleBlur}
+                    onChange={e=>handleCountry(e)}
+                    // value={countryName}
+                    name="country"
+                    // error={!!touched.country && !!errors.country}
+                    // helperText={touched.country && errors.country}
+                    sx={{ gridColumn: "span 2" }}
+                    // onClick={setCountriesId(values.country)}
+                  >
+                    {countries.map((country, index) => (
+                      <MenuItem
+                        value={country.country_pk}
+                        key={country.country_pk}
+                      >
+                        {country.country_name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    select
+                    label="State"
+                    // onBlur={handleBlur}
+                    onChange={e=>handleState(e)}
+                    // value={stateName}
+                    name="state"
+                    // error={!!touched.state && !!errors.state}
+                    // helperText={touched.state && errors.state}
+                    sx={{ gridColumn: "span 2" }}
+                    // onClick={setStatesId(values.state)}
+                  >
+                    {state.map((stat, index) => (
+                      <MenuItem value={stat.pk} key={stat.pk}>
+                        {stat.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    select
+                    label="City"
+                    // onBlur={handleBlur}
+                    onChange={e=>handleCity(e)}
+                    // value={city}
+                    name="city"
+                    // error={!!touched.city && !!errors.city}
+                    // helperText={touched.city && errors.city}
+                    sx={{ gridColumn: "span 2" }}
+                    // onClick={setCityId(values.city)}
+                  >
+                    {city.map((cit, index) => (
+                      <MenuItem value={cit.pk} key={cit.pk}>
+                        {cit.city}
+                      </MenuItem>
+                    ))}
+                  </TextField>
 
-            </Box>
-            <Box
-              display="flex"
-              width="100%"
-              mr="20px"
-              justifyContent="space-between"
-              mt="20px"
-            >
-              <Button
-                // disabled={isSubmitting}
-                type="submit"
-                color="secondary"
-                variant="contained"
-              >
-                Add Stakeholder
-              </Button>
-            </Box>
-          </form>
+              </Box>
+              <Box display="flex" justifyContent="center" mt="20px">
+                <Button type="submit" color="secondary" variant="contained" className="btn btn-large">
+                    Add Stakeholder
+                </Button>
+                </Box>
+            </form>
+          </Box>
     </Box>
   );
 };
