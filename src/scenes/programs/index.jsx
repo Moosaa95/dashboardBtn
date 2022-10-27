@@ -33,15 +33,15 @@ const Programs = () => {
 
     const {authTokens, addProgram, success} = useContext(AuthContext)
 
-    useEffect(()=> {
-        if(success){
-            // setMsg(success)
-            alert(success)
+    // useEffect(()=> {
+    //     if(success){
+    //         // setMsg(success)
+    //         alert(success)
 
-        }else{
-            setMsg(null)
-        }
-    }, [success])
+    //     }else{
+    //         setMsg(null)
+    //     }
+    // }, [success])
 
     const handleSubmit = (e) => {
       e.preventDefault()

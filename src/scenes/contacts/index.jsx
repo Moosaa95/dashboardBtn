@@ -51,7 +51,7 @@ const handleClose = (event, reason) => {
   let stakeHolders = async () => {
     // if(authTokens){
     let response = await fetch(
-      "https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/30/2022",
+      "https://nest-srm.up.railway.app/stakeholder-list",
       {
         method: "GET",
         headers: {

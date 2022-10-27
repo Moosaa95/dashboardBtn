@@ -9,7 +9,7 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
 
   const handleViewClick = (param) => {
     console.log('hey', param);
-    <Link to={`/stakeholder-detail/${param.value}`}/>
+    <Link to={`/stakeholder-detail/${param.id}`}/>
       
   }
 

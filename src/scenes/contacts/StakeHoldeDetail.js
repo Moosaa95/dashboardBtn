@@ -8,6 +8,9 @@ export const StakeHoldeDetail = () => {
     console.log('stake view page', stakeholderId);
 
   return (
-    <div>StakeHoldeDetail</div>
+    <div>
+
+      
+    </div>
   )
 }

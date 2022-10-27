@@ -37,12 +37,12 @@ const AddProgram = () => {
     console.log('longest');
 
 
-    useEffect(() => {
-      if(success) {
-        // setMsg(success)
-        alert(success)
-      }
-    }, [success])
+    // useEffect(() => {
+    //   if(success) {
+    //     // setMsg(success)
+    //     alert(success)
+    //   }
+    // }, [success])
 
     
 

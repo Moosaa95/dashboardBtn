@@ -21,15 +21,15 @@ const UserList = () => {
 
     const {authTokens, success} = useContext(AuthContext)
 
-    useEffect(()=> {
-        if(success){
-            // setMsg(success)
-            alert(success)
+    // useEffect(()=> {
+    //     if(success){
+    //         // setMsg(success)
+    //         // alert(success)
 
-        }else{
-            setMsg(null)
-        }
-    }, [success])
+    //     }else{
+    //         setMsg(null)
+    //     }
+    // }, [success])
 
     console.log('lol', stakeHolderVar);
 
