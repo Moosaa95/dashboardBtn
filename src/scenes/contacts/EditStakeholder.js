@@ -542,6 +542,7 @@ export default function EditStakeholder({
                 variant="contained"
                 className="btn btn-large"
                 onClose={handleCloseModal}
+                onClick={()=>window.location.reload()}
               >
                 Add Stakeholder
               </Button>
