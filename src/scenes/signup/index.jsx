@@ -86,9 +86,9 @@ const SignUp = () => {
     else{
       setMsg(error)
       setOpen(true)
-      // setInterval(() => {
-      //   clearError()
-      // }, 6000);
+      setInterval(() => {
+        clearError()
+      }, 9000);
 
     }
   }, [error])
