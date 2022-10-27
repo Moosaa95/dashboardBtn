@@ -12,7 +12,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from 'dayjs';
+import { LoadingButton } from '@mui/lab';
+
 import Stack from '@mui/material/Stack';
+
 
 const AddProgram = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -22,11 +25,11 @@ const AddProgram = () => {
     const [programDescription, setProgramDescription] = useState("")
     const [programName, setProgramName] = useState("")
     const [organizerSponsor, setOrganizerSponsor] = useState("")
-
+    const [loadingBtn, setLoadingBtn] =  useState(false)
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const {addProgram, success} = useContext(AuthContext)
+    const {addProgram, success, error, clearSuccess, clearError} = useContext(AuthContext)
 
     const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
 
@@ -34,15 +37,34 @@ const AddProgram = () => {
     //     setValue(newValue);
     // };
 
-    console.log('longest');
+
+    console.log('longest', success, error);
 
 
-    // useEffect(() => {
-    //   if(success) {
-    //     // setMsg(success)
-    //     alert(success)
-    //   }
-    // }, [success])
+    useEffect(() => {
+      if(success) {
+        // setMsg(success)
+        // setOpen(true);
+        setLoadingBtn(false)
+
+        // setInterval(() => {
+        //   clearSuccess()
+          
+        // }, 6000);
+      }
+      if (error)  {
+        setMsg(error)
+        setOpen(true);
+        setLoadingBtn(false)
+        setInterval(() => {
+          clearError()
+          
+        }, 6000);
+               
+        
+
+      }
+    }, [success, error])
 
     
 
@@ -60,8 +82,9 @@ const AddProgram = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(programName, value);
+        // console.log(programName, value);
         // [values].map(value => {
+          setLoadingBtn(true)
         addProgram({
             program_name : programName,
             organizer_sponsor : organizerSponsor,
@@ -78,13 +101,13 @@ const AddProgram = () => {
         <Header title="Add Program" subtitle="Add your stakeholders to a program" />
 
       </Box>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
+      {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
       <Snackbar
-        open={open}
+        open={open? open : false}
         autoHideDuration={6000}
         onClose={handleClose}
         message={msg}
-        
+        anchorOrigin= {{ vertical: 'top', horizontal: 'center' }}
       />
 
       <Box 
@@ -161,9 +184,9 @@ const AddProgram = () => {
                 </LocalizationProvider>
                 </Box>
                 <Box display="flex" justifyContent="center" mt="20px">
-                <Button type="submit" color="secondary" variant="contained">
-                    Add Program
-                </Button>
+                <LoadingButton loading={loadingBtn} type="submit" color="secondary" variant="contained">
+                    Add Programs
+                </LoadingButton>
                 </Box>
             </form>
             {/* )}

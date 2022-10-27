@@ -192,8 +192,10 @@ export const AuthProvider = ({children}) => {
             let data = await response.json()
             if (response.ok){
                 
-                setSuccess("business sector created successfully")
+                setSuccess(data.message)
                 navigate("/sectors")
+            }else{
+                setError(data.message)
             }
             // console.log(data, 'data');
         }else{
@@ -209,7 +211,7 @@ export const AuthProvider = ({children}) => {
         date_approved,
     }) => {
         if(authTokens){
-            console.log('hi im in add sector');
+            // console.log('hi im in add sector');
             let response = await fetch('https://nest-srm.up.railway.app/program-create', {
                 method:"POST", 
                 headers: {
@@ -227,14 +229,14 @@ export const AuthProvider = ({children}) => {
             let data = await response.json()
             if (response.ok){
                 
-                setSuccess("business sector created successfully")
+                setSuccess(data)
                 navigate("/programs")
             }else {
-                setError(data.message)
+                setError(data)
             }
-            // console.log(data, 'data');
+            // console.log(data, 'DATA');
         }else{
-            alert("something went wrong")
+            // alert("something went wrong")
             setError("something went wrong try again")
         }
     }
