@@ -17,7 +17,7 @@ const Sectors = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
+    const [pageSize, setPageSize] = useState(5);
     const {authTokens, success} = useContext(AuthContext)
 
     useEffect(()=> {
@@ -133,6 +133,16 @@ const Sectors = () => {
           rows={stakeHolderVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
         />
       </Box>
     </Box>

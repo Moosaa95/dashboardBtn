@@ -27,6 +27,7 @@ import AddEngagement from "./scenes/engagement/add-engagement";
 import Engagements from "./scenes/engagement";
 import StakeHolders from "./scenes/contacts";
 import { EmailVerify } from "./scenes/EmailVerify";
+import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
@@ -52,6 +53,7 @@ function App() {
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
                 <Route path="/stakeholders" element={<StakeHolders />} />
+                <Route path="/stakeholder-detail/:stakeholderId" element={<StakeHoldeDetail />} />
                 <Route path="/project" element={<Project />} />
                 {/* <Route path="/invoices" element={<Invoices />} /> */}
                 <Route path="/add-user" element={<Form />} />

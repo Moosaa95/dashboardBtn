@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
     const [stakeHolderVar, setStakeHolderVar] = useState([])
-    const [error, setError] = useState(null);
+    const [error, setError] = useState();
     const [success, setSuccess] = useState(null)
     
     const navigate = useNavigate()
@@ -59,11 +59,17 @@ export const AuthProvider = ({children}) => {
         let data = await response.json()
         // console.log(data, 'data');
         if (response.ok){
-            // navigate('/login')
-            setSuccess("Account Created Successfully")
+            setSuccess(data)
+            navigate('/login')
 
         }else{
-            setError()
+            console.log('sign up', data)
+            // setError(data)
+            const first_key = Object.keys(data)[0]
+            const messages = { message: first_key.charAt(0).toUpperCase() + first_key.slice(1) + ': ' + data[first_key][0] }
+		  	setError(messages.message)
+            // for (const item in err const error: {})
+           
             
         }
 
@@ -104,6 +110,7 @@ export const AuthProvider = ({children}) => {
             setUser(null)
             localStorage.removeItem("authTokens")
             navigate("/login")
+            setSuccess("logged out user")
     }
 
     // let updateToken = async () => {
@@ -222,6 +229,8 @@ export const AuthProvider = ({children}) => {
                 
                 setSuccess("business sector created successfully")
                 navigate("/programs")
+            }else {
+                setError(data.message)
             }
             // console.log(data, 'data');
         }else{

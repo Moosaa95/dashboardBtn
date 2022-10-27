@@ -14,6 +14,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';import { DateTim
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from 'dayjs';
 import Stack from '@mui/material/Stack';
+import { ProgramDialog } from "./ProgramDialog";
 
 const Programs = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -24,7 +25,7 @@ const Programs = () => {
     const [programDescription, setProgramDescription] = useState("")
     const [programName, setProgramName] = useState("")
     const [organizerSponsor, setOrganizerSponsor] = useState("")
-
+    const [pageSize, setPageSize] = useState(5);
     const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
 
     const theme = useTheme();
@@ -59,8 +60,13 @@ const Programs = () => {
     console.log('lol', stakeHolderVar);
 
     const columns = [
-        { field: "id", headerName: "ID", flex: 0.5 },
+        { field: "id", headerName: "ID", flex: 0.5, hide:true },
         // { field: "registrarId", headerName: "Registrar ID" },
+        {
+          field: "index",
+          headerName: "S/N",
+          renderCell: (index) => index.api.getRowIndex(index.row.id) + 1
+        },
         {
           field: "organizer_sponsor",
           headerName: "Organizer Sponsor",
@@ -81,18 +87,25 @@ const Programs = () => {
             valueFormatter: params => 
             moment(params?.value).format("DD-MM-YYYY"),
           },
+          // {
+          //   field: "action",
+          //   headerName: "Action",
+          //   renderCell: (params) => {
+          //       return (
+          //         <div className="cellAction">
+          //           <Link to="" style={{ textDecoration: "none" }}>
+          //               <Button data-toggle="modal" data-target="#exampleModalCenter" variant="outlined" size="small" style={{ borderColor: "#fff", color: "#fff" }}>View</Button>
+          //           </Link>
+          //         </div>
+          //       );
+          //     },
+          // },
           {
-            field: "action",
-            headerName: "Action",
-            renderCell: (params) => {
-                return (
-                  <div className="cellAction">
-                    <Link to="" style={{ textDecoration: "none" }}>
-                        <Button data-toggle="modal" data-target="#exampleModalCenter" variant="outlined" size="small" style={{ borderColor: "#fff", color: "#fff" }}>View</Button>
-                    </Link>
-                  </div>
-                );
-              },
+            field: "actions",
+            headerName: "Actions",
+            type: "actions",
+            width: 150,
+            renderCell: (params) => <ProgramDialog {...{ params }} />,
           },
       ];
 
@@ -129,6 +142,14 @@ const Programs = () => {
     <><Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
+      {/* <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={msg?open : false}
+          onClose={handleClose}
+          message={msg}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
+        /> */}
         <Header title="All Programs" subtitle="All your stakeholder programs" />
 
         <Box>
@@ -185,13 +206,25 @@ const Programs = () => {
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}
-          components={{ Toolbar: GridToolbar }} />
+          components={{ Toolbar: GridToolbar }}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+          />
       </Box>
     </Box><>
 
       {/* Preview form */}
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
+
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Program Details</h5>

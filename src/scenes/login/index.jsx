@@ -24,7 +24,7 @@ const Login = ({setLoggedIn}) => {
 
 
   
-  const { loginUser, user,success, error,authTokens } = useContext(AuthContext);
+  const { loginUser, user,success, error,authTokens, clearSuccess, clearError } = useContext(AuthContext);
 
   if (!authTokens){
     setLoggedIn(false)
@@ -40,11 +40,19 @@ const Login = ({setLoggedIn}) => {
   useEffect(()=>{
     if(success){
       setMsg(success)
+      setOpen(true)
+      setInterval(() => {
+        clearSuccess()
+      }, 6000);
     }
     else{
       setMsg(error)
+      setOpen(true)
+      setInterval(() => {
+        clearError()
+      }, 6000)
     }
-  }, [success, error])
+  }, [error])
 
   const handleClose = () => {
     setOpen(false);
@@ -58,7 +66,7 @@ const Login = ({setLoggedIn}) => {
     });
   };
     const handleFormSubmit = (values, actions) => {
-      console.log(values, "ation valeus");
+      // console.log(values, "ation valeus");
       // values.preventDefault()
       [values].map((value) => {
         console.log(values, "jury values");
@@ -68,7 +76,7 @@ const Login = ({setLoggedIn}) => {
         });
       });
       // actions.resetForm();
-      console.log(values);
+      // console.log(values);
     };
   
     //  console.log('country id', statesId);
@@ -85,18 +93,17 @@ const Login = ({setLoggedIn}) => {
         color="#000"
         mt="200px"
       >
-        {
-          msg && 
+         
           <Snackbar
           
           anchorOrigin={{ vertical:"top", horizontal:"center" }}
-          open={open}
+          open={msg?open : false}
           onClose={handleClose}
           autoHideDuration={6000}
           message={msg}
           key={'top_center'}
           color="#000"
-          />}
+          />
        
         <Header title="Login" subtitle="Login an Account" />
         <Formik

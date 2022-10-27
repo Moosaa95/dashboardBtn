@@ -10,6 +10,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import AuthContext from "../context/AuthContext";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
+import { Navigate } from "react-router-dom";
 
 const StackHolderForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -62,15 +63,17 @@ const StackHolderForm = () => {
 
   useEffect(() => {
     if (success) {
+      console.log('hihhh', success)
       setMsg(success);
       setOpen(true);
       clearSuccess();
+      Navigate('/')
     } else {
       setMsg(error);
       setOpen(true);
       clearError();
     }
-  }, [error, success]);
+  }, [success]);
 
   useEffect(() => {
     const getCountry = async () => {

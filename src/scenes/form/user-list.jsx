@@ -13,6 +13,7 @@ const UserList = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
+    const [pageSize, setPageSize] = useState(5);
     const [msg, setMsg] = useState("")
 
     const theme = useTheme();
@@ -151,6 +152,7 @@ const UserList = () => {
           rows={stakeHolderVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          
         />
       </Box>
     </Box>

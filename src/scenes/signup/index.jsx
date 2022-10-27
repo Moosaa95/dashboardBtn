@@ -19,6 +19,11 @@ import AuthContext from "../context/AuthContext";
 import * as yup from "yup";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 const SignUp = () => {
@@ -35,6 +40,9 @@ const SignUp = () => {
   const [statesId, setStatesId] = useState("");
   const [state, setState] = useState([]);
   const [msg, setMsg] = useState("")
+  const [fieldErrors, setFieldError] = useState({})
+
+
 
   
   
@@ -45,33 +53,45 @@ const SignUp = () => {
 
   const { registerUser, success, error, clearError, clearSuccess } = useContext(AuthContext);
 
-  // console.log("hi", initialValues, "heyyo");
 
-  // const handleChange = (event) => {
-  //   setAge(event.target.value);
-  // };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleClick = () => {
+    setOpen(true);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   // const handleOpen = () => {
   //   setOpen(true);
   // };
 
   useEffect(() =>{
+    // if (error){
+    //   for (const item in error){
+    //     setMsg({...msg, [item]:error[item][0]})
+    //   }
+    //   setOpen(true)
+    // }
     if (success) {
       setMsg(success)
       setOpen(true)
-      clearSuccess();
+      setInterval(() => {
+        clearSuccess()
+      }, 6000);
     }
     else{
       setMsg(error)
       setOpen(true)
-      clearError();
+      setInterval(() => {
+        clearError()
+      }, 6000);
 
     }
-  }, [error, success])
+  }, [error])
 
   useEffect(() => {
     const getCountry = async () => {
@@ -131,12 +151,13 @@ const SignUp = () => {
       }
   }, [statesId]);
 
+  
  
   const handleFormSubmit = (values, actions) => {
-    console.log(values, "ation valeus");
+    // console.log(values, "ation valeus");
     // values.preventDefault()
     [values].map((value) => {
-      console.log(values, "jury values");
+      // console.log(values, "jury values");
       registerUser({
         admin_email: value.adminEmail,
         admin_first_name: value.adminFirstName,
@@ -154,12 +175,14 @@ const SignUp = () => {
       });
     });
     actions.resetForm();
-    console.log(values);
+    // console.log(values);
   };
 
-   console.log('country id', statesId);
-  // console.log(ref.current.values, 'lopghjnjk');
+  //  console.log('country id', statesId);
 
+  //  if (success || error) {
+  //    setOpen(true)
+  //  }
   return (
     <Box
       m="20px"
@@ -173,12 +196,12 @@ const SignUp = () => {
       <Snackbar
         
         anchorOrigin={{ vertical:"top", horizontal:"center" }}
-        open={open}
+        open={msg?open : false}
         onClose={handleClose}
         autoHideDuration={6000}
-        message={msg}
-        key={'top_center'}
-        color="#000"
+        message= {msg} 
+        // key={'top_center'}
+        // color="#000"
         />
       <Header title="Registration" subtitle="Sign up a new user" />
       <Formik
@@ -289,7 +312,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 value={values.adminUsername}
                 name="adminUsername"
-                error={!!touched.adminUsername && !!errors.adminUsername}
+                error={!!touched.adminUsername && !!errors.adminUsername && !!msg.admin_username}
                 helperText={touched.adminUsername && errors.adminUsername}
                 sx={{ gridColumn: "span 4" }}
               />
@@ -466,7 +489,7 @@ const SignUp = () => {
 };
 
 const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+  /^[1-9][0-9]*$/ //((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
@@ -482,7 +505,7 @@ const checkoutSchema = yup.object().shape({
     .required("Required"),
   phoneNumber: yup
     .string()
-    .matches(phoneRegExp, "Phone number is not valid")
+    .matches(phoneRegExp, "Phone number can not start with zero")
     .required("required"),
   confirmPassword: yup
     .string()

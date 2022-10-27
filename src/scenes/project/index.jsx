@@ -13,6 +13,7 @@ const Contacts = () => {
   const colors = tokens(theme.palette.mode);
   const [stakeHolderVar, setStakeHolderVar] = useState([])
   const [isLoaded, setIsLoaded] = useState(true)
+  const [pageSize, setPageSize] = useState(5);
 
 
   console.log('ikloio');
@@ -136,6 +137,13 @@ const Contacts = () => {
           rows={stakeHolderVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+          
         />
       </Box>
     </Box>
