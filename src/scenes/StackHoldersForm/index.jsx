@@ -355,6 +355,8 @@ const StackHolderForm = () => {
                   >
                     {/* <MenuItem value="OLD">OLD</MenuItem> */}
                     <MenuItem value="STARTUP">STARTUP</MenuItem>
+                    <MenuItem value="MSMEs">MSMEs</MenuItem>
+                    <MenuItem value="SMEs">SMEs</MenuItem>
                   </TextField>
 
                   <TextField
