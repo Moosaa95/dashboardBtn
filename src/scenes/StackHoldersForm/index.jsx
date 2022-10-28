@@ -4,13 +4,56 @@ import {
   MenuItem,
   TextField,
   Button,
+  Select,
+  OutlinedInput,
+InputLabel,
+FormControl,
+Chip
 } from "@mui/material";
-import Select from "react-select";
+// import Select from "react-select";
 import React, { useState, useContext, useEffect, useRef } from "react";
 import AuthContext from "../context/AuthContext";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
 import { Navigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import { LoadingButton } from '@mui/lab';
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+
 
 const StackHolderForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -34,12 +77,15 @@ const StackHolderForm = () => {
   const [businessCategory, setBusinessCategory] = useState([]);
   const [businessSectorId, setBusinessSectorId] = useState("");
   const [jobTitle, setJobTitle] = useState("");
-  const [businessSector, setBusinessSector] = useState("");
+  const [businessSector, setBusinessSector] = useState([]);
   const [businessSectorName, setBusinessSectorName] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [displayValue, getValue] = useState([]);
   const [open, setOpen] = useState(true);
   const [msg, setMsg] = useState("");
+  const theme = useTheme();
+  const [personName, setPersonName] = useState([]);
+  const [loadingBtn, setLoadingBtn] = useState(false);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -63,13 +109,15 @@ const StackHolderForm = () => {
 
   useEffect(() => {
     if (success) {
-      console.log('hihhh', success)
-      setMsg(success);
-      setOpen(true);
-      clearSuccess();
-      Navigate('/')
+      // console.log('hihhh', success)
+      // setMsg(success);
+      setLoadingBtn(false);
+      // setOpen(true);
+      // clearSuccess();
+      Navigate('/stakeholders')
     } else {
       setMsg(error);
+      setLoadingBtn(false);
       setOpen(true);
       clearError();
     }
@@ -228,7 +276,7 @@ const StackHolderForm = () => {
       last_name:lastName, 
       stakeholder_type:stakeholderType,
       business_category:businessCategory,
-      business_sector:displayValue,
+      business_sector:personName,
       job_title:jobTitle,
       email : email,
       phone:phoneNumber, 
@@ -267,6 +315,33 @@ const StackHolderForm = () => {
 //     interest : ""
    
 // };
+
+
+
+
+
+
+
+
+
+  const handleChange = (event, obj) => {
+    // console.log(businessSector);
+    // console.log(event, 'i ama an event');
+    const {
+      target: { value },
+    } = event;
+    // console.log('target value', value);
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+    // setPersonName([obj.props.id])
+    
+    // console.log(personName, 'peeeeeeeeeeeeeersonName', obj.props.id);
+  };
+
+
+
 
   return (
     <Box
@@ -416,19 +491,19 @@ const StackHolderForm = () => {
                     // helperText={touched.postalCode && errors.postalCode}
                     sx={{ gridColumn: "span 2" }}
                   />
-                  <label className="form-label" htmlFor="basicSelect">
+                  {/* <label className="form-label" htmlFor="basicSelect">
                             Business Sector
-                          </label>
+                          </label> */}
                           {/* <select className="form-select" id="basicSelect" */}
                           {/* // onChange={e=>handleBusinessSector(e)} */}
                         {/* / name="business_sector" */}
                           {/* > */}
                             {/* <option>Select a Business Sector</option> */}
-                            {isLoaded && 
+                            {/* {isLoaded && 
                               <Select
                               isMulti
-                              name="businessSector"
-                              // defaultInputValue={[businessOptions["value"]]}
+                              name="businessSector" */}
+                              {/* // defaultInputValue={[businessOptions["value"]]}
                               className="basic-multi-select"
                               classNamePrefix="select"
                               onChange={handleBusinessSector}
@@ -449,9 +524,10 @@ const StackHolderForm = () => {
                                 },
                               })}
                             
-                              options={bus} />
+                              options={bus} /> */}
                             
-                            }
+                            {/* } */}
+                            
                   <TextField
                     fullWidth
                     variant="filled"
@@ -545,11 +621,55 @@ const StackHolderForm = () => {
                     ))}
                   </TextField>
 
+                  <Box width="50%" height="500%">
+                   
+                  <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-chip-label">Business Sector</InputLabel>
+        <Select
+          labelId="demo-multiple-chip-label"
+          id="demo-multiple-chip"
+          multiple
+          value={personName}
+          itemID={personName}
+          // key={personName}
+          name={personName}
+          onChange={handleChange}
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+            
+          )}
+          MenuProps={MenuProps}
+        >
+          {businessSector.map((name) => (
+            <MenuItem
+              key={name.id}
+              value={name.id}
+              id={name.id}
+              name={name.id}
+              style={getStyles(name, personName, theme)}
+            >
+              {name.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+                  </Box>
+
               </Box>
               <Box display="flex" justifyContent="center" mt="20px">
-                <Button type="submit" color="secondary" variant="contained" className="btn btn-large">
-                    Add Stakeholder
-                </Button>
+              <LoadingButton
+              loading={loadingBtn}
+              type="submit"
+              color="secondary"
+              variant="contained"
+            >
+              Add StakeHolder
+            </LoadingButton>
                 </Box>
             </form>
           </Box>

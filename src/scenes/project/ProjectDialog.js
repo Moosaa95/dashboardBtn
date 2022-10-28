@@ -3,7 +3,7 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import React, {useState} from "react";
 import { Link, Navigate } from "react-router-dom";
 
-export const ProgramDialog = ({ params, handleDelete, handleClickModal, handleProgramEdit }) => {
+const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProgramEdit }) => {
   const [rowId, setRowId] = useState();
 
   const handleViewClick = (param) => {
@@ -38,3 +38,5 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
     </Box>
   );
 };
+
+export default ProjectDialog

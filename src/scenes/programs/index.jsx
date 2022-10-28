@@ -115,59 +115,48 @@ const Programs = () => {
             valueFormatter: params => 
             moment(params?.value).format("DD-MM-YYYY"),
           },
-          // {
-          //   field: "action",
-          //   headerName: "Action",
-          //   renderCell: (params) => {
-          //       return (
-          //         <div className="cellAction">
-          //           <Link to="" style={{ textDecoration: "none" }}>
-          //               <Button data-toggle="modal" data-target="#exampleModalCenter" variant="outlined" size="small" style={{ borderColor: "#fff", color: "#fff" }}>View</Button>
-          //           </Link>
-          //         </div>
-          //       );
-          //     },
-          // },
+         
           {
             field: "actions",
             headerName: "Actions",
             type: "actions",
             width: 150,
-            renderCell: (params) => <ProgramDialog {...{ params, handleStakeEdit }}  />,
+            renderCell: (params) => <ProgramDialog {...{ params, handleDelete, handleProgramEdit }}  />,
           },
       ];
-      const handleStakeEdit = async (param) => {
+      const handleProgramEdit = async (param) => {
         // param.preventDefault()
-        console.log('i am stake edit', param);
+        console.log('i am program edit', param);
         setRowId(param)
         handleClickModal()
         
       }
+      let program = async () => {
+        // if(authTokens){
+            let response = await fetch('https://nest-srm.up.railway.app/program-list', {
+                method:"GET", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+  
+            })
+            let data = await response.json()
+            console.log("user", data, 'nowowowo');
+            setStakeHolderVar(data["data"])
+            if (response.ok){
+              setIsLoaded(false)
+            }
+            console.log(data, 'data');
+        // }else{
+        //     alert("something went wro")
+        // }
+        
+    }
 
     useEffect(() => {
 
-        let program = async () => {
-          // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/program-list', {
-                  method:"GET", 
-                  headers: {
-                      'Content-Type' : 'application/json',
-                      'Authorization' : 'Bearer ' + authTokens.token.access
-                  },
-    
-              })
-              let data = await response.json()
-              console.log("user", data, 'nowowowo');
-              setStakeHolderVar(data["data"])
-              if (response.ok){
-                setIsLoaded(false)
-              }
-              console.log(data, 'data');
-          // }else{
-          //     alert("something went wro")
-          // }
-          
-      }
+        
       program()
     
       }, [authTokens])
@@ -178,6 +167,36 @@ const Programs = () => {
         }
     
         setOpen(false);
+      };
+
+      const handleDelete = async (param) => {
+        console.log(param.id, "this is the time");
+        // setRowId(param.id)
+        if (param) {
+          let response = await fetch(
+            `https://nest-srm.up.railway.app/program-delete/${param.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + authTokens.token.access,
+              },
+            }
+          );
+          let data = await response.json();
+          console.log(data, "take seripous");
+          // setStakeHolderVar(data["data"])
+          if (response.ok) {
+            console.log(response, "erresponse");
+            program();
+            // setIsLoaded(false);
+            setMsg(data["message"]);
+            setOpen(true);
+          } else {
+            setMsg(data["message"]);
+          }
+          console.log(data, "data");
+        }
       };
     
   return (

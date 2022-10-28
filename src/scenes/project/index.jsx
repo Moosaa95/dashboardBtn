@@ -1,105 +1,182 @@
-import { Box } from "@mui/material";
+import { Box, Button, Snackbar } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataStackholders } from "../../data/mockData";
+import { Link } from "react-router-dom";
+import { SaveOutlined } from "@mui/icons-material";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
-
+import ProjectDialog from "./ProjectDialog";
+import moment from "moment/moment";
+import dayjs from "dayjs";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [stakeHolderVar, setStakeHolderVar] = useState([])
-  const [isLoaded, setIsLoaded] = useState(true)
+  const [projectVar, setProjectVar] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
   const [pageSize, setPageSize] = useState(5);
+  const [msg, setMessage] = useState("")
+  const [open, setOpen] = useState(false)
 
+  console.log("ikloio");
 
-  console.log('ikloio');
+  const { authTokens } = useContext(AuthContext);
 
-  const {authTokens} = useContext(AuthContext)
-
-
-
-  console.log('lol', stakeHolderVar);
+  // console.log('lol', stakeHolderVar);
 
   useEffect(() => {
-
-    let stakeHolders = async () => {
-      // if(authTokens){
-          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022', {
-              method:"GET", 
-              headers: {
-                  'Content-Type' : 'application/json',
-                  'Authorization' : 'Bearer ' + authTokens.token.access
-              },
-
-          })
-          let data = await response.json()
-          setStakeHolderVar(data["data"])
-          if (response.ok){
-            setIsLoaded(false)
-          }
-          console.log(data, 'data');
-      // }else{
-      //     alert("something went wro")
-      // }
+  let project = async () => {
+    // if(authTokens){
+    let response = await fetch(
+      "https://nest-srm.up.railway.app/project-list",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.token.access,
+        },
+      }
+    );
+    let data = await response.json();
+    setProjectVar(data["data"]);
+    if (response.ok) {
+      setIsLoaded(false)
       
-  }
-  stakeHolders()
+    }
+    console.log(data, "data");
+    // }else{
+    //     alert("something went wro")
+    // }
+  };
+  project();
+}, [authTokens]);
 
-  }, [authTokens])
+
+const handleClose = (event, reason) => {
+  // if (reason === "clickaway") {
+  //   return;
+  // }
+
+  setOpen(false);
+};
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "id", headerName: "ID", flex: 0.5, hide: true },
+    {
+      field: "index",
+      headerName: "S/N",
+      renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
+    },
     // { field: "registrarId", headerName: "Registrar ID" },
     {
-      field: "first_name",
-      headerName: "First Name",
+      field: "program",
+      headerName: "Program",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "last_name",
-      headerName: "Last Name",
+      field: "project_code",
+      headerName: "Project Code",
       type: "text",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "project_name",
+      headerName: "Project Name",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "project_manager_email",
+      headerName: "Project Manager Eamil",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "project_manager",
+      headerName: "Project Manager",
       flex: 1,
     },
     {
-      field: "city",
-      headerName: "City",
+      field: "notify_project_manager",
+      headerName: "Notify Project Manager",
       flex: 1,
     },
     // {
-    //   field: "zipCode",
-    //   headerName: "Zip Code",
+    //   field: "name",
+    //   headerName: "Tenant",
     //   flex: 1,
     // },
+    {
+      field: "start_date",
+      headerName: "Start Date",
+      flex: 1,
+      cellClassName: "name-column--cell1",
+      valueFormatter: (params) => (
+        console.log(params, 'date params')
+        // moment(params?.value).format("DD-MM-YYYY"),
+      )
+    },
+
+    {
+      field: "end_date",
+      headerName: "End Date",
+      flex: 1,
+      cellClassName: "name-column--cell",
+      valueFormatter: (params) => moment(params?.value).format("DD-MM-YYYY"),
+    },
+
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
+      width: 150,
+      renderCell: (params) => (
+        <ProjectDialog {...{ params, handleDelete, handleProjectEdit }} />
+      ),
+    },
   ];
 
+  const handleDelete = () => {
+    console.log("l");
+  };
+
+  const handleProjectEdit = () => {
+    console.log("pop");
+  };
   return (
     <Box m="20px">
-      <Header
-        title="CONTACTS"
-        subtitle="List of StakeHolders"
-      />
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={msg?open : false}
+          onClose={handleClose}
+          message={msg}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
+        />
+        <Header title="All Projects" subtitle="All your Project" />
+
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+          >
+            <Link to="/add-project">
+              <SaveOutlined sx={{ mr: "10px" }} />
+              Add Project
+            </Link>
+          </Button>
+        </Box>
+      </Box>
+
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -134,9 +211,13 @@ const Contacts = () => {
       >
         <DataGrid
           loading={isLoaded}
-          rows={stakeHolderVar}
+          rows={projectVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
           componentsProps={{
             toolbar: {
               showQuickFilter: true,

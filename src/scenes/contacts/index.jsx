@@ -26,6 +26,7 @@ const StakeHolders = () => {
   const [stakeHolderVarCopy, setStakeHolderVarCopy] = useState([])
 
   
+  const {authTokens, addProgram, success, error, clearError, clearSuccess} = useContext(AuthContext)
 
 
 const handleClickModal = () => {
@@ -46,7 +47,6 @@ const handleClose = (event, reason) => {
   };
   console.log("ikloio");
 
-  const { authTokens } = useContext(AuthContext);
 
   let stakeHolders = async () => {
     // if(authTokens){
@@ -70,6 +70,27 @@ const handleClose = (event, reason) => {
     //     alert("something went wro")
     // }
   };
+  useEffect(() => {
+    if(success) {
+      setMsg(success)
+      setOpen(true);
+      setInterval(() => {
+        clearSuccess()
+        
+      }, 6000);
+    }
+    else  {
+      setMsg(error)
+      setOpen(true);
+      setInterval(() => {
+        clearError()
+        
+      }, 6000);
+             
+      
+
+    }
+  }, [success, error])
 
   useEffect(() => {
     stakeHolders();

@@ -176,7 +176,7 @@ const AddEngagement = () => {
                 >
                     {stakeholders && stakeholders.map((stakeholder, index) => (
                     <MenuItem value={stakeholder.id} key={stakeholder.id}>
-                        {stakeholder.tenant}
+                        {stakeholder.name}
                     </MenuItem>
                     ))}
                 </TextField>

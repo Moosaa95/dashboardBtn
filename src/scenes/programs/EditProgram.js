@@ -31,6 +31,7 @@ export default function EditProgram({
   const [programDescription, setProgramDescription] = useState("")
     const [programName, setProgramName] = useState("")
     const [organizerSponsor, setOrganizerSponsor] = useState("")
+    const [rolling, setRolling] = useState({...rowId});
     const [loadingBtn, setLoadingBtn] =  useState(false)
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -40,10 +41,57 @@ export default function EditProgram({
     const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
 
  
-
-    const handleSubmit = () => {
+    const {authTokens} = useContext(AuthContext)
+    const handleSubmit = async(e) => {
       console.log('pass');
-    }
+      e.preventDefault()
+
+      if (rowId) {
+        let response = await fetch(
+          `https://nest-srm.up.railway.app/program-update/${rowId.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authTokens.token.access,
+            },
+            body: JSON.stringify({
+              program_name: rolling.program_name,
+              organizer_sponsor:  rolling.organizer_sponsor ,
+              program_description: rolling.program_description,
+              date_approved: rolling.date_approved,
+              
+            }),
+          }
+        );
+       
+        let data = await response.json();
+        
+        if (response.ok) {
+          // console.log(response, "erresponse", data);
+          // e.target.reset()
+          setOpen(true);
+          setMsg(data);
+          setInterval(() => {
+            setMsg(null)
+          }, 3000);
+        } else {
+          setOpen(true);
+          setMsg(data);
+          setInterval(() => {
+            setMsg(null)
+          }, 3000);
+        }
+        // console.log(data, "data");
+      }
+    };
+  
+
+    // if (rowId){
+    //   setRolling({...rowId})
+    // }
+
+    console.log('get row er ', rowId, rolling, 'pop')
 
   return (
     <div>
@@ -79,8 +127,8 @@ export default function EditProgram({
                     type="text"
                     label="Program Name"
                     // onBlur={handleBlur}
-                    onChange={e=>setProgramName(e.target.value)}
-                    value={programName}
+                    onChange={e=>setRolling(d=>({...d, program_name:e.target.value}))}
+                    value={rolling?.program_name}
                     // value={values.programName}
                     name="programName"
                     // error={!!touched.programName && !!errors.programName}
@@ -93,8 +141,8 @@ export default function EditProgram({
                     type="text"
                     label="Organizer Sponsor"
                     // onBlur={handleBlur}
-                    onChange={e=>setOrganizerSponsor(e.target.value)}
-                    value={organizerSponsor}
+                    onChange={e=>setRolling(d=>({...d, organizer_sponsor:e.target.value}))}
+                    value={rolling?.organizer_sponsor}
                     name="organizerSponsor"
                     // error={!!touched.organizerSponsor && !!errors.organizerSponsor}
                     // helperText={touched.organizerSponsor && errors.organizerSponsor}
@@ -109,8 +157,8 @@ export default function EditProgram({
                     type="text"
                     label="Description"
                     // onBlur={handleBlur}
-                    onChange={e=>setProgramDescription(e.target.value)}
-                    value={programDescription}
+                    onChange={e=>setRolling(d=>({...d, program_description:(e.target.value)}))}
+                    value={rolling?.program_description}
                     name="programDescription"
                     // error={!!touched.programDescription && !!errors.programDescription}
                     // helperText={touched.programDescription && errors.programDescription}
@@ -121,11 +169,14 @@ export default function EditProgram({
                         <DesktopDatePicker
                             fullWidth
                             label="Date desktop"
+                            // value={rolling?.date_approved}
                             value={value}
                             name="dateApproved"
                             onChange={(newValue) => {
                                 setValue(newValue);
+
                             }}
+                            // onChange={e=>setRolling(d=>({...d, date_approved:(e.target.value)}))}
                             // error={!!touched.programDescription && !!errors.programDescription}
                             // helperText={touched.programDescription && errors.programDescription}
                             sx={{ gridColumn: "span 4" }}
