@@ -20,6 +20,7 @@ import * as yup from "yup";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
+import { LoadingButton } from "@mui/lab";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -41,6 +42,7 @@ const SignUp = () => {
   const [state, setState] = useState([]);
   const [msg, setMsg] = useState("")
   const [fieldErrors, setFieldError] = useState({})
+  const [loadingBtn, setLoadingBtn] = useState(false);
 
 
 
@@ -77,15 +79,17 @@ const SignUp = () => {
     //   setOpen(true)
     // }
     if (success) {
-      setMsg(success)
-      setOpen(true)
-      setInterval(() => {
-        clearSuccess()
-      }, 6000);
+      setLoadingBtn(false);
+      // setMsg(success)
+      // setOpen(true)
+      // setInterval(() => {
+      //   clearSuccess()
+      // }, 6000);
     }
     else{
       setMsg(error)
       setOpen(true)
+      setLoadingBtn(false);
       setInterval(() => {
         clearError()
       }, 9000);
@@ -156,6 +160,7 @@ const SignUp = () => {
   const handleFormSubmit = (values, actions) => {
     // console.log(values, "ation valeus");
     // values.preventDefault()
+    setLoadingBtn(true);
     [values].map((value) => {
       // console.log(values, "jury values");
       registerUser({
@@ -174,7 +179,7 @@ const SignUp = () => {
         city: value.city,
       });
     });
-    actions.resetForm();
+    // actions.resetForm();
     // console.log(values);
   };
 
@@ -463,15 +468,14 @@ const SignUp = () => {
               </Box>
             </Box>
             <Box display="flex" width="100%" mr="20px" justifyContent="space-between" mt="20px">
-              <Button
-                disabled={isSubmitting}
-                type="submit"
-                color="secondary"
-                variant="contained"
-                
-              >
-                Register
-              </Button>
+            <LoadingButton
+              loading={loadingBtn}
+              type="submit"
+              color="secondary"
+              variant="contained"
+            >
+              Register
+            </LoadingButton>
               <Typography>
                    or Already have an Account? 
                 </Typography>
