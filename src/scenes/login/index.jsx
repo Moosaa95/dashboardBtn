@@ -8,12 +8,14 @@ import { Link, Navigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "./Login.css";
 import { useMediaQuery } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 
 const Login = ({setLoggedIn}) => {
   // const [email, setEmail] = useState("");
   const [open, setOpen] = useState(true);
   const [msg, setMsg] = useState("")
+  const [loadingBtn, setLoadingBtn] = useState(false);
   const [values, setValues] = useState({
     email: "",
     pass: "",
@@ -41,6 +43,7 @@ const Login = ({setLoggedIn}) => {
     if(success){
       setMsg(success)
       setOpen(true)
+      setLoadingBtn(false);
       setInterval(() => {
         clearSuccess()
       }, 6000);
@@ -48,6 +51,7 @@ const Login = ({setLoggedIn}) => {
     else{
       setMsg(error)
       setOpen(true)
+      setLoadingBtn(false);
       setInterval(() => {
         clearError()
       }, 6000)
@@ -68,6 +72,7 @@ const Login = ({setLoggedIn}) => {
     const handleFormSubmit = (values, actions) => {
       // console.log(values, "ation valeus");
       // values.preventDefault()
+      setLoadingBtn(true);
       [values].map((value) => {
         console.log(values, "jury values");
         loginUser({
@@ -168,16 +173,14 @@ const Login = ({setLoggedIn}) => {
                 
               </Box>
               <Box display="flex" flexDirection="column" width="100%" mr="20px" justifyContent="space-between" mt="20px">
-                <Button
-                  disabled={isSubmitting}
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                  
-                  
-                >
-                  Login
-                </Button>
+              <LoadingButton
+              loading={loadingBtn}
+              type="submit"
+              color="secondary"
+              variant="contained"
+            >
+              Add Programs
+            </LoadingButton>
                 <Typography 
                 color="#fff"
                 alignItems="center"
