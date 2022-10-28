@@ -34,8 +34,13 @@ const StakeholderType = () => {
     console.log('lol', stakeHolderVar);
 
     const columns = [
-        { field: "id", headerName: "ID", flex: 0.5 },
+        { field: "id", headerName: "ID", flex: 0.5, hide:true },
         // { field: "registrarId", headerName: "Registrar ID" },
+        {
+          field: "index",
+          headerName: "S/N",
+          renderCell: (index) => index.api.getRowIndex(index.row.id) + 1
+        },
         {
           field: "name",
           headerName: "Stakeholder Type",
