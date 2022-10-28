@@ -14,6 +14,7 @@ const StakeholderType = () => {
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
     const [msg, setMsg] = useState("")
+    const [pageSize, setPageSize] = useState(5);
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -133,6 +134,16 @@ const StakeholderType = () => {
           rows={stakeHolderVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
         />
       </Box>
     </Box>
