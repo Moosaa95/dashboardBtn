@@ -179,7 +179,7 @@ const Login = ({setLoggedIn}) => {
               color="secondary"
               variant="contained"
             >
-              Add Programs
+              Login
             </LoadingButton>
                 <Typography 
                 color="#fff"
