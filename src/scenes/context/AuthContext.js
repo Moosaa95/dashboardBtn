@@ -418,10 +418,19 @@ export const AuthProvider = ({ children }) => {
       );
       let data = await response.json();
       if (response.ok) {
-        setSuccess(data.message);
+        setSuccess(data);
         // console.log(data, 'data');
       } else {
-        setError(data.message);
+        // setError(data);
+      const first_key = Object.keys(data)[0];
+      const messages = {
+        message:
+          first_key.charAt(0).toUpperCase() +
+          first_key.slice(1) +
+          ": " +
+          data[first_key][0],
+      };
+      setError(messages.message);
       }
     } else {
       alert("something went wrong");

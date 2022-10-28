@@ -15,7 +15,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import AuthContext from "../context/AuthContext";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 
@@ -88,6 +88,7 @@ const StackHolderForm = () => {
   const [loadingBtn, setLoadingBtn] = useState(false);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const navigate = useNavigate();
 
   const {
     addStakeHolder,
@@ -106,6 +107,7 @@ const StackHolderForm = () => {
   //   setOpen(true);
   // };
 
+  console.log('succesfull', success);
 
   useEffect(() => {
     if (success) {
@@ -114,14 +116,19 @@ const StackHolderForm = () => {
       setLoadingBtn(false);
       // setOpen(true);
       // clearSuccess();
-      Navigate('/stakeholders')
+      navigate('/stakeholders')
     } else {
       setMsg(error);
-      setLoadingBtn(false);
+      setLoadingBtn(false)
+      // setLoadingBtn(false);
       setOpen(true);
-      clearError();
+      // clearError();
+      setInterval(() => {
+        clearError()
+        
+      }, 6000);
     }
-  }, [success]);
+  }, [error, success]);
 
   useEffect(() => {
     const getCountry = async () => {
@@ -270,6 +277,7 @@ const StackHolderForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
       console.log("=======================");
+      setLoadingBtn(true)
     console.log(e, "ation valeue")
     addStakeHolder({
       first_name:firstName, 
@@ -668,7 +676,7 @@ const StackHolderForm = () => {
               color="secondary"
               variant="contained"
             >
-              Add StakeHolder
+              Add StakeHolders
             </LoadingButton>
                 </Box>
             </form>

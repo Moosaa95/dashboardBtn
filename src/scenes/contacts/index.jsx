@@ -82,10 +82,10 @@ const handleClose = (event, reason) => {
     else  {
       setMsg(error)
       setOpen(true);
-      setInterval(() => {
-        clearError()
+      // setInterval(() => {
+      //   clearError()
         
-      }, 6000);
+      // }, 6000);
              
       
 
