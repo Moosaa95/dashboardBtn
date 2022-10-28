@@ -74,6 +74,7 @@ const StackHolderForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [stakeholderType, setStakeholderType] = useState("");
+  const [stakeholderTypeId, setStakeholderTypeId] = useState("")
   const [businessCategory, setBusinessCategory] = useState([]);
   const [businessSectorId, setBusinessSectorId] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -86,6 +87,7 @@ const StackHolderForm = () => {
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [loadingBtn, setLoadingBtn] = useState(false);
+  const [stakeholderTypes, setStakeholderTypes] = useState([]);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
@@ -147,6 +149,34 @@ const StackHolderForm = () => {
     };
     getCountry();
   }, []);
+
+  useEffect(() => {
+
+    let stakeHolders = async () => {
+      // if(authTokens){
+          let response = await fetch('https://nest-srm.up.railway.app/stakeholder-type/list', {
+              method:"GET", 
+              headers: {
+                  'Content-Type' : 'application/json',
+                  'Authorization' : 'Bearer ' + authTokens.token.access
+              },
+
+          })
+          let data = await response.json()
+          console.log("user", data, 'nowowowo');
+          setStakeholderTypes(data["data"])
+          if (response.ok){
+            setIsLoaded(false)
+          }
+          console.log(data, 'data');
+      // }else{
+      //     alert("something went wro")
+      // }
+      
+  }
+  stakeHolders()
+
+  }, [authTokens])
 
   useEffect(() => {
     if (countriesId) {
@@ -213,6 +243,10 @@ const StackHolderForm = () => {
     getBusiness();
   }, []);
 
+  useEffect(() => {
+
+  }, [])
+
 
   const handleCountry = (event)=>{
     const getCountryId = event.target.value;
@@ -258,6 +292,16 @@ const StackHolderForm = () => {
 
 
   }
+
+  const handleStakeholderType = (e) => {
+    const getStakeId = e.target.value;
+    console.log('kfkkjdfjJHBHJF', getStakeId);
+    return stakeholderTypes.map(target => {
+      if (getStakeId == target["id"]){
+        setStakeholderTypeId(target["id"])
+      }
+    })
+  }
   console.log('i am a country name', countryName);
 
   const businessOptions = businessSector;
@@ -282,7 +326,7 @@ const StackHolderForm = () => {
     addStakeHolder({
       first_name:firstName, 
       last_name:lastName, 
-      stakeholder_type:stakeholderType,
+      stakeholder_type:stakeholderTypeId,
       business_category:businessCategory,
       business_sector:personName,
       job_title:jobTitle,
@@ -297,6 +341,8 @@ const StackHolderForm = () => {
 
     })
   };
+
+  
 
   console.log("country id", statesId);
   // console.log(ref.current.values, 'lopghjnjk');
@@ -460,19 +506,26 @@ const StackHolderForm = () => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    label="Stakeholder Type"
+                    select
+                    label="StakeHolder type"
                     // onBlur={handleBlur}
-                    onChange={e=>setStakeholderType(e.target.value)}
-                    value={stakeholderType}
-                    name="stakeHolderType"
-                    // error={
-                    // //   !!touched.businessCategory && !!errors.businessCategory
-                    // }
-                    // helperText={
-                    //   touched.businessCategory && errors.businessCategory
-                    // }
+                    onChange={e=>handleStakeholderType(e)}
+                    // value={countryName}
+                    name="stakeholder_type"
+                    // error={!!touched.country && !!errors.country}
+                    // helperText={touched.country && errors.country}
                     sx={{ gridColumn: "span 2" }}
-                  />
+                    // onClick={setCountriesId(values.country)}
+                  >
+                    {stakeholderTypes.map((holder, index) => (
+                      <MenuItem
+                        value={holder.id}
+                        key={holder.id}
+                      >
+                        {holder.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                   <TextField
                     fullWidth
                     variant="filled"
