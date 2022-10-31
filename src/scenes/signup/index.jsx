@@ -10,6 +10,7 @@ import {
   Button,
   FormControl,
   Typography,
+  useTheme
 } from "@mui/material";
 import { Form, Formik, Field, useFormik } from "formik";
 import React, { useState, useContext, useEffect, useRef } from "react";
@@ -20,6 +21,7 @@ import * as yup from "yup";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
+import { tokens } from "../../theme";
 import { LoadingButton } from "@mui/lab";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -52,6 +54,8 @@ const SignUp = () => {
   const ref = useRef(null);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  // const theme = useTheme();
+  // const colors = tokens(theme.palette.mode);
 
   const { registerUser, success, error, clearError, clearSuccess } = useContext(AuthContext);
 
@@ -193,10 +197,11 @@ const SignUp = () => {
       m="20px"
       display="flex"
       width="100%"
+      height="100vh"
       justifyContent="center"
       alignItems="center"
       flexDirection="Column"
-      color="#000"
+      backgroundColor="#000"
     >
       <Snackbar
         
@@ -215,6 +220,11 @@ const SignUp = () => {
         validationSchema={checkoutSchema}
         innerRef={ref}
         enableReinitialize={true}
+        sx={{
+          display:"flex",
+          justifyContent:"center",
+          alignItems:"center"
+        }}
       >
         {({
           values,
@@ -231,7 +241,8 @@ const SignUp = () => {
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
-              width="190%"
+              width="100%"
+              backgroundColor="#000"
               gap="30px"
               // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
               sx={{

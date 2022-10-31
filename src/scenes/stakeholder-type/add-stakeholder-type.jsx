@@ -23,7 +23,7 @@ const AddStakeholderType = () => {
             name : value.name,
         })
         })
-        console.log(values);
+        // console.log(values);
     };
   return (
     <Box m="20px">

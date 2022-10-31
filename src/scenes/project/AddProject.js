@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import {
   Box,
   Button,
@@ -17,7 +17,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import AuthContext from "../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -52,7 +52,7 @@ const AddProject = () => {
   const { addProject, success, error, authTokens, clearSuccess, clearError } =
   useContext(AuthContext);
   
-console.log(error, 'the new error');
+console.log(error, 'the new error', 'success to check', success);
 useEffect(() => {
   const getProgram = async () => {
     try {
@@ -90,7 +90,7 @@ useEffect(() => {
 
       // }, 6000);
     }
-    if (error) {
+    else if (error) {
       setMsg(error);
       setOpen(true);
       setLoadingBtn(false);

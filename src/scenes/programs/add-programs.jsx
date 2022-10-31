@@ -38,7 +38,7 @@ const AddProgram = () => {
     // };
 
 
-    console.log('longest', success, error);
+    // console.log('longest', success, error);
 
 
     useEffect(() => {
@@ -82,7 +82,7 @@ const AddProgram = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // console.log(programName, value);
+        // // console.log(programName, value);
         // [values].map(value => {
           setLoadingBtn(true)
         addProgram({
@@ -92,7 +92,7 @@ const AddProgram = () => {
             date_approved : value.format('MM/DD/YYYY'),
         })
         // })
-        // console.log(values);
+        // // console.log(values);
     };
   return (
     <Box m="20px">

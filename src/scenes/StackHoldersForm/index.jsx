@@ -44,14 +44,14 @@ const names = [
   'Kelly Snyder',
 ];
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+// function getStyles(name, personName, theme) {
+//   return {
+//     fontWeight:
+//       personName.indexOf(name.name) === -1
+//         ? theme.typography.fontWeightRegular
+//         : theme.typography.fontWeightMedium,
+//   };
+// }
 
 
 
@@ -88,6 +88,8 @@ const StackHolderForm = () => {
   const [personName, setPersonName] = useState([]);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [stakeholderTypes, setStakeholderTypes] = useState([]);
+  const [personId, setPersonId] = useState([]);
+  const [images, setImages] = useState([])
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
@@ -109,11 +111,15 @@ const StackHolderForm = () => {
   //   setOpen(true);
   // };
 
-  console.log('succesfull', success);
+  // // console.log('succesfull', success);
+
+  const handleChangeImage = (e) => {
+    setImages(URL.createObjectURL(...e.target.files[0]))
+  }
 
   useEffect(() => {
     if (success) {
-      // console.log('hihhh', success)
+      // // console.log('hihhh', success)
       // setMsg(success);
       setLoadingBtn(false);
       // setOpen(true);
@@ -139,7 +145,7 @@ const StackHolderForm = () => {
           "https://nest-srm.up.railway.app/location/apibundle"
         );
         const countryJson = await getCountryData.json();
-        console.log(countryJson["country"], "ppp");
+        // console.log(countryJson["country"], "ppp");
         setCountries(await countryJson["country"]);
         if (getCountryData.ok) {
         }
@@ -163,12 +169,12 @@ const StackHolderForm = () => {
 
           })
           let data = await response.json()
-          console.log("user", data, 'nowowowo');
+          // console.log("user", data, 'nowowowo');
           setStakeholderTypes(data["data"])
           if (response.ok){
             setIsLoaded(false)
           }
-          console.log(data, 'data');
+          // console.log(data, 'data');
       // }else{
       //     alert("something went wro")
       // }
@@ -180,14 +186,14 @@ const StackHolderForm = () => {
 
   useEffect(() => {
     if (countriesId) {
-      console.log("hi i am inside", countriesId);
+      // console.log("hi i am inside", countriesId);
       const getState = async () => {
         try {
           const getState = await fetch(
             `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
-          console.log(stateJson, "state");
+          // console.log(stateJson, "state");
           setState(await stateJson["state"]);
         } catch (error) {
           setErrorMessage(error);
@@ -199,14 +205,14 @@ const StackHolderForm = () => {
 
   useEffect(() => {
     if (statesId) {
-      console.log("hi i am inside states", statesId);
+      // console.log("hi i am inside states", statesId);
       const getCity = async () => {
         try {
           const getCities = await fetch(
             `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}&state=${statesId}`
           );
           const citiesJson = await getCities.json();
-          console.log(citiesJson, "city");
+          // console.log(citiesJson, "city");
           setCity(await citiesJson["city"]);
         } catch (error) {
           setErrorMessage(error);
@@ -230,10 +236,10 @@ const StackHolderForm = () => {
           }
         );
         const businessJson = await getBusinessData.json();
-        console.log(businessJson, "business ppp");
+        // console.log(businessJson, "business ppp");
         setBusinessSector(businessJson["data"]);
         if (getBusinessData.ok) {
-          console.log("iron man");
+          // console.log("iron man");
           setIsLoaded(true);
         }
       } catch (error) {
@@ -250,11 +256,11 @@ const StackHolderForm = () => {
 
   const handleCountry = (event)=>{
     const getCountryId = event.target.value;
-    console.log(getCountryId, 'id');
+    // console.log(getCountryId, 'id');
     return countries.map((target, index) => {
-      console.log('targer', target["country_pk"] == getCountryId);
+      // console.log('targer', target["country_pk"] == getCountryId);
       if (getCountryId == target["country_pk"]){
-        console.log('setter',target["country_pk"] );
+        // console.log('setter',target["country_pk"] );
         setCountriesId(target["country_pk"]);
         setCountryName(target["country_name"])
       }
@@ -265,11 +271,11 @@ const StackHolderForm = () => {
 
   const handleState = (event) => {
     const getStateId = event.target.value;
-    console.log(getStateId, 'state id');
+    // console.log(getStateId, 'state id');
     return state.map((target, index) => { 
-      console.log('state targer', target["name"] == getStateId);
+      // console.log('state targer', target["name"] == getStateId);
       if (getStateId == target["pk"]){
-        console.log('setter',target["pk"] );
+        // console.log('setter',target["pk"] );
         setStatesId(target["pk"]);
         setStateName(target["name"])
       }
@@ -280,11 +286,11 @@ const StackHolderForm = () => {
 
   const handleCity = (event) => {
     const getCityId = event.target.value;
-    console.log(getCityId, 'id');
+    // console.log(getCityId, 'id');
     return city.map((target, index) => {
-      console.log('targer', target["city"] == getCityId);
+      // console.log('targer', target["city"] == getCityId);
       if (getCityId == target["pk"]){
-        console.log('setter',target["pk"], 'city id', cityId );
+        // console.log('setter',target["pk"], 'city id', cityId );
         setCityId(target["pk"]);
         setCityName(target["city"])
       }
@@ -295,40 +301,40 @@ const StackHolderForm = () => {
 
   const handleStakeholderType = (e) => {
     const getStakeId = e.target.value;
-    console.log('kfkkjdfjJHBHJF', getStakeId);
+    // console.log('kfkkjdfjJHBHJF', getStakeId);
     return stakeholderTypes.map(target => {
       if (getStakeId == target["id"]){
         setStakeholderTypeId(target["id"])
       }
     })
   }
-  console.log('i am a country name', countryName);
+  // console.log('i am a country name', countryName);
 
   const businessOptions = businessSector;
   const bus = [];
 
   for (let i = 0; i < businessSector.length; i++) {
-    console.log(businessSector[i], "hello");
+    // console.log(businessSector[i], "hello");
     bus.push({ value: businessSector[i].id, label: businessSector[i].id });
   }
-  console.log(
-    "i am a business optioon",
-    businessOptions,
-    typeof businessOptions,
-    bus
-  );
+  // // console.log(
+  //   "i am a business optioon",
+  //   businessOptions,
+  //   typeof businessOptions,
+  //   bus
+  // );
 
   const handleSubmit = (e) => {
     e.preventDefault()
-      console.log("=======================");
+      // console.log("=======================");
       setLoadingBtn(true)
-    console.log(e, "ation valeue")
+    // console.log(e, "ation valeue")
     addStakeHolder({
       first_name:firstName, 
       last_name:lastName, 
       stakeholder_type:stakeholderTypeId,
       business_category:businessCategory,
-      business_sector:personName,
+      business_sector:personName.map(ind => ind.id),
       job_title:jobTitle,
       email : email,
       phone:phoneNumber, 
@@ -338,17 +344,18 @@ const StackHolderForm = () => {
       postal_code:postalCode,
       city:cityId,
       interest:interest,
+      stakeholder_image: images
 
     })
   };
 
   
 
-  console.log("country id", statesId);
-  // console.log(ref.current.values, 'lopghjnjk');
+  // console.log("country id", statesId);
+  // // console.log(ref.current.values, 'lopghjnjk');
   const handleBusinessSector = (e) => {
     getValue(Array.isArray(e)?e.map(x=>x.label):[])
-    console.log(displayValue, 'poppppppppp')
+    // console.log(displayValue, 'poppppppppp')
     
     
   }
@@ -378,25 +385,29 @@ const StackHolderForm = () => {
 
 
 
-  const handleChange = (event, obj) => {
-    // console.log(businessSector);
-    // console.log(event, 'i ama an event');
-    const {
-      target: { value },
-    } = event;
-    // console.log('target value', value);
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+const handleSelectChange = (event) => {
+  // // console.log(businessSector);
+  // console.log(event, 'i ama an event', event, 'EVENET');
+  
+  const {
+    target: { value },
+  } = event;
+  
+  // console.log('target value', value);
+  // console.log("================")
+  // console.log(businessSector)
+  setPersonName(
+    // On autofill we get a stringified value.
+    typeof value === 'string' ? value.split(',') : value,
     );
-    // setPersonName([obj.props.id])
-    
-    // console.log(personName, 'peeeeeeeeeeeeeersonName', obj.props.id);
-  };
+   
+  }
 
 
 
-
+if (personName) {
+  // console.log("I AM A PERSON NAME", personName)
+}
   return (
     <Box
       m="20px"
@@ -691,15 +702,15 @@ const StackHolderForm = () => {
           id="demo-multiple-chip"
           multiple
           value={personName}
-          itemID={personName}
+          // itemID={personName}
           // key={personName}
-          name={personName}
-          onChange={handleChange}
+          // name={personName}
+          onChange={e=>handleSelectChange(e)}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value.id} label={value.name} />
               ))}
             </Box>
             
@@ -708,11 +719,11 @@ const StackHolderForm = () => {
         >
           {businessSector.map((name) => (
             <MenuItem
-              key={name.id}
-              value={name.id}
-              id={name.id}
-              name={name.id}
-              style={getStyles(name, personName, theme)}
+              key={name}
+              value={name}
+              // id={name.id}
+              // name={name.id}
+              // style={getStyles(name, personName, theme)}
             >
               {name.name}
             </MenuItem>
@@ -720,6 +731,15 @@ const StackHolderForm = () => {
         </Select>
       </FormControl>
                   </Box>
+                 <Box ml="150px">
+                 <Button variant="contained" component="label" variant="contained" 
+        // startIcon={<Add />}
+        onClick={handleChangeImage}
+        color="secondary">
+        add Image
+        <input hidden accept="image/*" multiple type="file" />
+      </Button>
+                 </Box>
 
               </Box>
               <Box display="flex" justifyContent="center" mt="20px">

@@ -35,9 +35,9 @@ const Login = ({setLoggedIn}) => {
     setLoggedIn(true)
   }
   // const handleSubmit = () => {
-  //   console.log(email, password, name);
+  //   // console.log(email, password, name);
   // }
-  // console.log(user, 'jjj user', authTokens);
+  // // console.log(user, 'jjj user', authTokens);
 
   useEffect(()=>{
     if(success){
@@ -70,22 +70,22 @@ const Login = ({setLoggedIn}) => {
     });
   };
     const handleFormSubmit = (values, actions) => {
-      // console.log(values, "ation valeus");
+      // // console.log(values, "ation valeus");
       // values.preventDefault()
       setLoadingBtn(true);
       [values].map((value) => {
-        console.log(values, "jury values");
+        // console.log(values, "jury values");
         loginUser({
           password: value.password,
           username: value.adminUsername,
         });
       });
       // actions.resetForm();
-      // console.log(values);
+      // // console.log(values);
     };
   
-    //  console.log('country id', statesId);
-    // console.log(ref.current.values, 'lopghjnjk');
+    //  // console.log('country id', statesId);
+    // // console.log(ref.current.values, 'lopghjnjk');
   
     return (
       <Box

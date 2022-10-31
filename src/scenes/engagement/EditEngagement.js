@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme, TextField, Snackbar, MenuItem } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme, TextField, Snackbar, MenuItem, Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import { LoadingButton } from "@mui/lab";
 
 
-const AddEngagement = () => {
+const UpdateEngagement = ({handleCloseModal, openModal, rowId}) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -27,6 +27,9 @@ const AddEngagement = () => {
 
     const {addEngagement, authTokens, success, error, clearError} = useContext(AuthContext)
 
+
+
+    console.log('engagement ENGAGEMENT');
 
     useEffect(() => {
       if(success) {
@@ -57,7 +60,7 @@ const AddEngagement = () => {
               }
             );
             const stakeholderJson = await getStakeholderData.json();
-            console.log(stakeholderJson["data"], "ppp");
+            //console.log(stakeholderJson["data"], "ppp");
             // setStakeholder(await stakeholderJson["stakeholder"]);
             if (getStakeholderData.ok) {
               setStakeholders(await stakeholderJson["data"])
@@ -83,7 +86,7 @@ const AddEngagement = () => {
               }
             );
             const projectJson = await getProjectData.json();
-            console.log(projectJson, "jrtfnhjkrn");
+            // //console.log(projectJson, "jrtfnhjkrn");
             // setStakeholder(await stakeholderJson["stakeholder"]);
             if (getProjectData.ok) {
               setProjects(await projectJson["data"])
@@ -98,9 +101,9 @@ const AddEngagement = () => {
       
     
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+//   const handleClick = () => {
+//     setOpen(true);
+//   };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -124,25 +127,21 @@ const AddEngagement = () => {
             stakeholder_assigned_task : value.stakeholderAssignedTask,
         })
         })
-        // console.log(values);
+        // //console.log(values);
     };
 
-    // console.log('i m a stake ', stakeholders);
+    // //console.log('i m a stake ', stakeholders);
   return (
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Add Stakeholder Engagement" subtitle="Add your stakeholder business sector" />
-
-      </Box>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={msg}
-        
-      />
+     <div>
+          <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+       
+        <DialogTitle id="alert-dialog-title">{"Edit Stakeholder"}</DialogTitle>
+        <DialogContent>
 
       <Box 
         sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
@@ -295,16 +294,19 @@ const AddEngagement = () => {
             >
               Add Engagememt 
             </LoadingButton>
+              <Button onClick={handleClose}>Disagree</Button>
                 </Box>
             </form>
             )}
         </Formik>
       </Box>
-    </Box>
+        </DialogContent>
+        </Dialog>
+     </div>
     )
 }
 
-export default AddEngagement
+export default UpdateEngagement
 
 const checkoutSchema = yup.object().shape({
     stakeholderName: yup.string().required("required"),

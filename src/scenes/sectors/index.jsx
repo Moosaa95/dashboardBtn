@@ -30,7 +30,7 @@ const Sectors = () => {
         }
     }, [success])
 
-    console.log('lol', stakeHolderVar);
+    // console.log('lol', stakeHolderVar);
 
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5 },
@@ -56,12 +56,12 @@ const Sectors = () => {
     
               })
               let data = await response.json()
-              console.log("user", data, 'nowowowo');
+              // console.log("user", data, 'nowowowo');
               setStakeHolderVar(data["data"])
               if (response.ok){
                 setIsLoaded(false)
               }
-              console.log(data, 'data');
+              // console.log(data, 'data');
           // }else{
           //     alert("something went wro")
           // }

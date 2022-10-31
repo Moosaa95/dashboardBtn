@@ -54,7 +54,7 @@ function App() {
                 <Route exact path="/" element={<Dashboard />} />
                 <Route path="/users" element={<Team />} />
                 <Route path="/stakeholders" element={<StakeHolders />} />
-                <Route path="/stakeholder-detail/:stakeholderId" element={<StakeHoldeDetail />} />
+                <Route path="/stakeholder-detail/:id" element={<StakeHoldeDetail />} />
                 <Route path="/project" element={<Project />} />
                 <Route path="/add-project" element={<AddProject />} />
                 {/* <Route path="/invoices" element={<Invoices />} /> */}

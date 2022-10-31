@@ -66,12 +66,12 @@ export const AuthProvider = ({ children }) => {
       }
     );
     let data = await response.json();
-    // console.log(data, 'data');
+    // // console.log(data, 'data');
     if (response.ok) {
       setSuccess(data);
       navigate("/login");
     } else {
-      console.log("sign up", data);
+      // console.log("sign up", data);
       // setError(data)
       const first_key = Object.keys(data)[0];
       const messages = {
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
   let loginUser = async ({ username, password }) => {
     // e.preventDefault()
 
-    // console.log(e.target.email.value);
+    // // console.log(e.target.email.value);
 
     let response = await fetch(
       "https://nest-srm.up.railway.app/auth/user/login/",
@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
       }
     );
     let data = await response.json();
-    console.log(data, "data");
+    // console.log(data, "LOGIN DATA RIGHT NOW");
     if (response.status == 200) {
       setSuccess(data.message);
       setAuthTokens(data);
@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
   //         body: JSON.stringify({'refresh':authTokens.token["refresh"]})
   //     })
   //     let data = await response.json()
-  //     console.log(data, 'data');
+  //     // console.log(data, 'data');
   //     if (response.status == 200){
   //         setAuthTokens(data)
   //         setUser(jwt_decode(data.token["access"]))
@@ -166,7 +166,7 @@ export const AuthProvider = ({ children }) => {
         setSuccess("User created successfully");
         navigate("/user-list");
       }
-      // console.log(data, 'data');
+      // // console.log(data, 'data');
       // if (response.ok){
       //     setSuccess("business sector created successfully")
       //     // navigate("/sectors")
@@ -180,7 +180,7 @@ export const AuthProvider = ({ children }) => {
 
   let addSector = async ({ name }) => {
     if (authTokens) {
-      console.log("hi im in add sector");
+      // console.log("hi im in add sector");
       let response = await fetch(
         "https://nest-srm.up.railway.app/tenant/business-sector/",
         {
@@ -201,7 +201,7 @@ export const AuthProvider = ({ children }) => {
       } else {
         setError(data.message);
       }
-      // console.log(data, 'data');
+      // // console.log(data, 'data');
     } else {
       alert("something went wrong");
       setError("something went wrong try again");
@@ -215,7 +215,7 @@ export const AuthProvider = ({ children }) => {
     date_approved,
   }) => {
     if (authTokens) {
-      // console.log('hi im in add sector');
+      // // console.log('hi im in add sector');
       let response = await fetch(
         "https://nest-srm.up.railway.app/program-create",
         {
@@ -239,7 +239,7 @@ export const AuthProvider = ({ children }) => {
       } else {
         setError(data);
       }
-      // console.log(data, 'DATA');
+      // // console.log(data, 'DATA');
     } else {
       // alert("something went wrong")
       setError("something went wrong try again");
@@ -258,7 +258,7 @@ export const AuthProvider = ({ children }) => {
     notify_project_manager,
   }) => {
     if (authTokens) {
-      // console.log('hi im in add sector');
+      // // console.log('hi im in add sector');
       let response = await fetch(
         "https://nest-srm.up.railway.app/project-create",
         {
@@ -295,7 +295,7 @@ export const AuthProvider = ({ children }) => {
       };
       setError(messages.message);
       }
-      // console.log(data, 'DATA');
+      // // console.log(data, 'DATA');
     } else {
       // alert("something went wrong")
       setError("something went wrong try again");
@@ -312,7 +312,7 @@ export const AuthProvider = ({ children }) => {
     stakeholder_assigned_task,
   }) => {
     if (authTokens) {
-      console.log("hi im in add sector");
+      // // console.log("hi im in add sector");
       let response = await fetch(
         "https://nest-srm.up.railway.app/stakeholder-engagement/create",
         {
@@ -334,19 +334,21 @@ export const AuthProvider = ({ children }) => {
       );
       let data = await response.json();
       if (response.ok) {
-        setSuccess("business sector created successfully");
         navigate("/engagements");
+        setSuccess("successfully add engagement");
+      }else{
+        setError("something went wrong")
       }
-      // console.log(data, 'data');
+      // // console.log(data, 'data');
     } else {
       alert("something went wrong");
-      setError("something went wrong try again");
+      // setError(data);
     }
   };
 
   let addStakeholderType = async ({ name }) => {
     if (authTokens) {
-      console.log("hi im in add sector");
+      // console.log("hi im in add sector");
       let response = await fetch(
         "https://nest-srm.up.railway.app/stakeholder-type/create",
         {
@@ -365,7 +367,7 @@ export const AuthProvider = ({ children }) => {
         setSuccess("business sector created successfully");
         navigate("/stakeholder-types");
       }
-      // console.log(data, 'data');
+      // // console.log(data, 'data');
     } else {
       alert("something went wrong");
       setError("something went wrong try again");
@@ -387,8 +389,9 @@ export const AuthProvider = ({ children }) => {
     country,
     postal_code,
     interest,
+    stakeholder_image,
   }) => {
-    // console.log('hi insde dstkaeholdwe');
+    // // console.log('hi insde dstkaeholdwe');
     if (authTokens) {
       let response = await fetch(
         "https://nest-srm.up.railway.app/stakeholder/signup/",
@@ -413,13 +416,14 @@ export const AuthProvider = ({ children }) => {
             country,
             postal_code,
             interest,
+            stakeholder_image,
           }),
         }
       );
       let data = await response.json();
       if (response.ok) {
         setSuccess(data);
-        // console.log(data, 'data');
+        // // console.log(data, 'data');
       } else {
         // setError(data);
       const first_key = Object.keys(data)[0];
@@ -438,7 +442,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   let forgotPassword = async ({ usernameoremail }) => {
-    console.log("hiii", usernameoremail);
+    // console.log("hiii", usernameoremail);
 
     try {
       let response = await fetch(
@@ -454,13 +458,18 @@ export const AuthProvider = ({ children }) => {
           }),
         }
       );
-      console.log("hiiiierhjfdjhdnsf", data);
+      // // console.log("hiiiierhjfdjhdnsf", data);
       let data = await response.json();
-      setSuccess(data);
-      // console.log(accessResponse, 'opopopopo');
+      if (response.ok){
+        setSuccess(data);
+
+      }else{
+        setError(data)
+      }
+      // // console.log(accessResponse, 'opopopopo');
       // if (accessResponse && accessResponse.user) {
       // 	setUser(accessResponse.user)
-      //     console.log(user, 'user now');
+      //     // console.log(user, 'user now');
       // }
 
       // if (accessResponse && accessResponse.access) {
@@ -469,7 +478,7 @@ export const AuthProvider = ({ children }) => {
 
       // router.push('/')
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       //   if (error.response && error.response.data) {
       //   	setError(error.response.data.message)
       //   	return
@@ -497,7 +506,7 @@ export const AuthProvider = ({ children }) => {
   //         })
   //         let data = await response.json()
   //         setStakeHolderVar(data)
-  //         console.log(data, 'data');
+  //         // console.log(data, 'data');
   //     }else{
   //         alert("something went wrong")
   //     }
@@ -510,6 +519,7 @@ export const AuthProvider = ({ children }) => {
   const clearSuccess = () => {
     setSuccess(null);
   };
+  // console.log("BIG MAN", user);
 
   let contextData = {
     authTokens: authTokens,

@@ -29,7 +29,7 @@ const Programs = () => {
     const [programDescription, setProgramDescription] = useState("")
     const [programName, setProgramName] = useState("")
     const [organizerSponsor, setOrganizerSponsor] = useState("")
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(50);
     const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
     const [rowId, setRowId] = useState()
     const theme = useTheme();

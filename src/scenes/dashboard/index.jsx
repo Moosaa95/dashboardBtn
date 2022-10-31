@@ -18,7 +18,7 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
 
 
-  const {success, error} = useContext(AuthContext)
+  const {success, error, clearSuccess} = useContext(AuthContext)
 
 
   const handleClose = () => {
@@ -28,13 +28,17 @@ const Dashboard = () => {
   useEffect(()=>{
     if(success){
       setMsg(success)
+      setInterval(() => {
+        clearSuccess()
+      }, 6000);
+
     }
     else{
       setMsg(error)
     }
   }, [success, error])
 
-    console.log(success);
+    // console.log(success);
 
   
   return (

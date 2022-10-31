@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
@@ -144,13 +144,13 @@ const Sidebar = () => {
             >
               Stakeholder
             </Typography>
-            <Item
+            {/* <Item
               title="Add Stackholder"
               to="/add-stakeholder"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="StakeHolders"
               to="/stakeholders"
@@ -224,7 +224,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             {authTokens ? (
-              <p onClick={logoutUser}>Logout</p>
+              <Button variant="contained" onClick={logoutUser}>Logout</Button>
             ) : (
               <Item
               title="Login"

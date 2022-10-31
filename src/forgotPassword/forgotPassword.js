@@ -1,107 +1,143 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Snackbar, Stack, InputLabel, Select,  MenuItem  } from "@mui/material";
-import { Form } from "formik";
-import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useTheme,
+  TextField,
+  Snackbar,
+} from "@mui/material";
+// import { tokens } from "../../theme";
+import { tokens } from "../theme";
+import { Formik } from "formik";
+import * as yup from "yup";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../scenes/context/AuthContext";
-
-
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import Header from "../components/Header";
+import { LoadingButton } from "@mui/lab";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
-    const [username, setUsername] = useState("");
-    
-    
-  
-  
-    const { forgotPassword } = useContext(AuthContext);
-  console.log('hello ForgotPasswordo');
-  
-  
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  const [username, setUsername] = useState("");
+  const [loadingBtn, setLoadingBtn] = useState(false);
+  const [msg, setMsg] = useState("")
+  const [open, setOpen] = useState(false);
+
+  const { forgotPassword, success, clearSuccess, error, clearError } =
+    useContext(AuthContext);
+
+    // console.log('SUCCESS', success, 'ERROR', error);
+
+    useEffect(() => {
+      if (success){
+        // console.log('insider');
+          setLoadingBtn(false)
+        setMsg(success)
+        setOpen(true)
+        setInterval(() => {
+          clearSuccess()
+          
+        }, 7000);
+      }else{
+        setLoadingBtn(false)
+        // setMsg(error)
+        setMsg(error)
+        setOpen(true)
+      }
+    }, [error, success])
+
+
+  const handleFormSubmit = (e) => {
+    setLoadingBtn(true)
+    e.preventDefault()
+    // console.log(values, '=============');
+    console.log('MESSAGE', msg);
+    forgotPassword({
+        usernameoremail: username,
+      });
+  }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+   
   return (
-    <div className="container">
-    {/* <Snackbar
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      open={open}
-      onClose={handleClose}
-      autoHideDuration={6000}
-      message={errorMessage}
-      key={"top_center"}
-    /> */}
-    
-    <div className="content-overlay" />
-    <div className="header-navbar-shadow" />
-    <div className="content-wrapper">
-      <div className="content-header row"></div>
-      <div className="content-body">
-        <div className="auth-wrapper auth-cover">
-          <div className="auth-inner row m-0">
-            {/* Brand logo*/}
-            {/* /Brand logo*/}
-            {/* Register*/}
-            <div className="row">
-              <div className="col-lg-6 align-items-center auth-bg px-2 p-lg-5 mx-auto my-auto">
-                <h2 className="card-title fw-bold mb-1">Forgot Password Page</h2>
-                <p className="card-text mb-2">
-                  Forgot your password?
-                </p>
-                <form
-                  className="auth-register-form mt-2"
-                  action=""
-                  method="POST"
-                  onSubmit={forgotPassword}
+    <Box m="20px">
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Header title="Forgot Password" subtitle="forgot your password?" />
+      </Box>
+      <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={msg?open:false}
+          onClose={handleClose}
+          message={msg}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
+        />
+
+      <Box sx={{ width: "600px", margin: "auto", marginTop: "70px" }}>
+        
+            <form onSubmit={e=>handleFormSubmit(e)}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
+              >
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="email or username"
+                  // onBlur={handleBlur}
+                  onChange={e=>setUsername(e.target.value)}
+                  value={username}
+                  name="name"
+                  // error={!!touched.name && !!errors.name}
+                  // helperText={touched.name && errors.name}
+                  sx={{ gridColumn: "span 4" }}
+                />
+              </Box>
+              <Box display="flex" justifyContent="space-between" mt="20px" mr="30px">
+                <LoadingButton
+                  loading={loadingBtn}
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
                 >
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-8 px-xl-2 mx-auto">
-                      <div className="mb-1">
-                        <label
-                          className="form-label"
-                          htmlFor="register-adminFirstName"
-                        >
-                          Enter username or email
-                        </label>
-                        <input
-                          className="form-control"
-                          id="userName"
-                          type="text"
-                          name="usernameoremail"
-                          placeholder="Enter name"
-                          aria-describedby="adminFirstName"
-                          autoFocus=""
-                          tabIndex={1}
-                          onChange={(e) =>
-                            setUsername(e.target.value)
-                          }
-                          value={username}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <button className="btn btn-primary w-100" tabIndex={5}>
-                    Forgot Password
-                  </button>
-                 
-                </form>
-              </div>
-              {/* <div className="d-none d-lg-flex col-lg-6 align-items-center p-5">
-                <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
-                  <img
-                    className="img-fluid"
-                    src="./images/banner/auth-image.png"
-                    alt="Register V2"
-                  />
-                </div>
-              </div> */}
-            </div>
-            {/* /Register*/}
-            {/* Left Text*/}
-            {/* /Left Text*/}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+                  Submit
+                </LoadingButton>
+                <Link to="/login"
+                  // color="#fff"
+                  // variant="contained"
+                >
+                  Login
+                </Link>
+              </Box>
+            </form>
+      </Box>
+    </Box>
   );
 };
 
 export default ForgotPassword;
+
+// const checkoutSchema = yup.object().shape({
+//   name: yup.string().required("required"),
+// });
+// const initialValues = {
+//   name: "",
+// };
