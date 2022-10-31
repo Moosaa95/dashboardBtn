@@ -95,7 +95,8 @@ const Login = ({setLoggedIn}) => {
         justifyContent="center"
         alignItems="center"
         flexDirection="Column"
-        color="#000"
+              backgroundColor="#000"
+              height="100%"
         mt="200px"
       >
          
