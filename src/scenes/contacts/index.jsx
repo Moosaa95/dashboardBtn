@@ -1,4 +1,13 @@
-import { Box, Button, Snackbar, Snack, Alert, Modal, Typography, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Snackbar,
+  Snack,
+  Alert,
+  Modal,
+  Typography,
+  Stack,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataStackholders } from "../../data/mockData";
@@ -10,14 +19,7 @@ import { Link } from "react-router-dom";
 import { Stakeholders } from "./Stakeholders";
 import EditStakeholder from "./EditStakeholder";
 import { useMediaQuery } from "@mui/material";
-import {
-  Add, 
-  Download,
-  
-} from "@mui/icons-material";
-
-
-
+import { Add, Download } from "@mui/icons-material";
 
 const Modals = ({ open, handleClose, setOpener, onUploadFiles }) => {
   // const wrapperRef = useRef(null);
@@ -152,35 +154,33 @@ const StakeHolders = () => {
   const [rowId, setRowId] = useState({});
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState("");
-  const [ openModal, setOpenModal ] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [pageSize, setPageSize] = useState(5);
-  const [stakeHolderVarCopy, setStakeHolderVarCopy] = useState([])
-  const [openUploadModal, setopenUploadModal] = useState(false)
+  const [stakeHolderVarCopy, setStakeHolderVarCopy] = useState([]);
+  const [openUploadModal, setopenUploadModal] = useState(false);
 
-  
-  const {authTokens, addProgram, success, error, clearError, clearSuccess} = useContext(AuthContext)
+  const { authTokens, addProgram, success, error, clearError, clearSuccess } =
+    useContext(AuthContext);
 
-  const handleOpenUploadModal = () => setopenUploadModal(true)
-  const handleCloseUploadModal = () => setopenUploadModal(false)
+  const handleOpenUploadModal = () => setopenUploadModal(true);
+  const handleCloseUploadModal = () => setopenUploadModal(false);
 
-const handleClickModal = () => {
+  const handleClickModal = () => {
     setOpenModal(true);
   };
 
-const handleCloseModal = () => {
+  const handleCloseModal = () => {
     setOpenModal(false);
-    stakeHolders()
+    stakeHolders();
   };
-const handleClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
-    
   };
   // //console.log("ikloio");
-
 
   let stakeHolders = async () => {
     // if(authTokens){
@@ -205,26 +205,21 @@ const handleClose = (event, reason) => {
     // }
   };
   useEffect(() => {
-    if(success) {
-      setMsg(success)
+    if (success) {
+      setMsg(success);
       setOpen(true);
       setInterval(() => {
-        clearSuccess()
-        
+        clearSuccess();
       }, 6000);
-    }
-    else  {
-      setMsg(error)
+    } else {
+      setMsg(error);
       setOpen(true);
       // setInterval(() => {
       //   clearError()
-        
-      // }, 6000);
-             
-      
 
+      // }, 6000);
     }
-  }, [success, error])
+  }, [success, error]);
 
   useEffect(() => {
     stakeHolders();
@@ -236,7 +231,7 @@ const handleClose = (event, reason) => {
     {
       field: "index",
       headerName: "S/N",
-      renderCell: (index) => index.api.getRowIndex(index.row.id) + 1
+      renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
     },
     {
       field: "first_name",
@@ -276,7 +271,17 @@ const handleClose = (event, reason) => {
       headerName: "Actions",
       type: "actions",
       width: 150,
-      renderCell: (params) => <Stakeholders {...{ params, handleDelete, handleClickModal, stakeHolders, handleStakeEdit}} />,
+      renderCell: (params) => (
+        <Stakeholders
+          {...{
+            params,
+            handleDelete,
+            handleClickModal,
+            stakeHolders,
+            handleStakeEdit,
+          }}
+        />
+      ),
     },
     // {
     //   field: "zipCode",
@@ -318,37 +323,34 @@ const handleClose = (event, reason) => {
   const handleStakeEdit = async (param) => {
     // param.preventDefault()
     //console.log('i am stake edit', param.id);
-    setRowId({...param})
-    handleClickModal()
-    
-  }
+    setRowId({ ...param });
+    handleClickModal();
+  };
 
   //console.log(rowId, 'I AM SETTING ROW ID')
-  
-
-  
-
-
 
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={msg?open : false}
+          open={msg ? open : false}
           onClose={handleClose}
           message={msg}
           autoHideDuration={6000}
           // key={vertical + horizontal}
         />
         <Header title="STAKEHOLDERS" subtitle="List of StakeHolders" />
-        <Button variant="contained" component="label" variant="contained" 
-        startIcon={<Add />}
-        onClick={handleOpenUploadModal}
-        color="secondary">
-        Upload
-        {/* <input hidden accept="image/*" multiple type="file" /> */}
-      </Button>
+        <Button
+          variant="contained"
+          component="label"
+          startIcon={<Add />}
+          onClick={handleOpenUploadModal}
+          color="secondary"
+        >
+          Bulk Upload
+          {/* <input hidden accept="image/*" multiple type="file" /> */}
+        </Button>
         <Link to="/add-stakeholder">
           <Button color="secondary" variant="contained">
             Add Stakeholder
@@ -364,6 +366,9 @@ const handleClose = (event, reason) => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            color: "#000",
+            fontWeight: "bold",
+            fontSize: "20px",
           },
           "& .name-column--cell": {
             color: colors.greenAccent[300],
@@ -404,7 +409,13 @@ const handleClose = (event, reason) => {
           }}
         />
       </Box>
-      <EditStakeholder openModal={openModal} handleCloseModal={handleCloseModal} rowId={rowId} setRowId={setRowId} stakeholders={stakeHolders} />
+      <EditStakeholder
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        rowId={rowId}
+        setRowId={setRowId}
+        stakeholders={stakeHolders}
+      />
       <Modals open={openUploadModal} handleClose={handleCloseUploadModal} />
     </Box>
   );

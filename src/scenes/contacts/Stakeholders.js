@@ -23,7 +23,9 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
           </Link>
         </IconButton>
       </Tooltip>
-      <Tooltip title="edit stakeholder">
+      <Tooltip title="edit stakeholder" sx={{
+        color:"#000"
+      }}>
         <IconButton onClick={()=>{
           // handleClickModal()
           handleStakeEdit(params.row)
@@ -32,7 +34,7 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
           <Edit />
         </IconButton>
       </Tooltip>
-      <Tooltip title="delete Stakeholer">
+      <Tooltip title="delete Stakeholer" sx={{color:"#000"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>

@@ -97,7 +97,7 @@ const Login = ({setLoggedIn}) => {
         flexDirection="Column"
               backgroundColor="#000"
               height="100%"
-        mt="200px"
+        // mt="200px"
       >
          
           <Snackbar

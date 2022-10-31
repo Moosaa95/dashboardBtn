@@ -8,7 +8,8 @@ import {
   OutlinedInput,
 InputLabel,
 FormControl,
-Chip
+Chip,
+useTheme
 } from "@mui/material";
 // import Select from "react-select";
 import React, { useState, useContext, useEffect, useRef } from "react";
@@ -16,8 +17,9 @@ import AuthContext from "../context/AuthContext";
 import Header from "../../components/Header";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
+import { tokens } from "../../theme";
 
 
 const ITEM_HEIGHT = 48;
@@ -84,15 +86,18 @@ const StackHolderForm = () => {
   const [displayValue, getValue] = useState([]);
   const [open, setOpen] = useState(true);
   const [msg, setMsg] = useState("");
-  const theme = useTheme();
+  // const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [stakeholderTypes, setStakeholderTypes] = useState([]);
   const [personId, setPersonId] = useState([]);
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState(null)
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   const {
     addStakeHolder,
@@ -411,6 +416,9 @@ if (personName) {
   return (
     <Box
       m="20px"
+      backgroundColor="#292929"
+      width="100%"
+      height="100%"
     >
        {
           msg && 
@@ -422,9 +430,9 @@ if (personName) {
           autoHideDuration={6000}
           message={msg}
           key={'top_center'}
-          color="#000"
+          
           />}
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box display="flex" justifyContent="center" alignItems="center">
             <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
           </Box>
 
@@ -439,6 +447,7 @@ if (personName) {
                 sx={{
                     "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
+                
                 >
                   <TextField
                     fullWidth
@@ -732,12 +741,12 @@ if (personName) {
       </FormControl>
                   </Box>
                  <Box ml="150px">
-                 <Button variant="contained" component="label" variant="contained" 
+                 <Button variant="contained" component="label" 
         // startIcon={<Add />}
-        onClick={handleChangeImage}
+        
         color="secondary">
         add Image
-        <input hidden accept="image/*" multiple type="file" />
+        <input hidden accept="image/png" multiple type="file" onClick={handleChangeImage} />
       </Button>
                  </Box>
 

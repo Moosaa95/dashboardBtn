@@ -72,6 +72,8 @@ export const StakeHoldeDetail = () => {
       display="flex"
       width="100%"
       height="100%"
+      color="#000"
+      backgroundColor="#eee"
       >
         <Grid item width="50%">
           <ButtonBase sx={{ width: 128, height: 128 }}>
