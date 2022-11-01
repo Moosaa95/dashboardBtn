@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import {Snackbar, Box, TextField, MenuItem, useMediaQuery, Typography } from "@mui/material";
 import Select from "react-select";
 import AuthContext from "../context/AuthContext";
+import { LoadingButton } from '@mui/lab';
 
 
 export default function EditStakeholder({
@@ -46,6 +47,7 @@ export default function EditStakeholder({
   const [businessSectorName, setBusinessSectorName] = useState("");
   const [displayValue, getValue] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [loadingBtn, setLoadingBtn] = useState(false)
   const [stakeholderVar, setStakeHolderVar] = useState([])
   const [msg, setMsg] = useState("");
 
@@ -94,6 +96,7 @@ export default function EditStakeholder({
 
     if (response.ok) {
       setIsLoaded(false);
+      
       // // console.log("DATA IS POWER", stakeholderVar);
       // setFirstName(stakeholderVar.first_name)
     }
@@ -142,6 +145,7 @@ export default function EditStakeholder({
 
     // // console.log('NROWERS', nRow);
       // // console.log(e, 'i am form to handle')
+      setLoadingBtn(true)
     if (rowId) {
       let response = await fetch(
         `https://nest-srm.up.railway.app/stakeholder-update/${rowId.id}`,
@@ -190,12 +194,15 @@ export default function EditStakeholder({
         // // console.log(response, "erresponse", data);
         e.target.reset()
         setOpen(true);
-        setMsg(data);
-        setInterval(() => {
-          setMsg(null)
-        }, 3000);
+        setLoadingBtn(false)
+        
+        // setMsg(data);
+        // setInterval(() => {
+        //   setMsg(null)
+        // }, 3000);
       } else {
         setOpen(true);
+        setLoadingBtn(false)
         setMsg(data);
         setInterval(() => {
           setMsg(null)
@@ -603,8 +610,9 @@ export default function EditStakeholder({
               </TextField> */}
             </Box>
             <Box display="flex" justifyContent="center" mt="20px">
-              <Button
+              <LoadingButton
                 type="submit"
+                loading={loadingBtn}
                 color="secondary"
                 variant="contained"
                 className="btn btn-large"
@@ -612,7 +620,7 @@ export default function EditStakeholder({
                 // onClick={}
               >
                 Add Stakeholder
-              </Button>
+              </LoadingButton>
               {/* <Button color="danger" onClick={handleCloseModal}>Cancel</Button> */}
             </Box>
           </form>

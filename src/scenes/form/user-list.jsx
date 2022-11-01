@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme, TextField } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme, TextField, Snackbar } from "@mui/material";
 import { tokens } from "../../theme";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import * as yup from "yup";
@@ -8,18 +8,23 @@ import AuthContext from "../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
+import UserDialog from "./UserDialog";
+import EditUser from "./EditUser";
 
 const UserList = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(50);
     const [msg, setMsg] = useState("")
+    const [rowId, setRowId] = useState({});
+const [open, setOpen] = useState(false);
+const [openModal, setOpenModal] = useState(false);
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const {authTokens, success} = useContext(AuthContext)
+    const {authTokens, success, clearSuccess} = useContext(AuthContext)
 
     // useEffect(()=> {
     //     if(success){
@@ -31,10 +36,85 @@ const UserList = () => {
     //     }
     // }, [success])
 
-    console.log('lol', stakeHolderVar);
+    const handleClickModal = () => {
+      setOpenModal(true);
+    };
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+  
+      setOpen(false);
+    };
+  
+
+
+  useEffect(() => {
+    if (success) {
+      setMsg(success);
+      setOpen(true);
+      setInterval(() => {
+        clearSuccess();
+      }, 6000);
+      // alert(success)
+    }
+    // else{
+    //     setMsg(null)
+    // }
+  }, [success]);
+
+  const handleDelete = async (param) => {
+    // //console.log(param.id, "this is the time");
+    // setRowId({...param}.id)
+    if (param) {
+      let response = await fetch(
+        `https://nest-srm.up.railway.app/user-delete/${param.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+        }
+      );
+      let data = await response.json();
+      //console.log(data, "take seripous");
+      // setStakeHolderVar(data["data"])
+      if (response.ok) {
+        // //console.log(response, "erresponse");
+        stakeHolders()
+        ();
+        // setIsLoaded(false);
+        setMsg(data["message"]);
+        setOpen(true);
+      } else {
+        setMsg(data["message"]);
+      }
+      // //console.log(data, "data");
+    }
+  };
+
+  const handleUserEdit = async (param) => {
+    // param.preventDefault()
+    //console.log('i am stake edit', param.id);
+    setRowId({ ...param });
+    handleClickModal();
+  };
+
+
+    // console.log('lol', stakeHolderVar);
 
     const columns = [
-        { field: "id", headerName: "ID", flex: 0.5 },
+        { field: "id", headerName: "ID", flex: 0.5, hide:true },
+        {
+          field: "index",
+          headerName: "S/N",
+          renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
+        },
         // { field: "registrarId", headerName: "Registrar ID" },
         {
           field: "username",
@@ -60,39 +140,70 @@ const UserList = () => {
             flex: 1,
             cellClassName: "name-column--cell",
           },
+          {
+          field: "actions",
+          headerName: "Actions",
+          type: "actions",
+          width: 150,
+          renderCell: (params) => (
+            <UserDialog
+              {...{
+                params,
+                handleDelete,
+                handleUserEdit,
+                handleClickModal,
+                // stakeHolders,
+                // handleStakeEdit,
+              }}
+            />
+          ),
+        },
       ];
+
+      let stakeHolders = async () => {
+        // if(authTokens){
+            let response = await fetch('https://nest-srm.up.railway.app/auth/users/', {
+                method:"GET", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+  
+            })
+            let data = await response.json()
+            console.log("user", data, 'nowowowo');
+            setStakeHolderVar(data["data"])
+            if (response.ok){
+              setIsLoaded(false)
+            }
+            console.log(data, 'data');
+        // }else{
+        //     alert("something went wro")
+        // }
+        
+    }
 
     useEffect(() => {
 
-        let stakeHolders = async () => {
-          // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/auth/users/', {
-                  method:"GET", 
-                  headers: {
-                      'Content-Type' : 'application/json',
-                      'Authorization' : 'Bearer ' + authTokens.token.access
-                  },
-    
-              })
-              let data = await response.json()
-              console.log("user", data, 'nowowowo');
-              setStakeHolderVar(data["data"])
-              if (response.ok){
-                setIsLoaded(false)
-              }
-              console.log(data, 'data');
-          // }else{
-          //     alert("something went wro")
-          // }
-          
-      }
+        
       stakeHolders()
     
       }, [authTokens])
 
     
+
+      
   return (
     <Box m="20px">
+
+<Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={msg ? open : false}
+          onClose={handleClose}
+          message={msg}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
+        />
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="All Admin User" subtitle="all system admin" />
@@ -124,6 +235,9 @@ const UserList = () => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            color: "#000",
+            fontWeight: "bold",
+            fontSize: "20px",
           },
           "& .name-column--cell": {
             color: colors.greenAccent[300],
@@ -152,9 +266,23 @@ const UserList = () => {
           rows={stakeHolderVar}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
           
         />
       </Box>
+      <EditUser 
+      openModal={openModal}
+      handleCloseModal={handleCloseModal}
+      rowId={rowId}
+      />
     </Box>
     )
 }

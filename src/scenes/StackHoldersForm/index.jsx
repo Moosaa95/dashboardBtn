@@ -119,7 +119,13 @@ const StackHolderForm = () => {
   // // console.log('succesfull', success);
 
   const handleChangeImage = (e) => {
-    setImages(URL.createObjectURL(...e.target.files[0]))
+    if (e.target.files[0]){
+
+      setImages(e.target.files[0].name)
+    }
+  }
+  if (images){
+    console.log(images, 'IMAGES');
   }
 
   useEffect(() => {
@@ -746,7 +752,7 @@ if (personName) {
         
         color="secondary">
         add Image
-        <input hidden accept="image/png" multiple type="file" onClick={handleChangeImage} />
+        <input hidden accept="image/png" multiple type="file" onChange={handleChangeImage} />
       </Button>
                  </Box>
 

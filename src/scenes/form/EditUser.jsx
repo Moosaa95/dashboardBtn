@@ -1,24 +1,24 @@
-import {
-  Box,
-  Button,
-  TextField,
-  MenuItem,
-  Snackbar,
-  FormControl,
-  Select,
+import React, { useState, useEffect, useContext } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import {Snackbar, Box, TextField, MenuItem, useMediaQuery, Typography, 
+    Select,
+    OutlinedInput,
   InputLabel,
-  OutlinedInput,
-  Chip, 
+  FormControl,
+  Chip,
 
 } from "@mui/material";
-import { Formik } from "formik";
-import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header";
-import { useContext, useState, useEffect } from "react";
+// import Select from "react-select";
 import AuthContext from "../context/AuthContext";
-import { LoadingButton } from "@mui/lab";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom"
+import { LoadingButton } from '@mui/lab';
+
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,86 +31,78 @@ const MenuProps = {
   },
 };
 
-const Form = () => {
+
+export default function EditStakeholder({
+  openModal,
+  handleCloseModal,
+  handleStakeEdit,
+  rowId,
+}) {
+  const [open, setOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("");
   const [userPermission, setUserPermission] = useState([]);
-  const [loadingBtn, setLoadingBtn] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
-  const [lastName, setLastName] = useState("")
-  const [firstName, setFirsName] = useState("")
-  const [gender, setGender] = useState("")
-  const [email, setEmail] = useState("")
+  
+//   const [nRow, setNRow] = useState() 
+  
+const [loadingBtn, setLoadingBtn] = useState(false);
+
+const navigate  = useNavigate()
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const navigate = useNavigate();
+  const {
+    addStakeHolder,
+    error,
+    success,
+    authTokens,
+    clearError,
+    clearSuccess,
+  } = useContext(AuthContext);
 
-  const { addUser, success, error, clearSuccess, clearError, authTokens } =
-    useContext(AuthContext);
 
-  useEffect(() => {
-    const getPermission = async () => {
-      try {
-        const getPermissionData = await fetch(
-          "https://nest-srm.up.railway.app/auth/sys/permission",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + authTokens.token.access,
-            },
-          }
-        );
-        const permissionJson = await getPermissionData.json();
-        console.log(permissionJson, "ppp");
-        setUserPermission(await permissionJson["data"]);
-        if (getPermissionData.ok) {
-        }
-      } catch (error) {
-        // setErrorMessage(error);
+  let stakeHolders = async () => {
+    // // console.log('POPO BIG CODE', rowId);
+    if(authTokens){
+    let response = await fetch(
+      `https://nest-srm.up.railway.app/auth/user/profile/${rowId.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.token.access,
+        },
       }
-    };
-    getPermission();
-  }, []);
-
-  useEffect(() => {
-    if (success) {
-      // // console.log('hihhh', success)
-      // setMsg(success);
-      setLoadingBtn(false);
-      // setOpen(true);
-      // clearSuccess();
-      // navigate("/user-list");
-    } else {
-      setMsg(error);
-      setLoadingBtn(false);
-      // setLoadingBtn(false);
-      setOpen(true);
-      // clearError();
-      setInterval(() => {
-        clearError();
-      }, 6000);
+    );
+    let data = await response.json();
+    setFirstName(data["data"].first_name);
+    setLastName(data["data"].last_name);
+    setGender(data["data"].gender);
+    setEmail(data["data"].email);
+    // setEmail(data["data"].email);
+    if (response.ok) {
+      setIsLoaded(false);
+      // // console.log("DATA IS POWER", stakeholderVar);
+      // setFirstName(stakeholderVar.first_name)
     }
-  }, [error, success]);
-
-  const handleClose = () => {
-    setOpen(false);
+    // // console.log(data, "data", 'BIG DATA NEX TITME ');
+    }else{
+        alert("something went wro")
+    }
   };
-
-  const handleFormSubmit = (values) => {
-    values.preventDefault()
-    setLoadingBtn(true)
-    // [values].map((value) => {
-      addUser({
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        gender: gender,
-        all_user_permissions_display:personName.map(ind=>ind)
-      });
-    // });
-    // console.log(personName, 'USER VALUES');
-  };
+  useEffect(() => {
+    stakeHolders()
+  
+    // return () => {
+    //   second
+    // }
+  }, [rowId])
 
   const handleSelectChange = (event) => {
     // // console.log(businessSector);
@@ -122,44 +114,101 @@ const Form = () => {
     
     // console.log('target value', value);
     // console.log("================")
-    // console.log(userPermission)
+    // console.log(businessSector)
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
       );
      
     }
+
+
+
+  
+
+ 
+
+  // // console.log('HIGHEER ID IN THE MAKEING ', nRow)
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // // console.log('NROWERS', nRow);
+      // // console.log(e, 'i am form to handle')
+      setLoadingBtn(true)
+    if (rowId) {
+      let response = await fetch(
+        `https://nest-srm.up.railway.app/auth/users/update/${rowId.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name:  lastName ,
+            gender: gender,
+            // user_permission: userPermission,
+            email: email,
+            
+          }),
+        }
+      );
+     
+
+      let data = await response.json();
+      
+      // // console.log(data, "take seripous");
+      // setStakeHolderVar(data["data"])
+      if (response.ok) {
+        // stakeHolders()
+        // console.log(success, 'succeess');
+
+        setOpen(true);
+        setLoadingBtn(false)
+        setMsg(data.message);
+        handleCloseModal()
+        window.location.reload(true);
+        
+        // navigate('/user-list')
+      } else {
+        //   console.log(data);
+        setOpen(true);
+        setLoadingBtn(false)
+        setMsg(data.message);
+        // setInterval(() => {
+        //   clearError()
+        // }, 3000);
+      }
+      // // console.log(data, "data");
+    }
+  };
+
   
 
   return (
-    <Box m="20px" backgroundColor="#292929" width="100%" height="100%">
-      {msg && (
+    <div>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={open}
-          onClose={handleClose}
-          autoHideDuration={6000}
+          open={msg?open : false}
+          onClose={handleCloseModal}
           message={msg}
-          key={"top_center"}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
         />
-      )}
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
-
-      <Box sx={{ width: "600px", margin: "auto", marginTop: "70px" }}>
-        {/* <Formik
-          onSubmit={e=>handleFormSubmit(e)}
-          initialValues={initialValues}
-          validationSchema={checkoutSchema}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-          }) => ( */}
-            <form onSubmit={e=>handleFormSubmit(e)}>
+    
+        <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+       
+        <DialogTitle id="alert-dialog-title">{"Edit Stakeholder"}</DialogTitle>
+        
+        <DialogContent>
+        
+        <form onSubmit={e=>handleFormSubmit(e)}>
               <Box
                 display="grid"
                 gap="30px"
@@ -174,7 +223,7 @@ const Form = () => {
                   type="text"
                   label="First Name"
                   // onBlur={handleBlur}
-                  onChange={e=>setFirsName(e.target.value)}
+                  onChange={e=>setFirstName(e.target.value)}
                   value={firstName}
                   name="firstName"
                   // error={!!touched.firstName && !!errors.firstName}
@@ -270,31 +319,19 @@ const Form = () => {
                   color="secondary"
                   variant="contained"
                 >
-                  Create User
+                  Update User
                 </LoadingButton>
               </Box>
             </form>
-          {/* )}
-        </Formik> */}
-      </Box>
-    </Box>
+          
+        </DialogContent>
+        <DialogActions>
+          {/* <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus> */}
+          {/* Agree
+          </Button> */}
+        </DialogActions>
+      </Dialog>
+    </div>
   );
-};
-
-// const phoneRegExp =
-//   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
-const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  gender: yup.string().required("required"),
-});
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  gender: "",
-};
-
-export default Form;
+}

@@ -2,42 +2,46 @@ import { Delete, Edit, Preview } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import React, {useState} from "react";
 import { Link, Navigate } from "react-router-dom";
+import EditUser from "./EditUser";
 
-export const EngagementDialog = ({ params, handleDelete, handleClickModal, handleEngagementUpdate }) => {
+const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
   const [rowId, setRowId] = useState();
 
   const handleViewClick = (param) => {
-    console.log('hey', param);
-    <Link to={`/stakeholder-detail/${param.value}`}/>
+    // console.log('hey', param);
+    <Link to={`/user-profile/${param.id}`}/>
       
   }
 
-  console.log(params, "pooiuiui");
+  // // console.log(params, "pooiuiui");
   return (
     <Box>
-      {/* <Tooltip title="view project details">
+      <Tooltip title="view User Profile">
         <IconButton onClick={()=> handleViewClick(params)}>
-          <Link to={`/engagement-detail/${params.id}`} >
-
+          <Link to={`/user-profile/${params.id}`} >
           <Preview />
           </Link>
         </IconButton>
       </Tooltip>
-      <Tooltip title="edit project" sx={{color:"#000"}}>
+      <Tooltip title="edit User" sx={{
+        color:"#000"
+      }}>
         <IconButton onClick={()=>{
           // handleClickModal()
-          handleEngagementUpdate(params.row)
+          handleUserEdit(params.row)
           // setRowId(params.id)
         }}>
           <Edit />
         </IconButton>
       </Tooltip>
-      <Tooltip title="delete project" sx={{color:"#000"}}>
+      <Tooltip title="delete User" sx={{color:"#000"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
-      </Tooltip> */}
+      </Tooltip>
       {/* <EditStakeholder rowId={rowId} /> */}
     </Box>
   );
 };
+
+export default Users

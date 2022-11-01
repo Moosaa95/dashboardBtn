@@ -129,7 +129,11 @@ const AddEngagement = () => {
 
     // console.log('i m a stake ', stakeholders);
   return (
-    <Box m="20px">
+    <Box m="20px"
+    backgroundColor="#292929"
+    width="100%"
+    height="100%"
+    >
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="Add Stakeholder Engagement" subtitle="Add your stakeholder business sector" />

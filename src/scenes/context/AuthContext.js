@@ -143,7 +143,7 @@ export const AuthProvider = ({ children }) => {
   //     }
   // }
 
-  let addUser = async ({ first_name, last_name, email, gender }) => {
+  let addUser = async ({ first_name, last_name, email, gender, all_user_permissions_display }) => {
     if (authTokens) {
       let response = await fetch(
         "https://nest-srm.up.railway.app/auth/user/create/",
@@ -158,13 +158,18 @@ export const AuthProvider = ({ children }) => {
             last_name,
             email,
             gender,
+            all_user_permissions_display,
           }),
         }
       );
       let data = await response.json();
+      // console.log(data, 'neh');
       if (response.ok) {
-        setSuccess("User created successfully");
+        setSuccess(data.message);
         navigate("/user-list");
+      }
+      else {
+        setError(data.message)
       }
       // // console.log(data, 'data');
       // if (response.ok){

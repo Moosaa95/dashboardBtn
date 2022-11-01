@@ -29,6 +29,8 @@ import StakeHolders from "./scenes/contacts";
 import { EmailVerify } from "./scenes/EmailVerify";
 import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 import AddProject from "./scenes/project/AddProject"
+import { UserDetail } from "./scenes/form/UserDetails";
+
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
@@ -72,6 +74,7 @@ function App() {
                   element={<StakeholderType />}
                 />
                 <Route path="/user-list" element={<UserList />} />
+                <Route path="/user-profile/:id" element={<UserDetail />} />
                 <Route path="/add-program" element={<AddProgram />} />
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/add-engagement" element={<AddEngagement />} />
