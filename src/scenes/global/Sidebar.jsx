@@ -45,6 +45,8 @@ const Sidebar = () => {
 
 
   const { user, authTokens, logoutUser } = useContext(AuthContext);
+
+  console.log('USER BIG MAN', user);
   
   
 
@@ -86,13 +88,13 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <img
+                {/* <img
                   alt="profile-user"
                   width="104px"
                   height="48px"
                   src={`../../assets/nest-logo.png`}
                   // style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                /> */}
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -100,33 +102,33 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          {/* {!isCollapsed && (
+          {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
+                {/* <img
                   alt="profile-user"
                   width="100px"
-                  height="100px"
-                  // src={`../../assets/user.png`}
+                  height="100px" */}
+                  {/* // src={`../../assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                /> */}
               </Box>
               <Box textAlign="center">
-                {authTokens && <Typography
-                  variant="h2"
+                {user && <Typography
+                  variant="h4"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {authTokens.access}
+                  {`${user.user["first_name"]} ${user.user["last_name"]}`}
                   
                 </Typography>}
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography variant="h5" color={colors.primary[500]}>
         
                 </Typography>
               </Box>
             </Box>
-          )} */}
+          )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item

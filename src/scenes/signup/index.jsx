@@ -94,9 +94,9 @@ const SignUp = () => {
       setMsg(error)
       setOpen(true)
       setLoadingBtn(false);
-      setInterval(() => {
-        clearError()
-      }, 9000);
+      // setInterval(() => {
+      //   clearError()
+      // }, 9000);
 
     }
   }, [error])

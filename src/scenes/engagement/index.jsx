@@ -217,12 +217,12 @@ const Engagements = () => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
-            color: "#000",
+            color: colors.primary[500],
             fontWeight: "bold",
-            fontSize: "15px",
+            
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.primary[500],
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],

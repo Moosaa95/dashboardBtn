@@ -128,19 +128,19 @@ const handleClose = (event, reason) => {
       valueFormatter: (params) => moment(params?.value).format("DD-MM-YYYY"),
     },
 
-    {
-      field: "actions",
-      headerName: "Actions",
-      type: "actions",
-      width: 150,
-      renderCell: (params) => (
-        <ProjectDialog {...{ params, handleDelete, handleProjectEdit }} />
-      ),
-    },
+    // {
+    //   field: "actions",
+    //   headerName: "Actions",
+    //   type: "actions",
+    //   width: 150,
+    //   renderCell: (params) => (
+    //     <ProjectDialog {...{ params, handleDelete, handleProjectEdit }} />
+    //   ),
+    // },
   ];
 
   const handleDelete = () => {
-    console.log("l");
+    // console.log("l");
   };
 
   const handleProjectEdit = () => {
@@ -186,9 +186,11 @@ const handleClose = (event, reason) => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            color: colors.primary[500],
+            fontWeight: "bold",
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.primary[500],
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],

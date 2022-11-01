@@ -139,7 +139,11 @@ useEffect(() => {
     // console.log(values);
   };
   return (
-    <Box m="20px">
+    <Box m="20px"
+    backgroundColor="#292929"
+    width="100%"
+    height="100%"
+    >
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header

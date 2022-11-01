@@ -170,7 +170,7 @@ const Programs = () => {
       };
 
       const handleDelete = async (param) => {
-        console.log(param.id, "this is the time");
+        // console.log(param.id, "this is the time");
         // setRowId(param.id)
         if (param) {
           let response = await fetch(
@@ -187,7 +187,7 @@ const Programs = () => {
           console.log(data, "take seripous");
           // setStakeHolderVar(data["data"])
           if (response.ok) {
-            console.log(response, "erresponse");
+            // console.log(response, "erresponse");
             program();
             // setIsLoaded(false);
             setMsg(data["message"]);
@@ -195,7 +195,7 @@ const Programs = () => {
           } else {
             setMsg(data["message"]);
           }
-          console.log(data, "data");
+          // console.log(data, "data");
         }
       };
     
@@ -242,9 +242,11 @@ const Programs = () => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            color: colors.primary[500],
+            fontWeight: "bold",
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.primary[500],
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],

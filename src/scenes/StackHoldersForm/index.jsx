@@ -121,7 +121,7 @@ const StackHolderForm = () => {
   const handleChangeImage = (e) => {
     if (e.target.files[0]){
 
-      setImages(e.target.files[0].name)
+      setImages(e.target.files[0])
     }
   }
   if (images){
@@ -710,12 +710,13 @@ if (personName) {
 
                   <Box width="50%" height="500%">
                    
-                  <FormControl sx={{ m: 1, width: 300 }}>
+                  <FormControl sx={{ m: 1, width: 300 }} size="small">
         <InputLabel id="demo-multiple-chip-label">Business Sector</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
+          size="small"
           value={personName}
           // itemID={personName}
           // key={personName}
@@ -723,7 +724,7 @@ if (personName) {
           onChange={e=>handleSelectChange(e)}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'no-wrap', gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value.id} label={value.name} />
               ))}

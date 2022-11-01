@@ -15,12 +15,14 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
   console.log(params, "pooiuiui");
   return (
     <Box>
-      <Tooltip title="view project details">
+      <Tooltip title="view Program details">
         <IconButton onClick={()=> handleViewClick(params)}>
           <Preview />
         </IconButton>
       </Tooltip>
-      <Tooltip title="edit project">
+      <Tooltip title="edit Program" sx={{
+        color:"#000"
+      }}>
         <IconButton onClick={()=>{
           // handleClickModal()
           handleProgramEdit(params.row)
@@ -29,8 +31,10 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
           <Edit />
         </IconButton>
       </Tooltip>
-      <Tooltip title="delete project">
-        <IconButton onClick={()=> handleDelete(params)}>
+      <Tooltip title="delete Program" sx={{
+        color:"#000"
+      }}>
+        <IconButton onClick={()=> handleDelete(params)} >
           <Delete />
         </IconButton>
       </Tooltip>

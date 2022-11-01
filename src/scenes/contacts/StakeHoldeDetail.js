@@ -177,7 +177,7 @@ export const StakeHoldeDetail = () => {
           </Grid>
         </Grid>
       </Grid>
-     ): (<Typography>Please wailt</Typography>)}
+     ): (<Typography color="#000">Please wailt</Typography>)}
     </>
     
   )

@@ -52,9 +52,9 @@ const Login = ({setLoggedIn}) => {
       setMsg(error)
       setOpen(true)
       setLoadingBtn(false);
-      setInterval(() => {
-        clearError()
-      }, 6000)
+      // setInterval(() => {
+      //   clearError()
+      // }, 6000)
     }
   }, [error])
 
