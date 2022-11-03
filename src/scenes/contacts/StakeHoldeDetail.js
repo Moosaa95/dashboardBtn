@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import {Link, useParams} from "react-router-dom";
 import Header from '../../components/Header';
 import AuthContext from "../context/AuthContext";
-import { useMediaQuery, Box, Typography, styled,
+import { useMediaQuery, Box, Typography, styled, Stack,
   Grid,
   Paper,
   ButtonBase } from "@mui/material";
@@ -64,120 +64,136 @@ export const StakeHoldeDetail = () => {
 
   return (
     <>
-     {!isLoaded ? (
-      <Grid container spacing={2}
-      justifyContent="center"
-      // alignItems="center"
-      p={15}
-      display="flex"
-      width="100%"
-      height="100%"
-      color="#000"
-      backgroundColor="#eee"
-      >
-        <Grid item width="50%">
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src={stakeholderVar.stakeholder_image} />
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography 
-              fontWeight='bold'
-              fontSize='20px'
-              textTransform='uppercase'
-              variant="h3"
-              gutterBottom component="div">
-                Name: {`${stakeholderVar.first_name} ${stakeholderVar.last_name}`}
-              </Typography>
-
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Address:</span> {stakeholderVar.address}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >State:</span> {stakeholderVar.state}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Country:</span> {stakeholderVar.country}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >City:</span> {stakeholderVar.city}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Business Sector:</span> {stakeholderVar.business_sector}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Business Category:</span> {stakeholderVar.business_category}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Email:</span> {stakeholderVar.email}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Interest:</span> {stakeholderVar.interest}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Postal Code:</span> {stakeholderVar.postal_code}
-              </Typography>
-              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
-                <span
-                style={{
-                  fontWeight:"bold",
-                  textTransform:"uppercase"
-                }}
-                >Phone:</span> {stakeholderVar.phone}
-              </Typography>
-              </Grid>
-            
-          </Grid>
-        </Grid>
-      </Grid>
-     ): (<Typography color="#000">Please wailt</Typography>)}
+      {!isLoaded? (
+        <Stack 
+        color="#000"
+          backgroundColor="#eee"
+          width="100%"
+          height="100%"
+        >
+          <Header title="STAKEHOLDER" subtitle="Stakeholder Profile Page"/>
+            <Stack
+            display="flex"
+            justifyContent="space-between"
+            flexDirection="row"
+            alignItems="center"
+            m="100px"
+            boxShadow="-18px 9px 17px 9px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)"
+            border="none"
+            width="90%"
+            borderRadius="20px"
+            height="50%"
+  
+            >
+              <Box>
+              <Grid item width="50%">
+             <ButtonBase sx={{ width: 128, height: 128 }}>
+               <Img alt="complex" src={stakeholderVar.stakeholder_image} />
+             </ButtonBase>
+           </Grid>
+              </Box>
+              <Box 
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              >
+              <Typography
+                variant="h3"
+                textAlign="center"
+                textTransform="uppercase"
+                fontWeight="bold"
+                mb="20px"
+                color="#e99592"
+                >
+                  Stakeholder Detail
+                </Typography>
+                <Typography 
+                variant='h4'
+                 textTransform="uppercase" 
+                 fontWeight="bold"
+                 color="#70d8bd"
+  
+                
+                >
+                {`${stakeholderVar.first_name} ${stakeholderVar.last_name}`}
+                </Typography>
+                <Typography
+                textAlign="center"
+                variant="h5"
+                >
+                {stakeholderVar.address}
+                </Typography>
+                
+                <Typography
+                textAlign="center"
+                variant="h5"
+                >
+                {stakeholderVar.business_sector.join(", ")}
+                </Typography>
+               
+                <Typography
+                textAlign="center"
+                variant="h5"
+                >
+                {stakeholderVar.interest}
+                </Typography>
+                <Typography
+                 textAlign="center"
+                 variant="h5"
+                >
+                {stakeholderVar.business_category}
+                </Typography>
+  
+              </Box>
+              <Box
+               display="flex"
+               flexDirection="column"
+               alignItems="center"
+               justifyContent="start"
+              >
+                <Typography
+                variant="h3"
+                textAlign="center"
+                textTransform="uppercase"
+                fontWeight="bold"
+                mb="20px"
+                color="#e99592"
+                >
+                  Stakeholder More Info
+                </Typography>
+                <Typography 
+                 textAlign="left"
+                 variant="h5"
+                >
+                {stakeholderVar.country}
+                </Typography>
+               
+               
+                
+                <Typography>
+                {stakeholderVar.state}
+                </Typography>
+                <Typography>
+                {stakeholderVar.city}
+                </Typography>
+                <Typography>
+                {stakeholderVar.phone}
+                </Typography>
+                <Typography
+                >
+                {stakeholderVar.email}
+                </Typography>
+                <Typography>
+                {stakeholderVar.postal_code}
+                </Typography>
+              </Box>
+            </Stack>
+        </Stack>
+      ): (
+        <Typography variant="h2" color="#000" justifyContent="center" textAlign="center">Please Wait....</Typography>
+      )
+      }
     </>
     
   )
@@ -221,3 +237,124 @@ export const StakeHoldeDetail = () => {
 // import Typography from '@mui/material/Typography';
 // import ButtonBase from '@mui/material/ButtonBase';
 
+// <>
+     {/* {!isLoaded ? 
+    //  (
+    //   <Grid container spacing={2}
+    //   justifyContent="center"
+    //   // alignItems="center"
+    //   p={15}
+    //   display="flex"
+    //   width="100%"
+    //   height="100%"
+    //   color="#000"
+    //   backgroundColor="#eee"
+    //   >
+    //      <Header title="STAKEHOLDER" subtitle="Stakeholder Profile Page" />
+        
+    //     <Grid item width="50%">
+    //       <ButtonBase sx={{ width: 128, height: 128 }}>
+    //         <Img alt="complex" src={stakeholderVar.stakeholder_image} />
+    //       </ButtonBase>
+    //     </Grid>
+    //     <Grid item xs={12} sm container>
+    //       <Grid item xs container direction="column" spacing={2}>
+    //         <Grid item xs>
+    //           <Typography 
+    //           fontWeight='bold'
+    //           fontSize='20px'
+    //           textTransform='uppercase'
+    //           variant="h3"
+    //           gutterBottom component="div">
+    //             Name: {`${stakeholderVar.first_name} ${stakeholderVar.last_name}`}
+    //           </Typography>
+
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Address:</span> {stakeholderVar.address}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >State:</span> {stakeholderVar.state}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Country:</span> {stakeholderVar.country}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >City:</span> {stakeholderVar.city}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Business Sector:</span> {stakeholderVar.business_sector}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Business Category:</span> {stakeholderVar.business_category}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Email:</span> {stakeholderVar.email}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Interest:</span> {stakeholderVar.interest}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Postal Code:</span> {stakeholderVar.postal_code}
+    //           </Typography>
+    //           <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+    //             <span
+    //             style={{
+    //               fontWeight:"bold",
+    //               textTransform:"uppercase"
+    //             }}
+    //             >Phone:</span> {stakeholderVar.phone}
+    //           </Typography>
+    //           </Grid>
+            
+    //       </Grid>
+    //     </Grid>
+    //   </Grid>
+    //  )
+    //  : (<Typography color="#000">Please wailt</Typography>)}
+    </> */}
+    

@@ -92,6 +92,7 @@ const StackHolderForm = () => {
   const [stakeholderTypes, setStakeholderTypes] = useState([]);
   const [personId, setPersonId] = useState([]);
   const [images, setImages] = useState(null)
+  const [imgName, setImgName] = useState("choose an image");
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
@@ -123,10 +124,40 @@ const StackHolderForm = () => {
 
       setImages(e.target.files[0])
     }
+    // const reader = new FileReader();
+    // reader.readAsDataURL(e.target.files[0]);
+    // reader.onLoadend = () => {
+    //   setImages(reader.result)
+    // }
+
   }
-  if (images){
-    console.log(images, 'IMAGES');
-  }
+  // let base64code = ""
+  // const handleChangeImage = (e) => {
+  //   const file = e.target.files[0]
+  //   // const reader = new FileReader()
+  //   // console.log(reader, 'reader');
+  //   getbase64(file)
+  // }
+  // const onLoad = (fileString) => {
+
+  //   setImages(fileString)
+  // }
+
+  // const getbase64 = (file) => {
+  //   let reader = new FileReader()
+  //   reader.readAsDataURL(file)
+  //   reader.onload = () => {
+  //     onLoad(reader.result)
+  //   }
+  // }
+  // if (images){
+  //   console.log(images, 'IMAGES');
+  // }
+
+  // const formData = new FormData(form);
+  // if (formData){
+  //   console.log(formData, 'formdata');
+  // }
 
   useEffect(() => {
     if (success) {
@@ -340,7 +371,26 @@ const StackHolderForm = () => {
       // console.log("=======================");
       setLoadingBtn(true)
     // console.log(e, "ation valeue")
-    addStakeHolder({
+    // const formData = new FormData();
+    // formData.append(
+    //   "first_name",firstName
+      // "last_name":lastName, 
+      // "stakeholder_type":stakeholderTypeId,
+      // "business_category":businessCategory,
+      // "business_sector":personName.map(ind => ind.id),
+      // "job_title":jobTitle,
+      // "email" : email,
+      // "phone":phoneNumber, 
+      // "address":address,
+      // "country":countriesId,
+      // "state":statesId, 
+      // "postal_code":postalCode,
+      // "city":cityId,
+      // "interest":interest,
+      // "stakeholder_image": images
+    // )
+    addStakeHolder(
+      {
       first_name:firstName, 
       last_name:lastName, 
       stakeholder_type:stakeholderTypeId,
@@ -356,8 +406,9 @@ const StackHolderForm = () => {
       city:cityId,
       interest:interest,
       stakeholder_image: images
+      }
 
-    })
+    )
   };
 
   

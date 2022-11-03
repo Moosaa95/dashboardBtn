@@ -380,6 +380,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   let addStakeHolder = async ({
+    
     first_name,
     last_name,
     stakeholder_type,
@@ -406,7 +407,8 @@ export const AuthProvider = ({ children }) => {
             "Content-Type": "application/json",
             Authorization: "Bearer " + authTokens.token.access,
           },
-          body: JSON.stringify({
+          body: JSON.stringify
+          ({
             first_name,
             last_name,
             stakeholder_type,
@@ -428,7 +430,7 @@ export const AuthProvider = ({ children }) => {
       let data = await response.json();
       if (response.ok) {
         setSuccess(data);
-        // // console.log(data, 'data');
+        console.log(data, 'data images date whrf');
       } else {
         // setError(data);
       const first_key = Object.keys(data)[0];
