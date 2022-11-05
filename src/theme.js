@@ -57,7 +57,7 @@ export const tokens = (mode) => ({
           400: "#535ac8",
           500: "#122582",
           600: "#868dfb",
-          700: "#E5E5E7", //Table header color
+          700: "#E2EDFC", //Table header color
           800: "#c3c6fd",
           900: "#e1e2fe",
         },

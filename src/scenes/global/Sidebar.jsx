@@ -76,6 +76,7 @@ const Sidebar = () => {
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            sx={{ color: "#122582 !important", }}
             style={{
               margin: "10px 0 20px 0",
               color: "#122582 !important",
@@ -95,7 +96,7 @@ const Sidebar = () => {
                   src={`../../assets/nest-logo.png`}
                   // style={{ cursor: "pointer", borderRadius: "50%" }}
                 /> */}
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <IconButton onClick={() => setIsCollapsed(!isCollapsed)} sx={{ color: "#122582 !important", }}>
                   <MenuOutlinedIcon />
                 </IconButton>
               </Box>
