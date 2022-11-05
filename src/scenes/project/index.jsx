@@ -11,6 +11,7 @@ import AuthContext from "../context/AuthContext";
 import ProjectDialog from "./ProjectDialog";
 import moment from "moment/moment";
 import dayjs from "dayjs";
+import { Add, Download } from "@mui/icons-material";
 
 const Contacts = () => {
   const theme = useTheme();
@@ -160,48 +161,45 @@ const handleClose = (event, reason) => {
         <Header title="All Projects" subtitle="All your Project" />
 
         <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <Link to="/add-project">
-              <SaveOutlined sx={{ mr: "10px" }} />
+          <Link to="/add-project">
+            <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>
+            <Add sx={{ mr: "10px" }} />
               Add Project
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Box>
       </Box>
 
       <Box
         m="40px 0 0 0"
         height="75vh"
+
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
-            color: colors.primary[500],
-            fontWeight: "bold",
+            color: "#6E6B7B",
+            fontWeight: "edium",
           },
           "& .name-column--cell": {
-            color: colors.primary[500],
+            color: "#6E6B7B",
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],
+            color: "#5E5873",
             borderBottom: "none",
+            fontSize: "16px",
+            fontWeight: "bold",
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.primary[400],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#5B5B5B",
+            color: "#5E5873",
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -209,6 +207,10 @@ const handleClose = (event, reason) => {
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
           },
+          boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.12)",
+          padding: "30px 20px 30px 20px",
+          borderRadius: "10px",
+          backgroundColor: "#F6F7F8"
         }}
       >
         <DataGrid

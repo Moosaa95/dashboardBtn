@@ -13,7 +13,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { Add, Download } from "@mui/icons-material";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 import { EngagementDialog } from "./EngagementDialog";
@@ -192,16 +192,8 @@ const Engagements = () => {
 
         <Box>
           <Link to="/add-engagement">
-            <Button
-              sx={{
-                backgroundColor: colors.blueAccent[700],
-                color: colors.grey[100],
-                fontSize: "14px",
-                fontWeight: "bold",
-                padding: "10px 20px",
-              }}
-            >
-              <PersonAddIcon sx={{ mr: "10px" }} />
+            <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>
+            <Add sx={{ mr: "10px" }} />
               Add Engagememt
             </Button>
           </Link>
@@ -211,29 +203,33 @@ const Engagements = () => {
       <Box
         m="40px 0 0 0"
         height="75vh"
+
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
-            color: colors.primary[500],
-            fontWeight: "bold",
-            
+            color: "#6E6B7B",
+            fontWeight: "edium",
           },
           "& .name-column--cell": {
-            color: colors.primary[500],
+            color: "#6E6B7B",
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],
+            color: "#5E5873",
             borderBottom: "none",
+            fontSize: "16px",
+            fontWeight: "bold",
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.primary[400],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#5B5B5B",
+            color: "#5E5873",
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -241,6 +237,10 @@ const Engagements = () => {
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
           },
+          boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.12)",
+          padding: "30px 20px 30px 20px",
+          borderRadius: "10px",
+          backgroundColor: "#F6F7F8"
         }}
       >
         <DataGrid

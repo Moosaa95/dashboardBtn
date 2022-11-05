@@ -33,3 +33,15 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+label#\:r3\:-label {
+  color: #6E6B7B;
+}
+
+label#\:r2\:-label {
+  color: #6E6B7B;
+}
+label#\:r1\:-label {
+  color: #6E6B7B;
+}
+
