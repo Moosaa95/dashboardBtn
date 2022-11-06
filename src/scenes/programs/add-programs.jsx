@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import { LoadingButton } from '@mui/lab';
 
 import Stack from '@mui/material/Stack';
+import { red } from '@mui/material/colors';
 
 
 const AddProgram = () => {
@@ -111,7 +112,7 @@ const AddProgram = () => {
       />
 
       <Box 
-        sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
+        sx={{ width: "600px", margin: "auto", marginTop: "70px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
         >
             <form onSubmit={e=>handleSubmit(e)}>
                 <Box
@@ -134,7 +135,7 @@ const AddProgram = () => {
                     name="programName"
                     // error={!!touched.programName && !!errors.programName}
                     // helperText={touched.programName && errors.programName}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #122582", color: "#000 !important" }}
                 />
                 <TextField
                     fullWidth
@@ -163,7 +164,7 @@ const AddProgram = () => {
                     name="programDescription"
                     // error={!!touched.programDescription && !!errors.programDescription}
                     // helperText={touched.programDescription && errors.programDescription}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", color: red, }}
                 />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Stack spacing={10}>

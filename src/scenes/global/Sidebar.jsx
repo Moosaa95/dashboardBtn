@@ -62,7 +62,7 @@ const Sidebar = () => {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
+          background: "#E2ECFC",
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -74,19 +74,20 @@ const Sidebar = () => {
           color: "#868dfb !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#122582 !important",
         },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
+        <Menu iconShape="square" sx={{ color: "#122582 !important", }}>
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            sx={{ color: "#122582 !important", }}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              color: "#122582 !important",
             }}
           >
             {!isCollapsed && (
@@ -103,7 +104,7 @@ const Sidebar = () => {
                   src={`../../assets/nest-logo.png`}
                   // style={{ cursor: "pointer", borderRadius: "50%" }}
                 /> */}
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <IconButton onClick={() => setIsCollapsed(!isCollapsed)} sx={{ color: "#122582 !important", }}>
                   <MenuOutlinedIcon />
                 </IconButton>
               </Box>

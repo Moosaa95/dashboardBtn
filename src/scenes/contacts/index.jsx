@@ -353,44 +353,48 @@ const StakeHolders = () => {
           startIcon={<Add />}
           onClick={handleOpenUploadModal}
           color="secondary"
+          sx={{ padding: "10px 20px", }}
         >
           Bulk Upload
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
-        <Link to="/add-stakeholder">
-          <Button color="secondary" variant="contained">
-            Add Stakeholder
-          </Button>
-        </Link>
+          <Link to="/add-engagement">
+            <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>
+              <Add sx={{ mr: "10px" }} />
+                Add Engagememt
+            </Button>
+          </Link>
       </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"
+
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
-            
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
-            color: colors.primary[500],
-            fontWeight: "bold",
-            // fontSize: "px",
+            color: "#6E6B7B",
+            fontWeight: "edium",
           },
           "& .name-column--cell": {
-            // color: colors.greenAccent[300],
-            color: colors.primary[500],
+            color: "#6E6B7B",
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],
+            color: "#5E5873",
             borderBottom: "none",
+            fontSize: "16px",
+            fontWeight: "bold",
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.primary[400],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#5B5B5B",
+            color: "#5E5873",
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -398,6 +402,10 @@ const StakeHolders = () => {
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
           },
+          boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.12)",
+          padding: "30px 20px 30px 20px",
+          borderRadius: "10px",
+          backgroundColor: "#F6F7F8"
         }}
       >
         <DataGrid

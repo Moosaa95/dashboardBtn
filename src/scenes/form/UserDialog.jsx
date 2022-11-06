@@ -42,7 +42,7 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
   // // console.log(params, "pooiuiui");
   return (
     <Box>
-      <Tooltip title="view User Profile">
+      <Tooltip title="view User Profile" sx={{ color: "#122582 !important" }}>
         <IconButton onClick={()=> handleViewClick(params)}>
           <Link to={`/user-profile/${params.id}`} >
           <Preview />
