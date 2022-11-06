@@ -9,6 +9,8 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
   const [rowId, setRowId] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isGlobalAdmin, setIsGlobalAdmin] = useState(false);
+  const [canEditUser, setCanEditUser] = useState(false);
+  const [canDeactivateUser, setCanDeactivateUser] = useState(false);
 
   const handleViewClick = (param) => {
     // console.log('hey', param);
@@ -29,12 +31,12 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
         // setCanDeleteStakeholder(true)
         // setCanEditStakeholder(true)
       }
-      // if (authTokens.user.get_user_permissions_list.includes("can_update_stakeholder")){
-      //   setCanEditStakeholder(true)
-      // }
-      // if (authTokens.user.get_user_permissions_list.includes("can_delete_stakeholder")){
-      //   setCanDeleteStakeholder(true)
-      // }
+      if (authTokens.user.get_user_permissions_list.includes("can_update_user")){
+        setCanEditUser(true)
+      }
+      if (authTokens.user.get_user_permissions_list.includes("can_deactivate_user")){
+        setCanDeactivateUser(true)
+      }
     }
   }, [authTokens])
 
@@ -49,7 +51,7 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
           </Link>
         </IconButton>
       </Tooltip>
-      {(isAdmin ||  isGlobalAdmin ) && <Tooltip title="edit User" sx={{
+      {(isAdmin ||  isGlobalAdmin || canEditUser) && <Tooltip title="edit User" sx={{
         color:"#000"
       }}>
         <IconButton onClick={()=>{
@@ -60,7 +62,7 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
           <Edit />
         </IconButton>
       </Tooltip>}
-      {(isAdmin ||  isGlobalAdmin ) && <Tooltip title="delete User" sx={{color:"#000"}}>
+      {(isAdmin ||  isGlobalAdmin || canDeactivateUser) && <Tooltip title="delete User" sx={{color:"#000"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>

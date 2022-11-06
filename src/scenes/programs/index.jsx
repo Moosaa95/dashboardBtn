@@ -38,6 +38,10 @@ const Programs = () => {
     const [pageSize, setPageSize] = useState(50);
     const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
     const [rowId, setRowId] = useState()
+    const [canAddProgram, setCanAddProgram] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isGlobalAdmin, setIsGlobalAdmin] = useState(false);
+    
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -163,6 +167,16 @@ const Programs = () => {
 
     useEffect(() => {
 
+      if (authTokens){
+        if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin") || authTokens.user.get_user_permissions_list.includes("can_add_program") ){
+          setIsAdmin(true)
+          setIsGlobalAdmin(true)
+          setCanAddProgram(true)
+          
+        }
+        
+      }
+
         
       program()
     
@@ -205,6 +219,8 @@ const Programs = () => {
           // console.log(data, "data");
         }
       };
+
+      
     
   return (
     <>
@@ -221,7 +237,8 @@ const Programs = () => {
         />
         <Header title="All Programs" subtitle="All your stakeholder programs" />
 
-        <Box>
+        {
+          (isAdmin || isGlobalAdmin || canAddProgram) && <Box>
           <Link to="/add-program">
             <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>
             <Add sx={{ mr: "10px" }} />
@@ -229,6 +246,7 @@ const Programs = () => {
             </Button>
         </Link>
         </Box>
+        }
       </Box>
 
       <Box

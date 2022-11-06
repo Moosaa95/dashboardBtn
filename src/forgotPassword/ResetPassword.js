@@ -102,14 +102,14 @@ export const ResetPassword = ({setLoggedIn}) => {
     e.preventDefault()
     setLoadingBtn(true);
     if (param){
-      const response = await fetch(`https://nest-srm.up.railway.app/auth/reset-password/${param.uuid64}/${param.token}/password=${password}/`,
+      const response = await fetch(`https://nest-srm.up.railway.app/auth/reset-password/${param.uuid64}/${param.token}/`,
        {
-        method:"GET",
-        // body: JSON.stringify({
-        //   password: e.password,
-        //   uidb64:param.uuid64,
-        //   token: param.token
-        // })
+        method:"POST",
+        body: JSON.stringify({
+          password: password,
+          // uidb64:param.uuid64,
+          // token: param.token
+        })
         
       })
       const data = await response.json()
@@ -211,7 +211,7 @@ export const ResetPassword = ({setLoggedIn}) => {
                 // helperText={touched.password && errors.password}
                 sx={{ gridColumn: "span 4" }}
               />
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="password"
@@ -223,7 +223,7 @@ export const ResetPassword = ({setLoggedIn}) => {
                 // error={!!touched.confirmPassword && !!errors.confirmPassword}
                 // helperText={touched.confirmPassword && errors.confirmPassword}
                 sx={{ gridColumn: "span 4" }}
-              />
+              /> */}
               </Box>
               
               

@@ -27,8 +27,8 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
       if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin")){
         setIsAdmin(true)
         setIsGlobalAdmin(true)
-        setCanDeleteStakeholder(true)
-        setCanEditStakeholder(true)
+        // setCanDeleteStakeholder(true)
+        // setCanEditStakeholder(true)
       }
       if (authTokens.user.get_user_permissions_list.includes("can_update_stakeholder")){
         setCanEditStakeholder(true)
@@ -40,7 +40,7 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
   }, [authTokens])
 
 
-  console.log(isAdmin)
+  // console.log(isAdmin)
 
 
 
