@@ -656,6 +656,7 @@ export default function EditStakeholder({
                 onChange={(e) => handleCountry(e)}
                 name="country"
                 sx={{ gridColumn: "span 4" }}
+                value={countriesId}
               >
                 {countries.map((country, index) => (
                   <MenuItem value={country.country_pk} key={country.country_pk}>

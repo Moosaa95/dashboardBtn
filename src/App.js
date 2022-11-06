@@ -30,6 +30,8 @@ import { EmailVerify } from "./scenes/EmailVerify";
 import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
+import { ResetPassword } from "./forgotPassword/ResetPassword";
+
 
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
@@ -94,6 +96,7 @@ function App() {
                 path="/auth/user/:uuid64/verify/:token"
                 element={<EmailVerify setLoggedIn={setLoggedIn} />}
               />
+              <Route path="/auth/reset-password/:uuid64/:token" element={<ResetPassword setLoggedIn={setLoggedIn} />} />
             </Routes>
           </main>
         </div>

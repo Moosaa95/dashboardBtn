@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme, Button } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -42,11 +42,19 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
 
   const { user, authTokens, logoutUser } = useContext(AuthContext);
 
-  console.log('USER BIG MAN', user);
+  // console.log('USER BIG MAN', user);
+  useEffect(() => {
+    if (user){
+      setFirstName(user?.user["first_name"])
+      setLastName(user?.user["last_name"])
+    }
+  }, [user])
   
   
 
@@ -114,15 +122,15 @@ const Sidebar = () => {
                 /> */}
               </Box>
               <Box textAlign="center">
-                {user && <Typography
+                <Typography
                   variant="h4"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {`${user.user["first_name"]} ${user.user["last_name"]}`}
+                  {`${firstName} ${lastName}`}
                   
-                </Typography>}
+                </Typography>
                 <Typography variant="h5" color={colors.primary[500]}>
         
                 </Typography>

@@ -39,7 +39,7 @@ const Modals = ({ open, handleClose, setOpener, onUploadFiles }) => {
     const formData = new FormData();
 
     formData.append("file", e.target.files[0]);
-    //console.log("FORMDATA", formData);
+    console.log("FORMDATA", formData);
 
     // try {
     //   const response = await fetch("https://datacreds.herokuapp.com/upload", {
@@ -158,6 +158,7 @@ const StakeHolders = () => {
   const [pageSize, setPageSize] = useState(5);
   const [stakeHolderVarCopy, setStakeHolderVarCopy] = useState([]);
   const [openUploadModal, setopenUploadModal] = useState(false);
+  
 
   const { authTokens, addProgram, success, error, clearError, clearSuccess } =
     useContext(AuthContext);
@@ -180,6 +181,10 @@ const StakeHolders = () => {
 
     setOpen(false);
   };
+
+
+  // console.log(authTokens.user.get_user_permissions_list.includes("admin"), 'im user')
+ 
   // //console.log("ikloio");
 
   let stakeHolders = async () => {
@@ -279,6 +284,7 @@ const StakeHolders = () => {
             handleClickModal,
             stakeHolders,
             handleStakeEdit,
+            
           }}
         />
       ),

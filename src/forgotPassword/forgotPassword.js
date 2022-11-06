@@ -72,10 +72,26 @@ const ForgotPassword = () => {
   };
    
   return (
-    <Box m="20px">
+    <Box m="20px"
+    backgroundColor="#292929"
+      width="100%"
+      height="100%"
+    >
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Forgot Password" subtitle="forgot your password?" />
+      <Box mb="30px">
+      <Typography
+        variant="h2"
+        color="#fff"
+        fontWeight="bold"
+        sx={{ m: "0 0 5px 0" }}
+      >
+        Password Reset
+      </Typography>
+      <Typography variant="h5" color="#eee">
+        forgot password
+      </Typography>
+    </Box>
       </Box>
       <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}

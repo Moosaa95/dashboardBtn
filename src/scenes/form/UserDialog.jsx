@@ -1,17 +1,43 @@
 import { Delete, Edit, Preview } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import React, {useState} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { Link, Navigate } from "react-router-dom";
 import EditUser from "./EditUser";
+import AuthContext from "../context/AuthContext";
 
 const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
   const [rowId, setRowId] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isGlobalAdmin, setIsGlobalAdmin] = useState(false);
 
   const handleViewClick = (param) => {
     // console.log('hey', param);
     <Link to={`/user-profile/${param.id}`}/>
       
   }
+
+  const { authTokens} = useContext(AuthContext);
+
+
+  // console.log(authTokens, 'nice')
+
+  useEffect(() => {
+    if (authTokens){
+      if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin")){
+        setIsAdmin(true)
+        setIsGlobalAdmin(true)
+        // setCanDeleteStakeholder(true)
+        // setCanEditStakeholder(true)
+      }
+      // if (authTokens.user.get_user_permissions_list.includes("can_update_stakeholder")){
+      //   setCanEditStakeholder(true)
+      // }
+      // if (authTokens.user.get_user_permissions_list.includes("can_delete_stakeholder")){
+      //   setCanDeleteStakeholder(true)
+      // }
+    }
+  }, [authTokens])
+
 
   // // console.log(params, "pooiuiui");
   return (
@@ -23,7 +49,7 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
           </Link>
         </IconButton>
       </Tooltip>
-      <Tooltip title="edit User" sx={{
+      {(isAdmin ||  isGlobalAdmin ) && <Tooltip title="edit User" sx={{
         color:"#000"
       }}>
         <IconButton onClick={()=>{
@@ -33,12 +59,12 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
         }}>
           <Edit />
         </IconButton>
-      </Tooltip>
-      <Tooltip title="delete User" sx={{color:"#000"}}>
+      </Tooltip>}
+      {(isAdmin ||  isGlobalAdmin ) && <Tooltip title="delete User" sx={{color:"#000"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
-      </Tooltip>
+      </Tooltip>}
       {/* <EditStakeholder rowId={rowId} /> */}
     </Box>
   );

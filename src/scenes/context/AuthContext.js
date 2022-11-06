@@ -143,7 +143,13 @@ export const AuthProvider = ({ children }) => {
   //     }
   // }
 
-  let addUser = async ({ first_name, last_name, email, gender, all_user_permissions_display }) => {
+  let addUser = async ({
+    first_name,
+    last_name,
+    email,
+    gender,
+    all_user_permissions_display,
+  }) => {
     if (authTokens) {
       let response = await fetch(
         "https://nest-srm.up.railway.app/auth/user/create/",
@@ -167,9 +173,8 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         setSuccess(data.message);
         navigate("/user-list");
-      }
-      else {
-        setError(data.message)
+      } else {
+        setError(data.message);
       }
       // // console.log(data, 'data');
       // if (response.ok){
@@ -291,14 +296,14 @@ export const AuthProvider = ({ children }) => {
         navigate("/project");
       } else {
         const first_key = Object.keys(data)[0];
-      const messages = {
-        message:
-          first_key.charAt(0).toUpperCase() +
-          first_key.slice(1) +
-          ": " +
-          data[first_key][0],
-      };
-      setError(messages.message);
+        const messages = {
+          message:
+            first_key.charAt(0).toUpperCase() +
+            first_key.slice(1) +
+            ": " +
+            data[first_key][0],
+        };
+        setError(messages.message);
       }
       // // console.log(data, 'DATA');
     } else {
@@ -341,8 +346,8 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         navigate("/engagements");
         setSuccess("successfully add engagement");
-      }else{
-        setError("something went wrong")
+      } else {
+        setError("something went wrong");
       }
       // // console.log(data, 'data');
     } else {
@@ -379,24 +384,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  let addStakeHolder = async ({
-    
-    first_name,
-    last_name,
-    stakeholder_type,
-    business_category,
-    business_sector,
-    job_title,
-    email,
-    phone,
-    address,
-    city,
-    state,
-    country,
-    postal_code,
-    interest,
-    stakeholder_image,
-  }) => {
+  let addStakeHolder = async (
+    // {
+    // first_name,
+    // last_name,
+    // stakeholder_type,
+    // business_category,
+    // business_sector,
+    // job_title,
+    // email,
+    // phone,
+    // address,
+    // city,
+    // state,
+    // country,
+    // postal_code,
+    // interest,
+    // stakeholder_image,
+    // }
+    formdata
+  ) => {
     // // console.log('hi insde dstkaeholdwe');
     if (authTokens) {
       let response = await fetch(
@@ -404,44 +411,45 @@ export const AuthProvider = ({ children }) => {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             Authorization: "Bearer " + authTokens.token.access,
           },
-          body: JSON.stringify
-          ({
-            first_name,
-            last_name,
-            stakeholder_type,
-            business_category,
-            business_sector,
-            job_title,
-            email,
-            phone,
-            address,
-            city,
-            state,
-            country,
-            postal_code,
-            interest,
-            stakeholder_image,
-          }),
+          // body: JSON.stringify
+          // ({
+          //   first_name,
+          //   last_name,
+          //   stakeholder_type,
+          //   business_category,
+          //   business_sector,
+          //   job_title,
+          //   email,
+          //   phone,
+          //   address,
+          //   city,
+          //   state,
+          //   country,
+          //   postal_code,
+          //   interest,
+          //   stakeholder_image,
+          // }),
+          body: formdata,
         }
       );
       let data = await response.json();
       if (response.ok) {
         setSuccess(data);
-        console.log(data, 'data images date whrf');
+        console.log(data, "data images date whrf");
       } else {
         // setError(data);
-      const first_key = Object.keys(data)[0];
-      const messages = {
-        message:
-          first_key.charAt(0).toUpperCase() +
-          first_key.slice(1) +
-          ": " +
-          data[first_key][0],
-      };
-      setError(messages.message);
+        const first_key = Object.keys(data)[0];
+        const messages = {
+          message:
+            first_key.charAt(0).toUpperCase() +
+            first_key.slice(1) +
+            ": " +
+            data[first_key][0],
+        };
+        setError(messages.message);
       }
     } else {
       alert("something went wrong");
@@ -467,11 +475,10 @@ export const AuthProvider = ({ children }) => {
       );
       // // console.log("hiiiierhjfdjhdnsf", data);
       let data = await response.json();
-      if (response.ok){
+      if (response.ok) {
         setSuccess(data);
-
-      }else{
-        setError(data)
+      } else {
+        setError(data);
       }
       // // console.log(accessResponse, 'opopopopo');
       // if (accessResponse && accessResponse.user) {
@@ -534,7 +541,7 @@ export const AuthProvider = ({ children }) => {
     // stakeHolderVar: stakeHolderVar,
     error: error,
     success: success,
-    addProject:addProject,
+    addProject: addProject,
     loginUser: loginUser,
     registerUser: registerUser,
     logoutUser: logoutUser,
