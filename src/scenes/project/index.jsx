@@ -214,6 +214,9 @@ const handleClose = (event, reason) => {
         }}
       >
         <DataGrid
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
           loading={isLoaded}
           rows={projectVar}
           columns={columns}

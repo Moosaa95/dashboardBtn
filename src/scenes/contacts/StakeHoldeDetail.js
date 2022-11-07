@@ -19,6 +19,10 @@ import { useMediaQuery, Box, Typography, styled, Stack,
 export const StakeHoldeDetail = () => {
   const [stakeholderVar, setStakeHolderVar] = useState([])
   const [isLoaded, setIsLoaded]= useState(true);
+  const [businessSectors, setBusinessSectors] = useState([])
+  const [country, setCountry] = useState([])
+  const [city, setCity] = useState([])
+  const [state, setState] = useState([])
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -45,6 +49,10 @@ export const StakeHoldeDetail = () => {
       setStakeHolderVar(data["data"]);
       if (response.ok) {
         setIsLoaded(false);
+        setBusinessSectors(data["data"].business_sectors.map(nom => nom.name))
+        setCountry([data["data"].country_full_data].map(nom => nom.name))
+        setState([data["data"].state_full_data].map(ind=>ind.name))
+        setCity([data["data"].city_full_data].map(ind=>ind.city))
       }
       // console.log(data, "data");
       }else{
@@ -155,7 +163,7 @@ export const StakeHoldeDetail = () => {
                   variant='h5'
                   textAlign="left"
                   >
-                    {stakeholderVar.business_sector.join(", ")}
+                    {businessSectors.join(", ")}
                   </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -222,7 +230,7 @@ export const StakeHoldeDetail = () => {
                   variant='h5'
                   textAlign="left"
                   >
-                    {stakeholderVar.country}
+                    {country}
                   </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -239,7 +247,7 @@ export const StakeHoldeDetail = () => {
                   variant='h5'
                   textAlign="left"
                   >
-                    {stakeholderVar.state}
+                    {state}
                   </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -256,7 +264,7 @@ export const StakeHoldeDetail = () => {
                   variant='h5'
                   textAlign="left"
                   >
-                    {stakeholderVar.city}
+                    {city}
                   </Typography>
               </Grid>
               <Grid item xs={4}>

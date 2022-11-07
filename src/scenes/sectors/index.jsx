@@ -132,6 +132,9 @@ const Sectors = () => {
         }}
       >
         <DataGrid
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}

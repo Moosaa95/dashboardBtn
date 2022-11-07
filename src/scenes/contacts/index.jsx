@@ -26,6 +26,8 @@ const Modals = ({ open, handleClose, setOpener, onUploadFiles }) => {
   const [fileList, setFileList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [close, setClose] = useState(true);
+
+  const {authTokens} = useContext(AuthContext)
   //console.log("hey", fileList);
 
   // const onDragEnter = () => wrapperRef.current.classList.add('dragover')
@@ -39,28 +41,32 @@ const Modals = ({ open, handleClose, setOpener, onUploadFiles }) => {
     const formData = new FormData();
 
     formData.append("file", e.target.files[0]);
-    console.log("FORMDATA", formData);
+    // console.log("FORMDATA", formData);
 
-    // try {
-    //   const response = await fetch("https://datacreds.herokuapp.com/upload", {
-    //     method: "POST",
-    //     mode: "cors",
-    //     body: formData,
-    //   });
+    
+    try{
+      const response = await fetch("https://nest-srm.up.railway.app/stakeholder-bulk-upload", {
+        method: "POST",
+        // mode: "cors",
+        headers: {
+          Authorization: "Bearer " + authTokens.token.access,
+        },
+        body: formData,
+      });
 
-    //   if (response.ok) {
-    //     window.location.reload(true);
-    //   }
-    //   const data = await response.json();
-    // } catch (err) {
-    //   //console.error("error", err);
-    // }
+      if (response.ok) {
+        window.location.reload(true);
+      }
+      const data = await response.json();
+    } catch (err) {
+      console.error("error", err);
+    }
     // .then(res => res.json())
     // .then(data => {
     //   setIsLoaded(true);
 
     // })
-    // .catch(err=>//console.error('error', err))
+    // .catch(err=>console.error('error', err))
   }
 
   // const onFile
@@ -366,17 +372,17 @@ const StakeHolders = () => {
           (isAdmin || isGlobalAdmin || canAddStakeholder || isAdminAssistant)  && 
           (
           <>
-          <Button
+          {/* <Button
           variant="contained"
           component="label"
           startIcon={<Add />}
           onClick={handleOpenUploadModal}
           color="secondary"
           sx={{ padding: "10px 20px", }}
-        >
-          Bulk Upload
+        > */}
+          {/* Bulk Upload */}
           {/* <input hidden accept="image/*" multiple type="file" /> */}
-        </Button>
+        {/* </Button> */}
           <Link to="/add-stakeholder">
             <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>
               <Add sx={{ mr: "10px" }} />
@@ -431,6 +437,9 @@ const StakeHolders = () => {
         }}
       >
         <DataGrid
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}
