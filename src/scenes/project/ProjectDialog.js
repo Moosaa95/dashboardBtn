@@ -1,39 +1,72 @@
 import { Delete, Edit, Preview } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import React, {useState} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { Link, Navigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
-const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProgramEdit }) => {
+const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProjectEdit }) => {
   const [rowId, setRowId] = useState();
+  const [canEditProject, setCanEditProject] = useState(false);
+  const [canDeleteProject, setCanDeleteProject] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isGlobalAdmin, setIsGlobalAdmin] = useState(false)
+
+
 
   const handleViewClick = (param) => {
-    console.log('hey', param);
+    // console.log('hey', param);
     <Link to={`/stakeholder-detail/${param.value}`}/>
       
   }
 
-  console.log(params, "pooiuiui");
+  // console.log(params, "pooiuiui");
+  const { authTokens} = useContext(AuthContext)
+
+
+  // console.log(authTokens, 'nice')
+
+  useEffect(() => {
+    if (authTokens){
+      if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin")){
+        setIsAdmin(true)
+        setIsGlobalAdmin(true)
+        // setCanDeleteStakeholder(true)
+        // setCanEditStakeholder(true)
+      }
+      if (authTokens.user.get_user_permissions_list.includes("can_update_project")){
+        setCanEditProject(true)
+      }
+      if (authTokens.user.get_user_permissions_list.includes("can_delete_project")){
+        setCanDeleteProject(true)
+      }
+    }
+  }, [authTokens])
+
   return (
     <Box>
-      <Tooltip title="view project details">
+      {/* <Tooltip title="view project details">
         <IconButton onClick={()=> handleViewClick(params)}>
           <Preview />
         </IconButton>
-      </Tooltip>
-      <Tooltip title="edit project">
+      </Tooltip> */}
+      {/* {
+        (isAdmin || canEditProject || isGlobalAdmin) &&
+        <Tooltip title="edit project">
         <IconButton onClick={()=>{
           // handleClickModal()
-          handleProgramEdit(params.row)
+          handleProjectEdit(params.row)
           // setRowId(params.id)
         }}>
           <Edit />
         </IconButton>
-      </Tooltip>
-      <Tooltip title="delete project">
+      </Tooltip>} */}
+      {
+        (isAdmin || canDeleteProject || isGlobalAdmin) &&
+        <Tooltip title="delete project">
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
-      </Tooltip>
+      </Tooltip>}
       {/* <EditStakeholder rowId={rowId} /> */}
     </Box>
   );

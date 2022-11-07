@@ -12,6 +12,7 @@ import ProjectDialog from "./ProjectDialog";
 import moment from "moment/moment";
 import dayjs from "dayjs";
 import { Add, Download } from "@mui/icons-material";
+import UpdateProject from "./UpdateProject";
 
 const Contacts = () => {
   const theme = useTheme();
@@ -19,16 +20,32 @@ const Contacts = () => {
   const [projectVar, setProjectVar] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
   const [pageSize, setPageSize] = useState(5);
-  const [msg, setMessage] = useState("")
+  const [msg, setMsg] = useState("")
   const [open, setOpen] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
+  const [rowId, setRowId] = useState();
 
-  console.log("ikloio");
+  // console.log("ikloio");
 
-  const { authTokens } = useContext(AuthContext);
+  const { authTokens, success, clearSuccess } = useContext(AuthContext);
 
   // console.log('lol', stakeHolderVar);
 
   useEffect(() => {
+    if (success) {
+      setMsg(success);
+      setOpen(true);
+      setInterval(() => {
+        clearSuccess();
+      }, 6000);
+      // alert(success)
+    }
+    // else{
+    //     setMsg(null)
+    // }
+  }, [success]);
+
+
   let project = async () => {
     // if(authTokens){
     let response = await fetch(
@@ -52,6 +69,9 @@ const Contacts = () => {
     //     alert("something went wro")
     // }
   };
+
+  useEffect(() => {
+    
   project();
 }, [authTokens]);
 
@@ -110,16 +130,16 @@ const handleClose = (event, reason) => {
     //   headerName: "Tenant",
     //   flex: 1,
     // },
-    {
-      field: "start_date",
-      headerName: "Start Date",
-      flex: 1,
-      cellClassName: "name-column--cell1",
-      valueFormatter: (params) => (
-        console.log(params, 'date params')
-        // moment(params?.value).format("DD-MM-YYYY"),
-      )
-    },
+    // {
+    //   field: "start_date",
+    //   headerName: "Start Date",
+    //   flex: 1,
+    //   cellClassName: "name-column--cell1",
+    //   valueFormatter: (params) => (
+    //     console.log(params, 'date params')
+    //     // moment(params?.value).format("DD-MM-YYYY"),
+    //   )
+    // },
 
     {
       field: "end_date",
@@ -129,23 +149,58 @@ const handleClose = (event, reason) => {
       valueFormatter: (params) => moment(params?.value).format("DD-MM-YYYY"),
     },
 
-    // {
-    //   field: "actions",
-    //   headerName: "Actions",
-    //   type: "actions",
-    //   width: 150,
-    //   renderCell: (params) => (
-    //     <ProjectDialog {...{ params, handleDelete, handleProjectEdit }} />
-    //   ),
-    // },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
+      width: 150,
+      renderCell: (params) => (
+        <ProjectDialog {...{ params, handleDelete, handleProjectEdit }} />
+      ),
+    },
   ];
 
-  const handleDelete = () => {
-    // console.log("l");
+  const handleDelete = async (param) => {
+    // console.log(param.id, "this is the time");
+    // setRowId(param.id)
+    if (param) {
+      let response = await fetch(
+        `https://nest-srm.up.railway.app/project-delete/${param.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+        }
+      );
+      let data = await response.json();
+      // console.log(data, "take seripous");
+      // setStakeHolderVar(data["data"])
+      if (response.ok) {
+        // console.log(response, "erresponse");
+        project();
+        // setIsLoaded(false);
+        setMsg(data["message"]);
+        setOpen(true);
+      } else {
+        setMsg(data["message"]);
+      }
+      // console.log(data, "data");
+    }
+  };
+  const handleClickModal = () => {
+    setOpenModal(true);
   };
 
-  const handleProjectEdit = () => {
-    console.log("pop");
+  const handleProjectEdit = async (param) => {
+    // console.log("ENGAGEMENT, ", param)
+    setRowId(param);
+    handleClickModal();
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
   return (
     <Box m="20px">
@@ -234,6 +289,11 @@ const handleClose = (event, reason) => {
           
         />
       </Box>
+      <UpdateProject 
+      openModal={openModal}
+      handleCloseModal={handleCloseModal}
+      rowId={rowId}
+      />
     </Box>
   );
 };

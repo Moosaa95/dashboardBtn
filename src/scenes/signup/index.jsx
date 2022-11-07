@@ -528,10 +528,10 @@ const checkoutSchema = yup.object().shape({
     .required("Required"),
   country: yup.string()
   .required("Required"),
-  city: yup.string()
-  .required("Required"),
-  state: yup.string()
-  .required("Required")
+  // city: yup.string()
+  // .required("Required"),
+  // state: yup.string()
+  // .required("Required")
 });
 const initialValues = {
   adminFirstName: "",

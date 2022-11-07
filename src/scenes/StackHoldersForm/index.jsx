@@ -581,42 +581,7 @@ const StackHolderForm = () => {
               // helperText={touched.postalCode && errors.postalCode}
               sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
-            {/* <label className="form-label" htmlFor="basicSelect">
-                            Business Sector
-                          </label> */}
-            {/* <select className="form-select" id="basicSelect" */}
-            {/* // onChange={e=>handleBusinessSector(e)} */}
-            {/* / name="business_sector" */}
-            {/* > */}
-            {/* <option>Select a Business Sector</option> */}
-            {/* {isLoaded && 
-                              <Select
-                              isMulti
-                              name="businessSector" */}
-            {/* // defaultInputValue={[businessOptions["value"]]}
-                              className="basic-multi-select"
-                              classNamePrefix="select"
-                              onChange={handleBusinessSector}
-                              // getOptionValue={displayValue}
-                              // onClick={handleClick}
-                              // value={displayValue}
-                              
-                              // value={multiSelect}
-                              theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 0,
-                                colors: {
-                                ...theme.colors,
-                                  text: '#000',
-                                  primary25: 'hotpink',
-                                  primary: '#000',
-                                  
-                                },
-                              })}
-                            
-                              options={bus} /> */}
-
-            {/* } */}
+          
 
             <TextField
               fullWidth
