@@ -140,7 +140,7 @@ useEffect(() => {
   };
   return (
     <Box m="20px"
-    backgroundColor="#292929"
+    backgroundColor="#fff"
     width="100%"
     height="100%"
     >
@@ -160,7 +160,7 @@ useEffect(() => {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       />
 
-      <Box sx={{ width: "600px", margin: "auto", marginTop: "70px" }}>
+      <Box sx={{ width: "800px", margin: "auto", marginTop: "20px",  padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem"  }}>
         <form onSubmit={(e) => handleSubmit(e)}>
           <Box
             display="grid"
@@ -220,7 +220,7 @@ useEffect(() => {
               name="project_name"
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
-              sx={{ gridColumn: "span 4" }}
+              sx={{ gridColumn: "span 2" }}
             />
             <TextField
               fullWidth

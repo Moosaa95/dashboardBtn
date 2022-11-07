@@ -95,6 +95,8 @@ const AddProgram = () => {
         // })
         // // console.log(values);
     };
+
+    
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -112,7 +114,7 @@ const AddProgram = () => {
       />
 
       <Box 
-        sx={{ width: "600px", margin: "auto", marginTop: "70px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
+        sx={{ width: "800px", margin: "auto", marginTop: "20px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
         >
             <form onSubmit={e=>handleSubmit(e)}>
                 <Box
@@ -135,7 +137,8 @@ const AddProgram = () => {
                     name="programName"
                     // error={!!touched.programName && !!errors.programName}
                     // helperText={touched.programName && errors.programName}
-                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #122582", color: "#000 !important" }}
+                    sx={{ input: { color: 'red' }, gridColumn: "span 4", borderBottom: "1px solid #6E6B7B", }}
+                    // sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B", color: "#000 !important" }}
                 />
                 <TextField
                     fullWidth
@@ -148,7 +151,7 @@ const AddProgram = () => {
                     name="organizerSponsor"
                     // error={!!touched.organizerSponsor && !!errors.organizerSponsor}
                     // helperText={touched.organizerSponsor && errors.organizerSponsor}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B", }}
                 />
                 <TextField
                     id="filled-multiline-flexible"
@@ -164,13 +167,13 @@ const AddProgram = () => {
                     name="programDescription"
                     // error={!!touched.programDescription && !!errors.programDescription}
                     // helperText={touched.programDescription && errors.programDescription}
-                    sx={{ gridColumn: "span 4", color: red, }}
+                    sx={{ gridColumn: "span 4", color: "#6E6B7B", borderBottom: "1px solid #6E6B7B", }}
                 />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Stack spacing={10}>
                         <DesktopDatePicker
                             fullWidth
-                            label="Date desktop"
+                            label="Approved Date"
                             value={value}
                             name="dateApproved"
                             onChange={(newValue) => {
@@ -178,7 +181,7 @@ const AddProgram = () => {
                             }}
                             // error={!!touched.programDescription && !!errors.programDescription}
                             // helperText={touched.programDescription && errors.programDescription}
-                            sx={{ gridColumn: "span 4" }}
+                            sx={{ gridColumn: "span 4", border: "1px solid #122582", backgroundColor: "red !important" }}
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </Stack>

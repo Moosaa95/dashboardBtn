@@ -132,7 +132,7 @@ const Form = () => {
   
 
   return (
-    <Box m="20px" backgroundColor="#292929" width="100%" height="100%">
+    <Box m="20px" backgroundColor="#fff" width="100%" height="100%">
       {msg && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -145,7 +145,7 @@ const Form = () => {
       )}
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
 
-      <Box sx={{ width: "600px", margin: "auto", marginTop: "70px" }}>
+      <Box sx={{ width: "800px", margin: "auto", marginTop: "70px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
         {/* <Formik
           onSubmit={e=>handleFormSubmit(e)}
           initialValues={initialValues}

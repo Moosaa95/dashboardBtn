@@ -445,7 +445,7 @@ const StackHolderForm = () => {
     // console.log("I AM A PERSON NAME", personName)
   }
   return (
-    <Box m="20px" backgroundColor="#292929" width="100%" height="100%">
+    <Box m="20px" width="100%" height="100%">
       {msg && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -456,11 +456,11 @@ const StackHolderForm = () => {
           key={"top_center"}
         />
       )}
-      <Box display="flex" justifyContent="center" alignItems="center">
+      <Box display="flex" justifyContent="left" alignItems="left">
         <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
       </Box>
 
-      <Box sx={{ width: "800px", margin: "auto", marginTop: "70px" }}>
+      <Box  sx={{ width: "1000px", margin: "auto", marginTop: "20px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
         <form onSubmit={(e) => handleSubmit(e)} encType="multipart/form-data">
           <Box
             display="grid"
@@ -481,7 +481,7 @@ const StackHolderForm = () => {
               name="firstName"
               // error={!!touched.firstName && !!errors.firstName}
               // helperText={touched.firstName && errors.firstName}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             <TextField
               fullWidth
@@ -494,7 +494,7 @@ const StackHolderForm = () => {
               name="LastName"
               // error={lastName ? && !!errors.lastName}
               // helperText={touched.lastName && errors.lastName}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             <TextField
               fullWidth
@@ -507,7 +507,7 @@ const StackHolderForm = () => {
               name="email"
               // error={!!touched.email && !!errors.email}
               // helperText={touched.email && errors.email}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             <TextField
               fullWidth
@@ -521,7 +521,7 @@ const StackHolderForm = () => {
               name="business_category"
               // error={!!touched.stakeholderType && !!errors.stakeholderType}
               // helperText={touched.stakeholderType && errors.stakeholderType}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             >
               {/* <MenuItem value="OLD">OLD</MenuItem> */}
               <MenuItem value="STARTUP">STARTUP</MenuItem>
@@ -540,7 +540,7 @@ const StackHolderForm = () => {
               name="interest"
               // error={!!touched.interest && !!errors.interest}
               // helperText={touched.interest && errors.interest}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
 
             <TextField
@@ -555,7 +555,7 @@ const StackHolderForm = () => {
               name="stakeholder_type"
               // error={!!touched.country && !!errors.country}
               // helperText={touched.country && errors.country}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
               // onClick={setCountriesId(values.country)}
             >
               {stakeholderTypes.map((holder, index) => (
@@ -575,7 +575,7 @@ const StackHolderForm = () => {
               name="jobTitle"
               // error={!!touched.jobTitle && !!errors.jobTitle}
               // helperText={touched.jobTitle && errors.jobTitle}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             <TextField
               fullWidth
@@ -588,7 +588,7 @@ const StackHolderForm = () => {
               name="postalCode"
               // error={!!touched.postalCode && !!errors.postalCode}
               // helperText={touched.postalCode && errors.postalCode}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             {/* <label className="form-label" htmlFor="basicSelect">
                             Business Sector
@@ -638,7 +638,7 @@ const StackHolderForm = () => {
               name="phoneNumber"
               // error={!!touched.phoneNumber && !!errors.phoneNumber}
               // helperText={touched.phoneNumber && errors.phoneNumber}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             <TextField
               fullWidth
@@ -651,7 +651,7 @@ const StackHolderForm = () => {
               name="address"
               // error={!!touched.address && !!errors.address}
               // helperText={touched.address && errors.address}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
             <TextField
               fullWidth
@@ -665,7 +665,7 @@ const StackHolderForm = () => {
               name="country"
               // error={!!touched.country && !!errors.country}
               // helperText={touched.country && errors.country}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
               // onClick={setCountriesId(values.country)}
             >
               {countries.map((country, index) => (
@@ -686,7 +686,7 @@ const StackHolderForm = () => {
               name="state"
               // error={!!touched.state && !!errors.state}
               // helperText={touched.state && errors.state}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
               // onClick={setStatesId(values.state)}
             >
               {state.map((stat, index) => (
@@ -707,7 +707,7 @@ const StackHolderForm = () => {
               name="city"
               // error={!!touched.city && !!errors.city}
               // helperText={touched.city && errors.city}
-              sx={{ gridColumn: "span 2" }}
+              sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
               // onClick={setCityId(values.city)}
             >
               {city.map((cit, index) => (
