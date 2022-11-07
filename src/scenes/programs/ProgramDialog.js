@@ -35,7 +35,7 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
     }
   }, [authTokens])
 
-  console.log(canEditProgram, "YHHHHHpooiuiui");
+  // console.log(canEditProgram, "YHHHHHpooiuiui");
   return (
     <Box>
       {/* <Tooltip title="view Program details" sx={{color:"#122582" }} >

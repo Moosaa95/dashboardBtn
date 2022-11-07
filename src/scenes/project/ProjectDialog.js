@@ -62,7 +62,7 @@ const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProjectE
       </Tooltip>} */}
       {
         (isAdmin || canDeleteProject || isGlobalAdmin) &&
-        <Tooltip title="delete project">
+        <Tooltip title="delete project" >
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
