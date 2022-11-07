@@ -31,6 +31,7 @@ import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
 import { ResetPassword } from "./forgotPassword/ResetPassword";
+import './index.css'
 
 
 

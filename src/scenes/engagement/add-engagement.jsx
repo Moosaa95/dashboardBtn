@@ -232,7 +232,7 @@ const AddEngagement = () => {
                 >
                  {projects && projects.map((proj, index) => (
                     <MenuItem value={proj.id} key={proj.id}>
-                        {proj.program}
+                        {proj.project_name}
                     </MenuItem>
                     ))}
                     </TextField>
