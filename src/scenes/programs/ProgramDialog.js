@@ -38,14 +38,14 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
   console.log(canEditProgram, "YHHHHHpooiuiui");
   return (
     <Box>
-      <Tooltip title="view Program details">
+      <Tooltip title="view Program details" sx={{color:"#122582" }} >
         <IconButton onClick={()=> handleViewClick(params)}>
           <Preview />
         </IconButton>
       </Tooltip>
      {
        (isAdmin || canEditProgram || isGlobalAdmin ) &&  <Tooltip title="edit Program" sx={{
-        color:"#000"
+        color:"#122582"
       }}>
         <IconButton onClick={()=>{
           // handleClickModal()
@@ -58,7 +58,7 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
      }
      {
        (isAdmin || canDeleteProgram || isGlobalAdmin ) &&  <Tooltip title="delete Program" sx={{
-        color:"#000"
+        color:"red"
       }}>
         <IconButton onClick={()=> handleDelete(params)} >
           <Delete />
