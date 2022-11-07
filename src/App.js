@@ -32,6 +32,7 @@ import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
 import { ResetPassword } from "./forgotPassword/ResetPassword";
 import Settings from "./scenes/generalsettings";
+import { EngagementDetail } from "./scenes/engagement/EngagementDetail";
 
 
 
@@ -79,6 +80,7 @@ function App() {
                 />
                 <Route path="/user-list" element={<UserList />} />
                 <Route path="/user-profile/:id" element={<UserDetail />} />
+                <Route path="/engagement-detail/:id" element={<EngagementDetail />} />
                 <Route path="/add-program" element={<AddProgram />} />
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/add-engagement" element={<AddEngagement />} />

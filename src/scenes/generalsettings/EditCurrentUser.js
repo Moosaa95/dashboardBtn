@@ -143,7 +143,7 @@ const navigate  = useNavigate()
      
     }
 
-    console.log(rowId, 'row id row');
+    // console.log(rowId, 'row id row');
 
 
 

@@ -15,7 +15,7 @@ export const EngagementDialog = ({ params, handleDelete, handleClickModal, handl
   console.log(params, "pooiuiui");
   return (
     <Box>
-      {/* <Tooltip title="view project details">
+      <Tooltip title="view project details">
         <IconButton onClick={()=> handleViewClick(params)}>
           <Link to={`/engagement-detail/${params.id}`} >
 
@@ -36,7 +36,7 @@ export const EngagementDialog = ({ params, handleDelete, handleClickModal, handl
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
-      </Tooltip> */}
+      </Tooltip>
       {/* <EditStakeholder rowId={rowId} /> */}
     </Box>
   );

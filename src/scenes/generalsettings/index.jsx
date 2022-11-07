@@ -29,6 +29,7 @@ export default function BasicCard() {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [gender, setGender] = useState("")
 
   const { authTokens } = useContext(AuthContext);
 
@@ -77,6 +78,7 @@ export default function BasicCard() {
               setUsername(deta.username);
               setId(deta.id);
               setPhoneNumber(deta.phone_number);
+              setGender(deta.gender);
             }
           });
         }
@@ -142,9 +144,16 @@ export default function BasicCard() {
             >
               {phoneNumber}
             </Typography>
+            <Typography
+              sx={{ mb: 1.5 }}
+              color="text.secondary"
+              textAlign="center"
+            >
+              {gender}
+            </Typography>
           </>
         ) : (
-          <Typography variant="h3" component="div" textAlign="center">
+          <Typography variant="h5"  textAlign="center">
             Please wait while user details loads...
           </Typography>
         )}
@@ -154,7 +163,7 @@ export default function BasicCard() {
           {'"a benevolent smile"'}
         </Typography> */}
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button
           size="large"
           variant="contained"
@@ -166,7 +175,7 @@ export default function BasicCard() {
         >
           Edit
         </Button>
-      </CardActions>
+      </CardActions> */}
       <EditCurrentUser
         openModal={openModal}
         handleCloseModal={handleCloseModal}

@@ -139,7 +139,7 @@ const AddEngagement = () => {
         <Header title="Add Stakeholder Engagement" subtitle="Add your stakeholder business sector" />
 
       </Box>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
+      {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
       <Snackbar
         open={open}
         autoHideDuration={6000}
