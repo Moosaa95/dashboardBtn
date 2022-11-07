@@ -163,7 +163,7 @@ export default function BasicCard() {
           {'"a benevolent smile"'}
         </Typography> */}
       </CardContent>
-      {/* <CardActions>
+      <CardActions>
         <Button
           size="large"
           variant="contained"
@@ -175,7 +175,7 @@ export default function BasicCard() {
         >
           Edit
         </Button>
-      </CardActions> */}
+      </CardActions>
       <EditCurrentUser
         openModal={openModal}
         handleCloseModal={handleCloseModal}
