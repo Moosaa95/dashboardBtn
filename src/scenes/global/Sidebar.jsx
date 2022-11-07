@@ -116,13 +116,13 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                {/* <img
+                <img
                   alt="profile-user"
                   width="104px"
                   height="48px"
                   src={`../../assets/nest-logo.png`}
                   // style={{ cursor: "pointer", borderRadius: "50%" }}
-                /> */}
+                />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)} sx={{ color: "#122582 !important", }}>
                   <MenuOutlinedIcon />
                 </IconButton>
