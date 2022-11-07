@@ -34,7 +34,7 @@ const AddStakeholderType = () => {
       </Box>
 
       <Box 
-        sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
+        sx={{ width: "800px", margin: "auto", marginTop: "20px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
         >
         <Formik
             onSubmit={handleFormSubmit}

@@ -130,7 +130,7 @@ const AddEngagement = () => {
     // console.log('i m a stake ', stakeholders);
   return (
     <Box m="20px"
-    backgroundColor="#292929"
+    backgroundColor="#fff"
     width="100%"
     height="100%"
     >
@@ -149,7 +149,7 @@ const AddEngagement = () => {
       />
 
       <Box 
-        sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
+         sx={{ width: "800px", margin: "auto", marginTop: "70px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
         >
               <Formik
             onSubmit={e=>handleFormSubmit(e)}
@@ -186,7 +186,7 @@ const AddEngagement = () => {
                     name="stakeholderName"
                     error={!!touched.stakeholderName && !!errors.stakeholderName}
                     helperText={touched.stakeholderName && errors.stakeholderName}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                     onClick={setStakeholderId(values.stakeholderName)}
                 >
                     {stakeholders && stakeholders.map((stakeholder, index) => (
@@ -207,7 +207,7 @@ const AddEngagement = () => {
                     name="engagementRate"
                     error={!!touched.engagementRate && !!errors.engagementRate}
                     helperText={touched.stakeholderName && errors.engagementRate}
-                    sx={{ gridColumn: "span 2" }}
+                    sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B" }}
                     onClick={setengagementRate(values.engagementRate)}
                 >
                     <MenuItem value={1}>1  Poor Performance</MenuItem>
@@ -228,7 +228,7 @@ const AddEngagement = () => {
                     name="project"
                     error={!!touched.project && !!errors.project}
                     helperText={touched.project && errors.project}
-                    sx={{ gridColumn: "span 2" }}
+                    sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B" }}
                 >
                  {projects && projects.map((proj, index) => (
                     <MenuItem value={proj.id} key={proj.id}>
@@ -248,7 +248,7 @@ const AddEngagement = () => {
                     name="engagementDiary"
                     error={!!touched.engagementDiary && !!errors.engagementDiary}
                     helperText={touched.engagementDiary && errors.engagementDiary}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
                     fullWidth
@@ -261,7 +261,7 @@ const AddEngagement = () => {
                     name="engagementConclusion"
                     error={!!touched.engagementConclusion && !!errors.engagementConclusion}
                     helperText={touched.engagementConclusion && errors.engagementConclusion}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
                     fullWidth
@@ -274,7 +274,7 @@ const AddEngagement = () => {
                     name="stakeholderIssues"
                     error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
                     helperText={touched.stakeholderIssues && errors.stakeholderIssues}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
                     fullWidth
@@ -287,7 +287,7 @@ const AddEngagement = () => {
                     name="stakeholderAssignedTask"
                     error={!!touched.stakeholderAssignedTask && !!errors.stakeholderAssignedTask}
                     helperText={touched.stakeholderAssignedTask && errors.stakeholderAssignedTask}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 </Box>
                 <Box display="flex" justifyContent="center" mt="20px">
