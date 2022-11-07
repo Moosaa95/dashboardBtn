@@ -32,7 +32,7 @@ const MenuProps = {
 };
 
 
-export default function EditStakeholder({
+export default function EditCurrentUser({
   openModal,
   handleCloseModal,
   handleStakeEdit,
@@ -59,7 +59,7 @@ const navigate  = useNavigate()
 
   const {
     addStakeHolder,
-    error,
+    error, 
     success,
     authTokens,
     clearError,
@@ -98,7 +98,7 @@ const navigate  = useNavigate()
       // // console.log('POPO BIG CODE', rowId);
       if(authTokens){
       let response = await fetch(
-        `https://nest-srm.up.railway.app/auth/user/profile/${rowId.id}`,
+        `https://nest-srm.up.railway.app/auth/user/profile/${rowId}`,
         {
           method: "GET",
           headers: {
@@ -143,6 +143,8 @@ const navigate  = useNavigate()
      
     }
 
+    console.log(rowId, 'row id row');
+
 
 
   
@@ -158,7 +160,7 @@ const navigate  = useNavigate()
       setLoadingBtn(true)
     if (rowId) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/auth/users/update/${rowId.id}`,
+        `https://nest-srm.up.railway.app/auth/users/update/${rowId}`,
         {
           method: "PATCH",
           headers: {

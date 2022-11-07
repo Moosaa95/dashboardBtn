@@ -14,6 +14,8 @@ import { useMediaQuery, Box, Typography, styled,
     maxWidth: '100%',
     maxHeight: '100%',
   });
+
+
   
 
 export const UserDetail = () => {
@@ -25,6 +27,7 @@ export const UserDetail = () => {
     const { id } = useParams();
 
     const {authTokens} = useContext(AuthContext)
+    
 
     // console.log('stake view page', id);
 
