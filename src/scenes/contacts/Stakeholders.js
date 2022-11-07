@@ -54,15 +54,15 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
   // // console.log(params, "pooiuiui");
   return (
     <Box>
-      <Tooltip title="view stakeholder details">
-        <IconButton onClick={()=> handleViewClick(params)}>
-          <Link to={`/stakeholder-detail/${params.id}`} >
-          <Preview />
-          </Link>
-        </IconButton>
-      </Tooltip>
+       <Link to={`/stakeholder-detail/${params.id}`} >
+        <Tooltip title="view stakeholder details" sx={{color:"#122582"}}>
+          <IconButton onClick={()=> handleViewClick(params)}>
+            <Preview />
+          </IconButton>
+        </Tooltip>
+      </Link>
       {(isAdmin || canEditStakeholder || isGlobalAdmin) && <Tooltip title="edit stakeholder" sx={{
-        color:"#000"
+        color:"#122582"
       }}>
         <IconButton onClick={()=>{
           // handleClickModal()
@@ -72,7 +72,7 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
           <Edit />
         </IconButton>
       </Tooltip>}
-      {((isAdmin || canDeleteStakeholder || isGlobalAdmin)) && <Tooltip title="delete Stakeholer" sx={{color:"#000"}}>
+      {((isAdmin || canDeleteStakeholder || isGlobalAdmin)) && <Tooltip title="delete Stakeholer" sx={{color:"red"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>

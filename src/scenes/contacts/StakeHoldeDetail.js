@@ -64,136 +64,261 @@ export const StakeHoldeDetail = () => {
 
   return (
     <>
-      {!isLoaded? (
+     <Box m="20px">
+     {!isLoaded? (
         <Stack 
-        color="#000"
-          backgroundColor="#eee"
+        color="#6E6B7B"
+          backgroundColor="#fff"
           width="100%"
           height="100%"
         >
-          <Header title="STAKEHOLDER" subtitle="Stakeholder Profile Page"/>
+          <Header title="STAKEHOLDER DETAILS" subtitle="Stakeholder Profile Page"/>
             <Stack
             display="flex"
             justifyContent="space-between"
             flexDirection="row"
-            alignItems="center"
-            m="100px"
-            boxShadow="-18px 9px 17px 9px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)"
+            // alignItems="center"
+            m="50px"
+            boxShadow="rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem"
             border="none"
             width="90%"
-            borderRadius="20px"
-            height="50%"
+            borderRadius="10px"
+            padding="50px 20px"
+            height="500px"
+            
   
             >
-              <Box>
-              <Grid item width="50%">
-             <ButtonBase sx={{ width: 128, height: 128 }}>
-               <Img alt="complex" src={stakeholderVar.stakeholder_image} />
-             </ButtonBase>
-           </Grid>
-              </Box>
-              <Box 
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              >
+              <Grid container spacing={3}>
+                <Grid item xs={12} sx={{ alignItems: "center", justifyContent:"center" }}>
+                    <Img alt="complex" src={stakeholderVar.stakeholder_image} sx={{ width: 250, height: 250, borderRadius: "50%" }}/>
+                </Grid>
+              </Grid>
+              <Grid item xs={5}>
+              <Grid container spacing={3}>
+              <Grid item xs={12}>
               <Typography
                 variant="h3"
-                textAlign="center"
-                textTransform="uppercase"
-                fontWeight="bold"
+                textAlign="left"
+                fontWeight="medium"
                 mb="20px"
-                color="#e99592"
+                color="#5E5873"
                 >
-                  Stakeholder Detail
+                  Personal Details
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
                 <Typography 
-                variant='h4'
-                 textTransform="uppercase" 
-                 fontWeight="bold"
-                 color="#70d8bd"
-  
-                
-                >
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Fullname:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  fontWeight="medium"
+                  >
                 {`${stakeholderVar.first_name} ${stakeholderVar.last_name}`}
-                </Typography>
-                <Typography
-                textAlign="center"
-                variant="h5"
-                >
-                {stakeholderVar.address}
-                </Typography>
-                
-                <Typography
-                textAlign="center"
-                variant="h5"
-                >
-                {stakeholderVar.business_sector.join(", ")}
-                </Typography>
-               
-                <Typography
-                textAlign="center"
-                variant="h5"
-                >
-                {stakeholderVar.interest}
-                </Typography>
-                <Typography
-                 textAlign="center"
-                 variant="h5"
-                >
-                {stakeholderVar.business_category}
-                </Typography>
-  
-              </Box>
-              <Box
-               display="flex"
-               flexDirection="column"
-               alignItems="center"
-               justifyContent="start"
-              >
-                <Typography
-                variant="h3"
-                textAlign="center"
-                textTransform="uppercase"
-                fontWeight="bold"
-                mb="20px"
-                color="#e99592"
-                >
-                  Stakeholder More Info
-                </Typography>
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
                 <Typography 
-                 textAlign="left"
-                 variant="h5"
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Address:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.address}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Business Sector:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.business_sector.join(", ")}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Business Category:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.business_category}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Interest:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+
+                  >
+                    {stakeholderVar.interest}
+                  </Typography>
+              </Grid>
+              </Grid>
+              </Grid>
+              <Grid item xs={5}>
+              <Grid container spacing={3}>
+              <Grid item xs={12}>
+              <Typography
+                variant="h3"
+                textAlign="left"
+                fontWeight="medium"
+                mb="20px"
+                color="#5E5873"
                 >
-                {stakeholderVar.country}
+                  Contact Deatils
                 </Typography>
-               
-               
-                
-                <Typography>
-                {stakeholderVar.state}
-                </Typography>
-                <Typography>
-                {stakeholderVar.city}
-                </Typography>
-                <Typography>
-                {stakeholderVar.phone}
-                </Typography>
-                <Typography
-                >
-                {stakeholderVar.email}
-                </Typography>
-                <Typography>
-                {stakeholderVar.postal_code}
-                </Typography>
-              </Box>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Country:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.country}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                State:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.state}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                City:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.city}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Email:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.email}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Phone Number:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.phone}
+                  </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  
+                  >
+                Postal Code:
+                  </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography 
+                  variant='h5'
+                  textAlign="left"
+                  >
+                    {stakeholderVar.postal_code}
+                  </Typography>
+              </Grid>
+              </Grid>
+              </Grid>
             </Stack>
         </Stack>
       ): (
         <Typography variant="h2" color="#000" justifyContent="center" textAlign="center">Please Wait....</Typography>
       )
       }
+     </Box>
     </>
     
   )

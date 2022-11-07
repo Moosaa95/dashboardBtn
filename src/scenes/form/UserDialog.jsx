@@ -44,15 +44,15 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
   // // console.log(params, "pooiuiui");
   return (
     <Box>
-      <Tooltip title="view User Profile" sx={{ color: "#122582 !important" }}>
-        <IconButton onClick={()=> handleViewClick(params)}>
-          <Link to={`/user-profile/${params.id}`} >
-          <Preview />
-          </Link>
-        </IconButton>
-      </Tooltip>
+      <Link to={`/user-profile/${params.id}`} >
+        <Tooltip title="view User Profile" sx={{ color: "#122582 !important" }}>
+          <IconButton onClick={()=> handleViewClick(params)}>
+            <Preview />
+          </IconButton>
+        </Tooltip>
+      </Link>
       {(isAdmin ||  isGlobalAdmin || canEditUser) && <Tooltip title="edit User" sx={{
-        color:"#000"
+        color:"#122582"
       }}>
         <IconButton onClick={()=>{
           // handleClickModal()
@@ -62,7 +62,7 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
           <Edit />
         </IconButton>
       </Tooltip>}
-      {(isAdmin ||  isGlobalAdmin || canDeactivateUser) && <Tooltip title="delete User" sx={{color:"#000"}}>
+      {(isAdmin ||  isGlobalAdmin || canDeactivateUser) && <Tooltip title="delete User" sx={{color:"red"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
