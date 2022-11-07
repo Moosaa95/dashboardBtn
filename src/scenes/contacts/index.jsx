@@ -158,6 +158,11 @@ const StakeHolders = () => {
   const [pageSize, setPageSize] = useState(5);
   const [stakeHolderVarCopy, setStakeHolderVarCopy] = useState([]);
   const [openUploadModal, setopenUploadModal] = useState(false);
+  const [canAddStakeholder, setCanAddStakeholder] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isGlobalAdmin, setIsGlobalAdmin] = useState(false);
+  const [isAdminAssistant, setIsAdminAssistant] = useState(false);
+  
   
 
   const { authTokens, addProgram, success, error, clearError, clearSuccess } =
@@ -227,6 +232,16 @@ const StakeHolders = () => {
   }, [success, error]);
 
   useEffect(() => {
+    if (authTokens){
+      if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin") || authTokens.user.get_user_permissions_list.includes("can_add_stakeholder") || authTokens.user.get_user_permissions_list.includes("admin_assistant") ){
+        setIsAdmin(true)
+        setIsGlobalAdmin(true)
+        setCanAddStakeholder(true)
+        setIsAdminAssistant(true)
+        
+      }
+      
+    }
     stakeHolders();
   }, [authTokens]);
 
@@ -347,7 +362,11 @@ const StakeHolders = () => {
           // key={vertical + horizontal}
         />
         <Header title="STAKEHOLDERS" subtitle="List of StakeHolders" />
-        <Button
+        {
+          (isAdmin || isGlobalAdmin || canAddStakeholder || isAdminAssistant)  && 
+          (
+          <>
+          <Button
           variant="contained"
           component="label"
           startIcon={<Add />}
@@ -358,12 +377,15 @@ const StakeHolders = () => {
           Bulk Upload
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
-          <Link to="/add-engagement">
+          <Link to="/add-stakeholder">
             <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>
               <Add sx={{ mr: "10px" }} />
-                Add Engagememt
+                Add Stakeholder
             </Button>
           </Link>
+          </>
+          )
+        }
       </Box>
       <Box
         m="40px 0 0 0"

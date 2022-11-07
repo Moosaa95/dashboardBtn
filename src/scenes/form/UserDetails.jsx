@@ -98,7 +98,15 @@ export const UserDetail = () => {
                   fontWeight:"bold",
                   textTransform:"uppercase"
                 }}
-                >Gender:</span> {stakeholderVar.gender}
+                >Email:</span> {stakeholderVar.gender}
+              </Typography>
+              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+                <span
+                style={{
+                  fontWeight:"bold",
+                  textTransform:"uppercase"
+                }}
+                >Gender:</span> {stakeholderVar.email}
               </Typography>
              
               </Grid>

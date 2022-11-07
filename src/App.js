@@ -31,6 +31,7 @@ import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
 import { ResetPassword } from "./forgotPassword/ResetPassword";
+import Settings from "./scenes/generalsettings";
 
 
 
@@ -67,6 +68,7 @@ function App() {
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/sectors" element={<Sectors />} />
                 <Route path="/add-sector" element={<BusinessSector />} />
+                <Route path="/settings" element={<Settings />} /> 
                 <Route
                   path="/add-stakeholder-type"
                   element={<AddStakeholderType />}

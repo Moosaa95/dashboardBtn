@@ -67,36 +67,63 @@ const navigate  = useNavigate()
   } = useContext(AuthContext);
 
 
-  let stakeHolders = async () => {
-    // // console.log('POPO BIG CODE', rowId);
-    if(authTokens){
-    let response = await fetch(
-      `https://nest-srm.up.railway.app/auth/user/profile/${rowId.id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + authTokens.token.access,
-        },
-      }
-    );
-    let data = await response.json();
-    setFirstName(data["data"].first_name);
-    setLastName(data["data"].last_name);
-    setGender(data["data"].gender);
-    setEmail(data["data"].email);
-    // setEmail(data["data"].email);
-    if (response.ok) {
-      setIsLoaded(false);
-      // // console.log("DATA IS POWER", stakeholderVar);
-      // setFirstName(stakeholderVar.first_name)
-    }
-    // // console.log(data, "data", 'BIG DATA NEX TITME ');
-    }else{
-        alert("something went wro")
-    }
-  };
   useEffect(() => {
+    const getPermission = async () => {
+      try {
+        const getPermissionData = await fetch(
+          "https://nest-srm.up.railway.app/auth/sys/permission",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authTokens.token.access,
+            },
+          }
+        );
+        const permissionJson = await getPermissionData.json();
+        // console.log(permissionJson, "ppp");
+        setUserPermission(await permissionJson["data"]);
+        if (getPermissionData.ok) {
+        }
+      } catch (error) {
+        // setErrorMessage(error);
+      }
+    };
+    getPermission();
+  }, []);
+
+ 
+  useEffect(() => {
+    let stakeHolders = async () => {
+      // // console.log('POPO BIG CODE', rowId);
+      if(authTokens){
+      let response = await fetch(
+        `https://nest-srm.up.railway.app/auth/user/profile/${rowId.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+        }
+      );
+      let data = await response.json();
+      setFirstName(data["data"].first_name);
+      setLastName(data["data"].last_name);
+      setGender(data["data"].gender);
+      setEmail(data["data"].email);
+      setPersonName(data["data"].user_permission2)
+      // setEmail(data["data"].email);
+      if (response.ok) {
+        setIsLoaded(false);
+        // // console.log("DATA IS POWER", stakeholderVar);
+        // setFirstName(stakeholderVar.first_name)
+      }
+      // // console.log(data, "data", 'BIG DATA NEX TITME ');
+      }else{
+          alert("something went wro")
+      }
+    };
     stakeHolders()
   
     // return () => {
@@ -105,16 +132,10 @@ const navigate  = useNavigate()
   }, [rowId])
 
   const handleSelectChange = (event) => {
-    // // console.log(businessSector);
-    // console.log(event, 'i ama an event', event, 'EVENET');
     
     const {
       target: { value },
     } = event;
-    
-    // console.log('target value', value);
-    // console.log("================")
-    // console.log(businessSector)
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -148,7 +169,7 @@ const navigate  = useNavigate()
             first_name: firstName,
             last_name:  lastName ,
             gender: gender,
-            // user_permission: userPermission,
+            user_permission2: personName.map((ind) => ind.id),
             email: email,
             
           }),
@@ -290,9 +311,9 @@ const navigate  = useNavigate()
                       <OutlinedInput id="select-multiple-chip" label="Chip" />
                     }
                     renderValue={(selected) => (
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      <Box sx={{ display: "flex", gap: 0.5 }}>
                         {selected.map((value, index) => (
-                          <Chip key={index} label={value} />
+                          <Chip key={value.id} label={value.name} />
                         ))}
                       </Box>
                     )}

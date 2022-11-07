@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
     last_name,
     email,
     gender,
-    all_user_permissions_display,
+    user_permissions,
   }) => {
     if (authTokens) {
       let response = await fetch(
@@ -164,7 +164,7 @@ export const AuthProvider = ({ children }) => {
             last_name,
             email,
             gender,
-            all_user_permissions_display,
+            user_permissions,
           }),
         }
       );

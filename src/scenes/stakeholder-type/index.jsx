@@ -31,7 +31,7 @@ const StakeholderType = () => {
         }
     }, [success])
 
-    console.log('lol', stakeHolderVar);
+    // console.log('lol', stakeHolderVar);
 
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5, hide:true },

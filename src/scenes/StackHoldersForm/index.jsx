@@ -118,6 +118,7 @@ const StackHolderForm = () => {
 
   const handleChangeImage = (e) => {
     if (e.target.files[0]) {
+      setImgName(e.target.files[0].name)
       setImages(e.target.files[0]);
     }
     // const reader = new FileReader();
@@ -126,33 +127,7 @@ const StackHolderForm = () => {
     //   setImages(reader.result)
     // }
   };
-  // let base64code = ""
-  // const handleChangeImage = (e) => {
-  //   const file = e.target.files[0]
-  //   // const reader = new FileReader()
-  //   // console.log(reader, 'reader');
-  //   getbase64(file)
-  // }
-  // const onLoad = (fileString) => {
-
-  //   setImages(fileString)
-  // }
-
-  // const getbase64 = (file) => {
-  //   let reader = new FileReader()
-  //   reader.readAsDataURL(file)
-  //   reader.onload = () => {
-  //     onLoad(reader.result)
-  //   }
-  // }
-  // if (images){
-  //   console.log(images, 'IMAGES');
-  // }
-
-  // const formData = new FormData(form);
-  // if (formData){
-  //   console.log(formData, 'formdata');
-  // }
+ 
 
   useEffect(() => {
     if (success) {
@@ -376,7 +351,7 @@ const StackHolderForm = () => {
     formData.append("interest", interest);
     formData.append("stakeholder_image", images);
 
-    console.log('alfa work', formData.get("stakeholder_image"));
+    // console.log('alfa work', formData.get("stakeholder_image"));
 
     addStakeHolder(
       // {
@@ -441,9 +416,7 @@ const StackHolderForm = () => {
     );
   };
 
-  if (personName) {
-    // console.log("I AM A PERSON NAME", personName)
-  }
+ 
   return (
     <Box m="20px" backgroundColor="#292929" width="100%" height="100%">
       {msg && (
@@ -462,6 +435,24 @@ const StackHolderForm = () => {
 
       <Box sx={{ width: "800px", margin: "auto", marginTop: "70px" }}>
         <form onSubmit={(e) => handleSubmit(e)} encType="multipart/form-data">
+        <Box m="10px" fullWidth>
+              <Button
+                variant="contained"
+                component="label"
+                // startIcon={<Add />}
+
+                color="secondary"
+              >
+                {imgName}
+                <input
+                  hidden
+                  // accept="image/png"
+                  // multiple
+                  type="file"
+                  onChange={handleChangeImage}
+                />
+              </Button>
+            </Box>
           <Box
             display="grid"
             gap="30px"
@@ -760,24 +751,7 @@ const StackHolderForm = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Box ml="150px">
-              <Button
-                variant="contained"
-                component="label"
-                // startIcon={<Add />}
-
-                color="secondary"
-              >
-                add Image
-                <input
-                  hidden
-                  // accept="image/png"
-                  multiple
-                  type="file"
-                  onChange={handleChangeImage}
-                />
-              </Button>
-            </Box>
+            
           </Box>
           <Box display="flex" justifyContent="center" mt="20px">
             <LoadingButton
