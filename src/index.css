@@ -382,3 +382,32 @@ label#filled-multiline-flexible-label {
 .css-i4bv87-MuiSvgIcon-root {
   color: #122582 !important;
 }
+
+.css-1k33q06 {
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentcolor;
+  flex-shrink: 0;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.25rem;
+  color: #122582 !important;
+}
+
+.css-1j7w81g {
+  color: #122582 !important;
+}
+
+
+.css-5bv8d7-MuiInputBase-input-MuiInput-input {
+  color: #6E6B7B !important;
+}
+
+.css-ptiqhd-MuiSvgIcon-root {
+  color: #6E6B7B !important;
+}
+
+.css-1ktfdg8-MuiFormControl-root-MuiTextField-root-MuiDataGrid-toolbarQuickFilter .MuiInput-underline:before {
+  border-bottom: 1px solid #6E6B7B;
+}
