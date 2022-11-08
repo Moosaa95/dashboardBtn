@@ -31,12 +31,9 @@ import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
 import { ResetPassword } from "./forgotPassword/ResetPassword";
-<<<<<<< HEAD
 import Settings from "./scenes/generalsettings";
 import { EngagementDetail } from "./scenes/engagement/EngagementDetail";
-=======
 import './index.css'
->>>>>>> 54178a8c98ccb60896c6bf7f91f8dc006241923e
 
 
 
