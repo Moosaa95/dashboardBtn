@@ -460,7 +460,7 @@ const SignUp = () => {
                 ))}
               </TextField>
             </Box>
-            <Box sx={{ marginTop: "20px" }}>>
+            <Box sx={{ marginTop: "20px" }}>
             <LoadingButton
               loading={loadingBtn}
               type="submit"
@@ -473,7 +473,7 @@ const SignUp = () => {
             <Box sx={{ marginTop: "20px", justifyContent: "center", alignItems: "center",}}>
               <Link to="/login">
                   <Typography>
-                    Already have an Account? <span sx={{ color: "#6E6B7B" }}>Sign in</span>
+                    Already have an Account? <span sx={{ color: "#6E6B7B", }}>Sign in</span>
                   </Typography>
                 </Link>
             </Box>
