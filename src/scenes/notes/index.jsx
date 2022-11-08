@@ -72,7 +72,7 @@ const [openModal, setOpenModal] = useState(false);
     // setRowId({...param}.id)
     if (param) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/user-delete/${param.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/user-delete/${param.id}`,
         {
           method: "PATCH",
           headers: {
@@ -162,7 +162,7 @@ const [openModal, setOpenModal] = useState(false);
 
       let noteStake = async () => {
         // if(authTokens){
-            let response = await fetch('https://nest-srm.up.railway.app/auth/users/', {
+            let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/users/`, {
                 method:"GET", 
                 headers: {
                     'Content-Type' : 'application/json',

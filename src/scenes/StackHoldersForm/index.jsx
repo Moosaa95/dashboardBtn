@@ -108,6 +108,8 @@ const StackHolderForm = () => {
 
   const handleClose = () => {
     setOpen(false);
+    clearError();
+    setMsg("");
   };
 
   // const handleOpen = () => {
@@ -143,9 +145,9 @@ const StackHolderForm = () => {
       // setLoadingBtn(false);
       setOpen(true);
       // clearError();
-      setInterval(() => {
-        clearError();
-      }, 6000);
+      // setInterval(() => {
+      //   clearError();
+      // }, 6000);
     }
   }, [error, success]);
 
@@ -153,7 +155,7 @@ const StackHolderForm = () => {
     const getCountry = async () => {
       try {
         const getCountryData = await fetch(
-          "https://nest-srm.up.railway.app/location/apibundle"
+          `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle`
         );
         const countryJson = await getCountryData.json();
         // console.log(countryJson["country"], "ppp");
@@ -171,7 +173,7 @@ const StackHolderForm = () => {
     let stakeHolders = async () => {
       // if(authTokens){
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-type/list",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-type/list`,
         {
           method: "GET",
           headers: {
@@ -200,7 +202,7 @@ const StackHolderForm = () => {
       const getState = async () => {
         try {
           const getState = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
           // console.log(stateJson, "state");
@@ -219,7 +221,7 @@ const StackHolderForm = () => {
       const getCity = async () => {
         try {
           const getCities = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}&state=${statesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}&state=${statesId}`
           );
           const citiesJson = await getCities.json();
           // console.log(citiesJson, "city");
@@ -236,7 +238,7 @@ const StackHolderForm = () => {
     const getBusiness = async () => {
       try {
         const getBusinessData = await fetch(
-          "https://nest-srm.up.railway.app/business-sector",
+          `${process.env.REACT_APP_BASE_API_KEY}/business-sector`,
           {
             method: "GET",
             headers: {
@@ -311,13 +313,13 @@ const StackHolderForm = () => {
   };
   // console.log('i am a country name', countryName);
 
-  const businessOptions = businessSector;
-  const bus = [];
+  // const businessOptions = businessSector;
+  // const bus = [];
 
-  for (let i = 0; i < businessSector.length; i++) {
-    // console.log(businessSector[i], "hello");
-    bus.push({ value: businessSector[i].id, label: businessSector[i].id });
-  }
+  // for (let i = 0; i < businessSector.length; i++) {
+  //   // console.log(businessSector[i], "hello");
+  //   bus.push({ value: businessSector[i].id, label: businessSector[i].id });
+  // }
   // // console.log(
   //   "i am a business optioon",
   //   businessOptions,
@@ -336,10 +338,11 @@ const StackHolderForm = () => {
     formData.append("last_name", lastName);
     formData.append("stakeholder_type", stakeholderTypeId);
     formData.append("business_category", businessCategory);
-    formData.append(
-      "business_sector",
-      personName.map((ind) => ind.id)
-    );
+    personName.map(item => {
+      formData.append('business_sector', item.id);
+     });
+    // formData.append(
+    //   "business_sector", personName.map(ind=>ind.id));
     formData.append("job_title", jobTitle);
     formData.append("email", email);
     formData.append("phone", phoneNumber);
@@ -351,7 +354,7 @@ const StackHolderForm = () => {
     formData.append("interest", interest);
     formData.append("stakeholder_image", images);
 
-    // console.log('alfa work', formData.get("stakeholder_image"));
+    console.log('alfa work', formData.get("business_sector"));
 
     addStakeHolder(
       // {
@@ -377,10 +380,10 @@ const StackHolderForm = () => {
 
   // console.log("country id", statesId);
   // // console.log(ref.current.values, 'lopghjnjk');
-  const handleBusinessSector = (e) => {
-    getValue(Array.isArray(e) ? e.map((x) => x.label) : []);
-    // console.log(displayValue, 'poppppppppp')
-  };
+  // const handleBusinessSector = (e) => {
+  //   getValue(Array.isArray(e) ? e.map((x) => x.label) : []);
+  //   // console.log(displayValue, 'poppppppppp')
+  // };
   //   const initialValues = {
   //     firstName : "",
   //     lastName : "",
@@ -434,7 +437,7 @@ const StackHolderForm = () => {
       </Box>
 
       <Box  sx={{ width: "1000px", margin: "auto", marginTop: "20px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
-        <form onSubmit={(e) => handleSubmit(e)} encType="multipart/form-data">
+        <form onSubmit={(e) => handleSubmit(e)}>
         <Box m="10px" fullWidth>
               <Button
                 variant="contained"

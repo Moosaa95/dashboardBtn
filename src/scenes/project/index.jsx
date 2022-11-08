@@ -49,7 +49,7 @@ const Contacts = () => {
   let project = async () => {
     // if(authTokens){
     let response = await fetch(
-      "https://nest-srm.up.railway.app/project-list",
+      `${process.env.REACT_APP_BASE_API_KEY}/project-list`,
       {
         method: "GET",
         headers: {
@@ -165,7 +165,7 @@ const handleClose = (event, reason) => {
     // setRowId(param.id)
     if (param) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/project-delete/${param.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/project-delete/${param.id}`,
         {
           method: "PATCH",
           headers: {

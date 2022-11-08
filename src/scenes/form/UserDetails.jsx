@@ -35,7 +35,7 @@ export const UserDetail = () => {
     let stakeHolders = async () => {
       if(authTokens){
       let response = await fetch(
-        `https://nest-srm.up.railway.app/auth/user/profile/${id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/profile/${id}`,
         {
           method: "GET",
           headers: {

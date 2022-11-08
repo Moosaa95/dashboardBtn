@@ -60,7 +60,7 @@ const Dashboard = () => {
 
       let getUserHolders = async () => {
         // if(authTokens){
-            let response = await fetch('https://nest-srm.up.railway.app/auth/users/', {
+            let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/users/`, {
                 method:"GET", 
                 headers: {
                     'Content-Type' : 'application/json',
@@ -87,7 +87,7 @@ const Dashboard = () => {
     let stakeHolders = async () => {
       // if(authTokens){
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-list",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-list`,
         {
           method: "GET",
           headers: {
@@ -113,7 +113,7 @@ const Dashboard = () => {
 
     let getBusinessSector = async () => {
       // if(authTokens){
-          let response = await fetch('https://nest-srm.up.railway.app/business-sector', {
+          let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/business-sector`, {
               method:"GET", 
               headers: {
                   'Content-Type' : 'application/json',

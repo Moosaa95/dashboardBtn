@@ -93,7 +93,7 @@ export default function EditStakeholder({
   let getStakeHolders = async () => {
     // if(authTokens){
     let response = await fetch(
-      "https://nest-srm.up.railway.app/stakeholder-type/list",
+      `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-type/list`,
       {
         method: "GET",
         headers: {
@@ -141,7 +141,7 @@ export default function EditStakeholder({
       // // console.log('POPO BIG CODE', rowId);
       if (authTokens) {
         let response = await fetch(
-          `https://nest-srm.up.railway.app/stakeholder/profile/${rowId.id}`,
+          `${process.env.REACT_APP_BASE_API_KEY}/stakeholder/profile/${rowId.id}`,
           {
             method: "GET",
             headers: {
@@ -196,7 +196,7 @@ export default function EditStakeholder({
     setLoadingBtn(true);
     if (rowId) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder-update/${rowId.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-update/${rowId.id}`,
         {
           method: "PATCH",
           headers: {
@@ -255,7 +255,7 @@ export default function EditStakeholder({
     const getCountry = async () => {
       try {
         const getCountryData = await fetch(
-          "https://nest-srm.up.railway.app/location/apibundle"
+          `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle`
         );
         const countryJson = await getCountryData.json();
         // console.log(countryJson["country"], "ppp");
@@ -275,7 +275,7 @@ export default function EditStakeholder({
       const getState = async () => {
         try {
           const getState = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
           // console.log(stateJson, "state");
@@ -294,7 +294,7 @@ export default function EditStakeholder({
       const getCity = async () => {
         try {
           const getCities = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}&state=${statesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}&state=${statesId}`
           );
           const citiesJson = await getCities.json();
           // console.log(citiesJson, "city");
@@ -311,7 +311,7 @@ export default function EditStakeholder({
     const getBusiness = async () => {
       try {
         const getBusinessData = await fetch(
-          "https://nest-srm.up.railway.app/business-sector",
+          `${process.env.REACT_APP_BASE_API_KEY}/business-sector`,
           {
             method: "GET",
             headers: {

@@ -52,7 +52,7 @@ const Sectors = () => {
 
         let stakeHolders = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/business-sector', {
+              let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/business-sector`, {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',

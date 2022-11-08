@@ -36,7 +36,7 @@ export const StakeHoldeDetail = () => {
     let stakeHolders = async () => {
       if(authTokens){
       let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder/profile/${id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder/profile/${id}`,
         {
           method: "GET",
           headers: {

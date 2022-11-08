@@ -28,7 +28,7 @@ export const EmailVerify = ({setLoggedIn}) => {
     const verifyEmailUrl = async () => {
       // console.log('vferrtftyfty');
       try{
-        const response = await fetch(`https://nest-srm.up.railway.app/auth/email-verify/?token=${param.token}&uidb64=${param.uuid64}`, {
+        const response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/email-verify/?token=${param.token}&uidb64=${param.uuid64}`, {
           method:"GET",
           
         })

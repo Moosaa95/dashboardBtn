@@ -118,7 +118,7 @@ const Engagements = () => {
   let engagememt = async () => {
     // if(authTokens){
     let response = await fetch(
-      "https://nest-srm.up.railway.app/stakeholder-engagement/list",
+      `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-engagement/list`,
       {
         method: "GET",
         headers: {
@@ -144,7 +144,7 @@ const Engagements = () => {
     // setRowId(param.id)
     if (param) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/engagement-delete/${param.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/engagement-delete/${param.id}`,
         {
           method: "PATCH",
           headers: {

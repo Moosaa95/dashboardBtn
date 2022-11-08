@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     // e.preventDefault()
 
     let response = await fetch(
-      "https://nest-srm.up.railway.app/auth/registration/",
+      `${process.env.REACT_APP_BASE_API_KEY}/auth/registration/`,
       {
         method: "POST",
         headers: {
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     // // console.log(e.target.email.value);
 
     let response = await fetch(
-      "https://nest-srm.up.railway.app/auth/user/login/",
+      `${process.env.REACT_APP_BASE_API_KEY}/auth/user/login/`,
       {
         method: "POST",
         headers: {
@@ -123,7 +123,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // let updateToken = async () => {
-  //     let response = await fetch("https://nest-srm.up.railway.app/auth/jwt/refresh/", {
+  //     let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/jwt/refresh/",`{
   //         method:"POST",
   //         headers: {
   //             'Content-Type' : 'application/json'
@@ -152,7 +152,7 @@ export const AuthProvider = ({ children }) => {
   }) => {
     if (authTokens) {
       let response = await fetch(
-        "https://nest-srm.up.railway.app/auth/user/create/",
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/create/`,
         {
           method: "POST",
           headers: {
@@ -192,7 +192,7 @@ export const AuthProvider = ({ children }) => {
     if (authTokens) {
       // console.log("hi im in add sector");
       let response = await fetch(
-        "https://nest-srm.up.railway.app/tenant/business-sector/",
+        `${process.env.REACT_APP_BASE_API_KEY}/tenant/business-sector/`,
         {
           method: "POST",
           headers: {
@@ -227,7 +227,7 @@ export const AuthProvider = ({ children }) => {
     if (authTokens) {
       // // console.log('hi im in add sector');
       let response = await fetch(
-        "https://nest-srm.up.railway.app/program-create",
+        `${process.env.REACT_APP_BASE_API_KEY}/program-create`,
         {
           method: "POST",
           headers: {
@@ -270,7 +270,7 @@ export const AuthProvider = ({ children }) => {
     if (authTokens) {
       // // console.log('hi im in add sector');
       let response = await fetch(
-        "https://nest-srm.up.railway.app/project-create",
+        `${process.env.REACT_APP_BASE_API_KEY}/project-create`,
         {
           method: "POST",
           headers: {
@@ -324,7 +324,7 @@ export const AuthProvider = ({ children }) => {
     if (authTokens) {
       // // console.log("hi im in add sector");
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-engagement/create",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-engagement/create`,
         {
           method: "POST",
           headers: {
@@ -360,7 +360,7 @@ export const AuthProvider = ({ children }) => {
     if (authTokens) {
       // console.log("hi im in add sector");
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-type/create",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-type/create`,
         {
           method: "POST",
           headers: {
@@ -407,7 +407,7 @@ export const AuthProvider = ({ children }) => {
     // // console.log('hi insde dstkaeholdwe');
     if (authTokens) {
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder/signup/",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder/signup/`,
         {
           method: "POST",
           headers: {
@@ -438,7 +438,7 @@ export const AuthProvider = ({ children }) => {
       let data = await response.json();
       if (response.ok) {
         setSuccess(data);
-        console.log(data, "data images date whrf");
+        // console.log(data, "data images date whrf");
       } else {
         // setError(data);
         const first_key = Object.keys(data)[0];
@@ -461,7 +461,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       let response = await fetch(
-        "https://nest-srm.up.railway.app/auth/user/password-reset/",
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/password-reset/`,
         {
           method: "POST",
           headers: {
@@ -505,12 +505,12 @@ export const AuthProvider = ({ children }) => {
       //   }
     }
 
-    // const {data} = await axios.post('https://nest-srm.up.railway.app/auth/user/login/', body, config)
+    // const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_KEY}/auth/user/login/', body, confi`)
   };
 
   // let stakeHolders = async () => {
   //     if(authTokens){
-  //         let response = await fetch('https://nest-srm.up.railway.app/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022', {
+  //         let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/stakeholder-list?stakeholder_create_from=10/19/2022&stakeholder_created_to=10/20/2022',`{
   //             method:"GET",
   //             headers: {
   //                 'Content-Type' : 'application/json',

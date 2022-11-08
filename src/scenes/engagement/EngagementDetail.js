@@ -35,7 +35,7 @@ export const EngagementDetail = () => {
     let stakeHolders = async () => {
       if(authTokens){
       let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder/engagement/profile/${id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder/engagement/profile/${id}`,
         {
           method: "GET",
           headers: {

@@ -52,7 +52,7 @@ const Form = () => {
     const getPermission = async () => {
       try {
         const getPermissionData = await fetch(
-          "https://nest-srm.up.railway.app/auth/sys/permission",
+          `${process.env.REACT_APP_BASE_API_KEY}/auth/sys/permission`,
           {
             method: "GET",
             headers: {

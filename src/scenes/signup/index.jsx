@@ -105,7 +105,7 @@ const SignUp = () => {
     const getCountry = async () => {
       try {
         const getCountryData = await fetch(
-          "https://nest-srm.up.railway.app/location/apibundle"
+          `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle`
         );
         const countryJson = await getCountryData.json();
         console.log(countryJson["country"], "ppp");
@@ -127,7 +127,7 @@ const SignUp = () => {
       const getState = async () => {
         try {
           const getState = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/https://nest-srm.up.railway.app://nest-srm.up.railway.applocation/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
           console.log(stateJson, "state");
@@ -146,7 +146,7 @@ const SignUp = () => {
       const getCity = async () => {
         try {
           const getCities = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}&state=${statesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}&state=${statesId}`
             );
             const citiesJson = await getCities.json();
             console.log(citiesJson, "city");

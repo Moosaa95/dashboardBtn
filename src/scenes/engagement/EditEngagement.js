@@ -97,7 +97,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
   const getProject = async () => {
     try {
       const getProjectData = await fetch(
-        "https://nest-srm.up.railway.app/project-list",
+        `${process.env.REACT_APP_BASE_API_KEY}/project-list`,
         {
           method: "GET",
           headers: {
@@ -153,7 +153,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
     setLoadingBtn(true);
     if (rowId) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder-engagement-update/${rowId.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-engagement-update/${rowId.id}`,
         {
           method: "PATCH",
           headers: {

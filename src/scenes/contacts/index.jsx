@@ -196,12 +196,12 @@ const StakeHolders = () => {
 
   // console.log(authTokens.user.get_user_permissions_list.includes("admin"), 'im user')
  
-  // //console.log("ikloio");
+  
 
   let stakeHolders = async () => {
     // if(authTokens){
     let response = await fetch(
-      "https://nest-srm.up.railway.app/stakeholder-list",
+      `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-list`,
       {
         method: "GET",
         headers: {
@@ -322,7 +322,7 @@ const StakeHolders = () => {
     // setRowId({...param}.id)
     if (param) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder-delete/${param.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-delete/${param.id}`,
         {
           method: "PATCH",
           headers: {

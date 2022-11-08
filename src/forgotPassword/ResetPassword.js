@@ -102,7 +102,7 @@ export const ResetPassword = ({setLoggedIn}) => {
     e.preventDefault()
     setLoadingBtn(true);
     if (param){
-      const response = await fetch(`https://nest-srm.up.railway.app/auth/reset-password/${param.uuid64}/${param.token}/`,
+      const response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/reset-password/${param.uuid64}/${param.token}/`,
        {
         method:"POST",
         headers: {

@@ -57,7 +57,7 @@ useEffect(() => {
   const getProgram = async () => {
     try {
       const getProgramData = await fetch(
-        "https://nest-srm.up.railway.app/program-list",
+        `${process.env.REACT_APP_BASE_API_KEY}/program-list`,
         {
           method: "GET",
           headers: {

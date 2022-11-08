@@ -79,7 +79,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
       // // console.log('POPO BIG CODE', rowId);
       if (authTokens) {
         let response = await fetch(
-          `https://nest-srm.up.railway.app/project/profile/${rowId.id}`,
+          `${process.env.REACT_APP_BASE_API_KEY}/project/profile/${rowId.id}`,
           {
             method: "GET",
             headers: {
