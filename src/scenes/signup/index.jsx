@@ -127,7 +127,7 @@ const SignUp = () => {
       const getState = async () => {
         try {
           const getState = await fetch(
-            `${process.env.REACT_APP_BASE_API_KEY}/https://nest-srm.up.railway.app://nest-srm.up.railway.applocation/apibundle?country=${countriesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
           console.log(stateJson, "state");
