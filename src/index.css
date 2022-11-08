@@ -34,7 +34,7 @@ body,
   background: #555;
 }
 
-label#\:r3\:-label {
+/* label#\:r3\:-label {
   color: #6E6B7B !important;
 }
 
@@ -43,7 +43,7 @@ label#\:r2\:-label {
 }
 label#\:r1\:-label {
   color: #6E6B7B !important;
-}
+} */
 
 .MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.Mui-error.MuiInputBase-fullWidth.MuiInputBase-formControl.css-u42pxl-MuiInputBase-root-MuiFilledInput-root {
   background-color: #535353;
@@ -84,7 +84,7 @@ label#filled-multiline-flexible-label {
 .css-1rv476z .MuiInputBase-input .MuiFilledInput-input .css-1476h24 {
   font: inherit;
   letter-spacing: inherit;
-  color: #6E6B7B !important;
+  /* color: #6E6B7B !important; */
   padding: 4px 0 5px;
   border: 0;
   box-sizing: content-box;
@@ -107,7 +107,7 @@ label#filled-multiline-flexible-label {
 
 .css-nh22sz .MuiSelect-select .MuiInputBase-input .MuiFilledInput-input .css-nh22sz .MuiSelect-select .MuiInputBase-input .MuiFilledInput-input .css-nh22sz .MuiSelect-select .MuiInputBase-input .MuiFilledInput-input {
   padding-right: 32px;
-  color: #6E6B7B !important;
+  /* color: #6E6B7B !important; */
 }
 
 .css-su1yg6-MuiFormControl-root-MuiTextField-root {
@@ -159,6 +159,18 @@ label#filled-multiline-flexible-label {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.MuiBox-root .css-hkoid6{
+  color:red;
+}
+
+.MuiInputBase-input .MuiFilledInput-input .css-1rv476z-MuiInputBase-input-MuiFilledInput-input{
+  color: #000 !important;
+}
+
+.MuiInputBase-input .MuiFilledInput-input .css-1rv476z-MuiInputBase-input-MuiFilledInput-input{
+  color: #000 !important;
 }
 
 .css-1wu7ecg-MuiSvgIcon-root-MuiSelect-icon {
@@ -245,7 +257,7 @@ label#filled-multiline-flexible-label {
   -webkit-justify-content: center;
   justify-content: center;
   height: 32px;
-  color: #122582 !important;
+  /* color: #122582 !important; */
   background-color: #E2EDFC !important;
   border-radius: 16px;
   white-space: nowrap;
@@ -323,7 +335,7 @@ label#filled-multiline-flexible-label {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
-  color: #fff;
+  color: #000;
   box-sizing: border-box;
   position: relative;
   cursor: text;
@@ -349,7 +361,7 @@ label#filled-multiline-flexible-label {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
-  color: #fff;
+  color: #000;
   box-sizing: border-box;
   position: relative;
   cursor: text;
@@ -411,4 +423,36 @@ label#filled-multiline-flexible-label {
 
 .css-1ktfdg8-MuiFormControl-root-MuiTextField-root-MuiDataGrid-toolbarQuickFilter .MuiInput-underline:before {
   border-bottom: 1px solid #6E6B7B;
+}
+
+
+.css-1dhi51 {
+  background-color: rgb(255 255 255);
+}
+
+/* form background */
+.css-97hhnj {
+  background-color: #E8E8E8 !important; 
+}
+
+/* form active text */
+.css-1476h24 {
+  color: #6E6B7B !important;
+}
+
+/* form placeholder text */
+.css-jfl3c {
+  color: #6E6B7B !important;
+}
+
+.css-yop3gh {
+  color: #122582 !important;
+}
+
+.css-4teun2 {
+  background-color: #E2EDFC;
+}
+
+.css-9iedg7 {
+  color: #122582 !important;
 }

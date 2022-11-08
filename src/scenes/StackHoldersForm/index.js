@@ -440,11 +440,15 @@ const StackHolderForm = () => {
       <Box  sx={{ width: "1000px", margin: "auto", 
             marginTop: "20px", 
             padding: "50px",
-            backgroundColor: "#eee",
-            boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
+            // backgroundColor: "#eee",
+            boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem",
+            color: "#000 !important",
+            fontWeight:"bold"
+          
+          }}
             
             >
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e)} >
         <Box m="10px" fullWidth>
               <Button
                 variant="contained"
@@ -473,10 +477,13 @@ const StackHolderForm = () => {
             fontWeight="bold"
           >
             <TextField
+              style={{
+                color:"#000"
+              }}
               fullWidth
               variant="filled"
               type="text"
-              label="First Name"
+              label={<span style={{color:"#000 "}}>First Name</span>}
               // onBlur={handleBlur}
               onChange={(e) => setFirstName(e.target.value)}
               value={firstName}
