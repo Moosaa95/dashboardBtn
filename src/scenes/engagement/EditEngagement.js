@@ -182,7 +182,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
         getProject()
         // setInterval(() => {
         //   setMsg(null)
-        //   window.location.reload() 
+        window.location.reload() 
           
         // }, 3000);
       } else {
