@@ -14,7 +14,7 @@ const AddStakeholderType = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const {addStakeholderType} = useContext(AuthContext)
+    const {addStakeholderType, success} = useContext(AuthContext)
 
     const handleFormSubmit = (values) => {
         // values.preventDefault()

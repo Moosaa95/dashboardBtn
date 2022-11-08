@@ -379,7 +379,7 @@ export const AuthProvider = ({ children }) => {
       }
       // // console.log(data, 'data');
     } else {
-      alert("something went wrong");
+      // alert("something went wrong");
       setError("something went wrong try again");
     }
   };

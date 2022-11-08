@@ -14,7 +14,7 @@ const StakeholderType = () => {
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
     const [msg, setMsg] = useState("")
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(100);
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -82,7 +82,7 @@ const StakeholderType = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Stakeholder Type" subtitle="Add your stakeholder type" />
+        <Header title="Stakeholder Type" subtitle="stakeholder type" />
 
         <Box>
           <Link to="/add-stakeholder-type">

@@ -134,7 +134,7 @@ export const EngagementDetail = () => {
                 <Typography
                 textAlign="center"
                 variant="h5"
-                >
+                >Rating : 
                 {stakeholderVar.engagement_rate}
                 </Typography>
                
@@ -142,7 +142,8 @@ export const EngagementDetail = () => {
                 textAlign="center"
                 variant="h5"
                 >
-                {stakeholderVar.interest}
+                  StakeHolder Assigned Task
+                {stakeholderVar.stakeholder_assigned_task}
                 </Typography>
                 <Typography
                  textAlign="center"
@@ -155,8 +156,8 @@ export const EngagementDetail = () => {
                  textAlign="center"
                  variant="h5"
                 >
-                    StakeHolder Name: 
-                {stakeholderFristName} {stakeholderFirstName}
+                    StakeHolder Issue: 
+                {stakeholderVar.stakeholder_issues}
                 </Typography>
                 
 

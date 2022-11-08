@@ -17,9 +17,14 @@ const AddEngagement = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [stakeholders, setStakeholders] = useState([]);
     const [stakeholderId, setStakeholderId] = useState("");
-    const [engagementRate, setengagementRate] = useState([]);
+    const [engagementRate, setengagementRate] = useState("");
+    const [engagementConclusion, setEngagementConclusion] = useState("")
+    const [engagementDiary, setEngagementDiary] = useState("")
+    const [stakeholderIssues, setStakeHolderIssues] = useState("")
+    const [stakeholderAssignedTask, setStakeHolderAssignedTask] = useState("")
     const [loadingBtn, setLoadingBtn] = useState(false);
     const [projects, setProjects] = useState([])
+    const [projectId, setProjectId] = useState("");
     const [msg, setMsg] = useState("")
 
     const theme = useTheme();
@@ -43,31 +48,40 @@ const AddEngagement = () => {
       }
     }, [success, error])
 
+    const handleProjects = (e) => {
+      const getProjectId = e.target.value;
+      // console.log('kfkkjdfjJHBHJF', getProjectId);
+      return projects.map((target) => {
+        if (getProjectId == target["id"]) {
+          setProjectId(target["id"]);
+        }
+      });
+    };
     useEffect(() => {
-        const getStakeholder = async () => {
-          try {
-            const getStakeholderData = await fetch(
-              "https://nest-srm.up.railway.app/stakeholder-list",
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + authTokens.token.access,
-                },
-              }
-            );
-            const stakeholderJson = await getStakeholderData.json();
-            console.log(stakeholderJson["data"], "ppp");
-            // setStakeholder(await stakeholderJson["stakeholder"]);
-            if (getStakeholderData.ok) {
-              setStakeholders(await stakeholderJson["data"])
+      const getStakeholder = async () => {
+        try {
+          const getStakeholderData = await fetch(
+            "https://nest-srm.up.railway.app/stakeholder-list",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + authTokens.token.access,
+              },
             }
-          } catch (error) {
-            setErrorMessage(error);
+          );
+          const stakeholderJson = await getStakeholderData.json();
+          // console.log(stakeholderJson["data"], "ppp");
+          // setStakeholder(await stakeholderJson["stakeholder"]);
+          if (getStakeholderData.ok) {
+            setStakeholders(await stakeholderJson["data"])
           }
-        };
-        getStakeholder();
-      }, []);
+        } catch (error) {
+          setErrorMessage(error);
+        }
+      };
+      getStakeholder();
+    }, []);
 
       useEffect(() => {
         const getProject = async () => {
@@ -83,7 +97,7 @@ const AddEngagement = () => {
               }
             );
             const projectJson = await getProjectData.json();
-            console.log(projectJson, "jrtfnhjkrn");
+            // console.log(projectJson, "jrtfnhjkrn");
             // setStakeholder(await stakeholderJson["stakeholder"]);
             if (getProjectData.ok) {
               setProjects(await projectJson["data"])
@@ -96,6 +110,16 @@ const AddEngagement = () => {
       }, []);
 
       
+    
+      const handleStakeholderName = (e) => {
+        const getStakeId = e.target.value;
+        // console.log('kfkkjdfjJHBHJF', getStakeId);
+        return stakeholders.map((target) => {
+          if (getStakeId == target["id"]) {
+            setStakeholderId(target["id"]);
+          }
+        });
+      };
     
 
   const handleClick = () => {
@@ -111,19 +135,19 @@ const AddEngagement = () => {
   };
 
     const handleFormSubmit = (values) => {
-        // values.preventDefault()
+        values.preventDefault()
         setLoadingBtn(true);
-        [values].map(value => {
+        // [values].map(value => {
         addEngagement({
-            stakeholder_name : value.stakeholderName,
-            engagement_rate : value.engagementRate,
-            project : value.project,
-            engagement_diary : value.engagementDiary,
-            engagement_conclusion : value.engagementConclusion,
-            stakeholder_issues : value.stakeholderIssues,
-            stakeholder_assigned_task : value.stakeholderAssignedTask,
+            stakeholder_name : stakeholderId,
+            engagement_rate :engagementRate,
+            project :projectId,
+            engagement_diary :engagementDiary,
+            engagement_conclusion :engagementConclusion,
+            stakeholder_issues :stakeholderIssues,
+            stakeholder_assigned_task :stakeholderAssignedTask,
         })
-        })
+        // })
         // console.log(values);
     };
 
@@ -136,12 +160,12 @@ const AddEngagement = () => {
     >
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Add Stakeholder Engagement" subtitle="Add your stakeholder business sector" />
+        <Header title="Add Stakeholder Engagement" subtitle="Add your stakeholder Engagement" />
 
       </Box>
       {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
       <Snackbar
-        open={open}
+        open={msg? open : false}
         autoHideDuration={6000}
         onClose={handleClose}
         message={msg}
@@ -151,21 +175,8 @@ const AddEngagement = () => {
       <Box 
          sx={{ width: "800px", margin: "auto", marginTop: "70px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
         >
-              <Formik
-            onSubmit={e=>handleFormSubmit(e)}
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            sx={{padding: "50px",}}
-        >
-            {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            }) => (
-            <form onSubmit={handleSubmit}>
+             
+            <form onSubmit={e=>handleFormSubmit(e)}>
                 <Box
                 display="grid"
                 gap="30px"
@@ -174,20 +185,20 @@ const AddEngagement = () => {
                     "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
                 >
-                <TextField
+                   <TextField
                     fullWidth
                     variant="filled"
                     type="text"
                     select
                     label="Select Stakeholder"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.stakeholderName}
+                    // onBlur={handleBlur}
+                    onChange={e=>handleStakeholderName(e)}
+                    value={stakeholderId}
                     name="stakeholderName"
-                    error={!!touched.stakeholderName && !!errors.stakeholderName}
-                    helperText={touched.stakeholderName && errors.stakeholderName}
+                    // error={!!touched.stakeholderName && !!errors.stakeholderName}
+                    // helperText={touched.stakeholderName && errors.stakeholderName}
                     sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
-                    onClick={setStakeholderId(values.stakeholderName)}
+                    // onClick={setStakeholderId(values.stakeholderName)}
                 >
                     {stakeholders && stakeholders.map((stakeholder, index) => (
                     <MenuItem value={stakeholder.id} key={stakeholder.id}>
@@ -195,20 +206,21 @@ const AddEngagement = () => {
                     </MenuItem>
                     ))}
                 </TextField>
+                
                 <TextField
                     fullWidth
                     variant="filled"
                     type="text"
                     select
                     label="Engagement Rate"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.engagementRate}
+                    // onBlur={handleBlur}
+                    onChange={e=>setengagementRate(e.target.value)}
+                    value={engagementRate}
                     name="engagementRate"
-                    error={!!touched.engagementRate && !!errors.engagementRate}
-                    helperText={touched.stakeholderName && errors.engagementRate}
+                    // error={!!touched.engagementRate && !!errors.engagementRate}
+                    // helperText={touched.stakeholderName && errors.engagementRate}
                     sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B" }}
-                    onClick={setengagementRate(values.engagementRate)}
+                    // onClick={setengagementRate(values.engagementRate)}
                 >
                     <MenuItem value={1}>1  Poor Performance</MenuItem>
                     <MenuItem value={2}>2  Fair Performance</MenuItem>
@@ -222,17 +234,16 @@ const AddEngagement = () => {
                     type="text"
                     select
                     label="Project"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.project}
+                    onChange={e=>handleProjects(e)}
+                    value={projectId}
                     name="project"
-                    error={!!touched.project && !!errors.project}
-                    helperText={touched.project && errors.project}
+                    // error={!!touched.project && !!errors.project}
+                    // helperText={touched.project && errors.project}
                     sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B" }}
                 >
                  {projects && projects.map((proj, index) => (
                     <MenuItem value={proj.id} key={proj.id}>
-                        {proj.program}
+                        {proj.project_name}
                     </MenuItem>
                     ))}
                     </TextField>
@@ -242,12 +253,11 @@ const AddEngagement = () => {
                     multiline
                     maxRows={3}
                     label="Engagement Diary"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.engagementDiary}
+                    onChange={e=>setEngagementDiary(e.target.value)}
+                    value={engagementDiary}
                     name="engagementDiary"
-                    error={!!touched.engagementDiary && !!errors.engagementDiary}
-                    helperText={touched.engagementDiary && errors.engagementDiary}
+                    // error={!!touched.engagementDiary && !!errors.engagementDiary}
+                    // helperText={touched.engagementDiary && errors.engagementDiary}
                     sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
@@ -255,12 +265,9 @@ const AddEngagement = () => {
                     variant="filled"
                     type="text"
                     label="Engagement Conclusion"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.engagementConclusion}
+                    onChange={e=>setEngagementConclusion(e.target.value)}
+                    value={engagementConclusion}
                     name="engagementConclusion"
-                    error={!!touched.engagementConclusion && !!errors.engagementConclusion}
-                    helperText={touched.engagementConclusion && errors.engagementConclusion}
                     sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
@@ -268,12 +275,12 @@ const AddEngagement = () => {
                     variant="filled"
                     type="text"
                     label="Stakeholder Issues"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.stakeholderIssues}
+                    // onBlur={handleBlur}
+                    onChange={e=>setStakeHolderIssues(e.target.value)}
+                    value={stakeholderIssues}
                     name="stakeholderIssues"
-                    error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
-                    helperText={touched.stakeholderIssues && errors.stakeholderIssues}
+                    // error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
+                    // helperText={touched.stakeholderIssues && errors.stakeholderIssues}
                     sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
@@ -281,12 +288,12 @@ const AddEngagement = () => {
                     variant="filled"
                     type="text"
                     label="Stakeholder Assigned Task"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.stakeholderAssignedTask}
+                    // onBlur={handleBlur}
+                    onChange={e=>setStakeHolderAssignedTask(e.target.value)}
+                    value={stakeholderAssignedTask}
                     name="stakeholderAssignedTask"
-                    error={!!touched.stakeholderAssignedTask && !!errors.stakeholderAssignedTask}
-                    helperText={touched.stakeholderAssignedTask && errors.stakeholderAssignedTask}
+                    // error={!!touched.stakeholderAssignedTask && !!errors.stakeholderAssignedTask}
+                    // helperText={touched.stakeholderAssignedTask && errors.stakeholderAssignedTask}
                     sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 </Box>
@@ -301,8 +308,8 @@ const AddEngagement = () => {
             </LoadingButton>
                 </Box>
             </form>
-            )}
-        </Formik>
+            {/* )}
+        </Formik> */}
       </Box>
     </Box>
     )
@@ -310,22 +317,22 @@ const AddEngagement = () => {
 
 export default AddEngagement
 
-const checkoutSchema = yup.object().shape({
-    stakeholderName: yup.string().required("required"),
-    engagementRate: yup.number().positive().integer().required("required"),
-    project: yup.string().required("required"),
-    engagementDiary: yup.string().required("required"),
-    engagementConclusion: yup.string().required("required"),
-    stakeholderIssues: yup.string().required("required"),
-    stakeholderAssignedTask: yup.string().required("required"),
+// const checkoutSchema = yup.object().shape({
+//     stakeholderName: yup.string().required("required"),
+//     engagementRate: yup.number().positive().integer().required("required"),
+//     project: yup.string().required("required"),
+//     engagementDiary: yup.string().required("required"),
+//     engagementConclusion: yup.string().required("required"),
+//     stakeholderIssues: yup.string().required("required"),
+//     stakeholderAssignedTask: yup.string().required("required"),
     
-  });
-  const initialValues = {
-    stakeholderName: "",
-    engagementRate: "",
-    project: "",
-    engagementDiary: "",
-    engagementConclusion: "",
-    stakeholderIssues: "",
-    stakeholderAssignedTask: "",
-  };
+//   });
+//   const initialValues = {
+//     stakeholderName: "",
+//     engagementRate: "",
+//     project: "",
+//     engagementDiary: "",
+//     engagementConclusion: "",
+//     stakeholderIssues: "",
+//     stakeholderAssignedTask: "",
+//   };

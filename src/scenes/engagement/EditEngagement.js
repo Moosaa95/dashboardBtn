@@ -47,25 +47,13 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { addEngagement, authTokens, success, error, clearError } =
+  const { addEngagement, authTokens, success, error, clearError, clearSuccess } =
     useContext(AuthContext);
 
   // console.log('engagement ENGAGEMENT');
 
   
-  useEffect(() => {
-    if (success) {
-      // setMsg(success)
-      setLoadingBtn(false);
-    } else if (error) {
-      setMsg(error);
-      setOpen(true);
-      setLoadingBtn(false);
-      setInterval(() => {
-        clearError();
-      }, 6000);
-    }
-  }, [success, error]);
+  
 
   useEffect(() => {
     let stakeHolders = async () => {
@@ -86,15 +74,10 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
         setEngagementDiary(data["data"].engagement_diary);
         setengagementRate(data["data"].engagement_rate);
         setProjectId(data["data"].project);
-        setStakeholderId(data["data"].stakeholder_name);
+        // setStakeholderId(data["data"].stakeholder_name);
         setStakeholderIssues(data["data"].stakeholder_issues);
         setStakeholderAssignedTask(data["data"].stakeholder_assigned_task);
-        // setFirstName(data["data"].first_name);
-        // setLastName(data["data"].last_name);
-        // setGender(data["data"].gender);
-        // setEmail(data["data"].email);
-        // setPersonName(data["data"].user_permission2)
-        // setEmail(data["data"].email);
+      
         if (response.ok) {
           setIsLoaded(false);
           // // console.log("DATA IS POWER", stakeholderVar);
@@ -111,38 +94,10 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
     //   second
     // }
   }, [rowId]);
-
-  useEffect(() => {
-    const getProject = async () => {
-      try {
-        const getProjectData = await fetch(
-          "https://nest-srm.up.railway.app/project-list",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + authTokens.token.access,
-            },
-          }
-        );
-        const projectJson = await getProjectData.json();
-        // //console.log(projectJson, "jrtfnhjkrn");
-        // setStakeholder(await stakeholderJson["stakeholder"]);
-        if (getProjectData.ok) {
-          setProjects(await projectJson["data"]);
-        }
-      } catch (error) {
-        setErrorMessage(error);
-      }
-    };
-    getProject();
-  }, []);
-
-  useEffect(() => {
-    let stakeHolders = async () => {
-      // if(authTokens){
-      let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-list",
+  const getProject = async () => {
+    try {
+      const getProjectData = await fetch(
+        "https://nest-srm.up.railway.app/project-list",
         {
           method: "GET",
           headers: {
@@ -151,18 +106,23 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
           },
         }
       );
-      let data = await response.json();
-      setStakeHolderVar(data["data"]);
-      if (response.ok) {
-        setIsLoaded(false);
+      const projectJson = await getProjectData.json();
+      // //console.log(projectJson, "jrtfnhjkrn");
+      // setStakeholder(await stakeholderJson["stakeholder"]);
+      if (getProjectData.ok) {
+        setProjects(await projectJson["data"]);
       }
-      // //console.log(data, "data");
-      // }else{
-      //     alert("something went wro")
-      // }
-    };
-    stakeHolders();
-  }, [authTokens]);
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  };
+
+  useEffect(() => {
+   
+    getProject();
+  }, []);
+
+  
 
   //   const handleClick = () => {
   //     setOpen(true);
@@ -176,32 +136,12 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
     setOpen(false);
   };
 
-  const handleStakeholderName = (e) => {
-    const getStakeId = e.target.value;
-    // console.log('kfkkjdfjJHBHJF', getStakeId);
-    return stakeholderVar.map((target) => {
-      // if (getStakeId == target["id"]) {
-      //   setStakeholderTypeId({
-      //     ...stakeholderType,
-      //     stakeholdeType: target["id"],
-      //   });
-      // }
-      if (getStakeId == target["id"]) {
-        setStakeholderId(target["id"]);
-      }
-    });
-  };
+  
 
   const handleProjects = (e) => {
     const getProjectId = e.target.value;
     // console.log('kfkkjdfjJHBHJF', getProjectId);
     return projects.map((target) => {
-      // if (getProjectId == target["id"]) {
-      //   setStakeholderTypeId({
-      //     ...stakeholderType,
-      //     stakeholdeType: target["id"],
-      //   });
-      // }
       if (getProjectId == target["id"]) {
         setProjectId(target["id"]);
       }
@@ -225,7 +165,6 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
             engagement_diary: engagementDiary,
             engagement_rate: engagementRate,
             project: projectId,
-            stakeholder_name: stakeholderId,
             stakeholder_issues: stakeholderIssues,
             stakeholder_assigned_task: stakeholderAssignedTask,
           }),
@@ -236,26 +175,28 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
       // console.log(data, "take seripous");
       // setStakeHolderVar(data["data"])
       if (response.ok) {
-        // // console.log(response, "erresponse", data);
-        // e.target.reset();
         setOpen(true);
         setLoadingBtn(false);
-
-        setMsg(data);
-
-        setInterval(() => {
-          setMsg(null);
-          window.location.reload();
-        }, 6000);
+        setMsg(data.message);
+        clearSuccess()
+        getProject()
+        // setInterval(() => {
+        //   setMsg(null)
+        //   window.location.reload() 
+          
+        // }, 3000);
       } else {
         setOpen(true);
         setLoadingBtn(false);
-        setMsg(data);
-        setInterval(() => {
-          setMsg(null);
-        }, 3000);
+        setMsg(data.message);
+        // setInterval(() => {
+        //   setMsg(null);
+        // }, 3000);
       }
       // // console.log(data, "data");
+    }
+    else{
+      setMsg("does not match")
     }
   };
 
@@ -279,21 +220,8 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
           autoHideDuration={6000}
           // key={vertical + horizontal}
         />
-            {/* <Formik
-            onSubmit={e=>handleFormSubmit(e)}
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            sx={{padding: "50px",}}
-        >
-            {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            }) => ( */}
-            <form onSubmit={handleSubmit}>
+            
+            <form onSubmit={e=>handleSubmit(e)}>
               <Box
                 display="grid"
                 gap="30px"
@@ -307,30 +235,9 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   variant="filled"
                   type="text"
                   select
-                  label="Select Stakeholder"
-                  onChange={(e) => handleStakeholderName(e)}
-                  value={stakeholderId}
-                  name="stakeholderName"
-                  // error={!!touched.stakeholderName && !!errors.stakeholderName}
-                  // helperText={touched.stakeholderName && errors.stakeholderName}
-                  sx={{ gridColumn: "span 4" }}
-                  // onClick={setStakeholderId(values.stakeholderName)}
-                >
-                  {stakeholderVar &&
-                    stakeholderVar.map((stakeholder, index) => (
-                      <MenuItem value={stakeholder.id} key={stakeholder.id}>
-                        {`${stakeholder.first_name} ${stakeholder.last_name}`}
-                      </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  select
                   label="Engagement Rate"
                   // onBlur={handleBlur}
-                  // onChange={handleChange}
+                  onChange={e=>setengagementRate(e.target.value)}
                   value={engagementRate}
                   name="engagementRate"
                   // error={!!touched.engagementRate && !!errors.engagementRate}
@@ -361,7 +268,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   {projects &&
                     projects.map((proj, index) => (
                       <MenuItem value={proj.id} key={proj.id}>
-                        {proj.program}
+                        {proj.project_name}
                       </MenuItem>
                     ))}
                 </TextField>
@@ -369,10 +276,10 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   fullWidth
                   variant="filled"
                   multiline
-                  maxRows={3}
+                  // maxRows={3}
                   label="Engagement Diary"
                   // onBlur={handleBlur}
-                  // onChange={handleChange}
+                  onChange={e=>setEngagementDiary(e.target.value)}
                   value={engagementDiary}
                   name="engagementDiary"
                   // error={!!touched.engagementDiary && !!errors.engagementDiary}
@@ -385,7 +292,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   type="text"
                   label="Engagement Conclusion"
                   // onBlur={handleBlur}
-                  // onChange={handleChange}
+                  onChange={e=>setEngagementConclusion(e.target.value)}
                   value={engagementConclusion}
                   name="engagementConclusion"
                   // error={!!touched.engagementConclusion && !!errors.engagementConclusion}
@@ -398,6 +305,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   type="text"
                   label="Stakeholder Issues"
                   // onBlur=/e={handleChange}
+                  onChange={e=>setStakeholderIssues(e.target.value)}
                   value={stakeholderIssues}
                   name="stakeholderIssues"
                   // error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
@@ -411,6 +319,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   label="Stakeholder Assigned Task"
                   // onBlur={handleBlur}
                   // onChange={handleChange}
+                  onChange={e=>setStakeholderAssignedTask(e.target.value)}
                   value={stakeholderAssignedTask}
                   name="stakeholderAssignedTask"
                   // error={!!touched.stakeholderAssignedTask && !!errors.stakeholderAssignedTask}
@@ -441,21 +350,21 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
 
 export default UpdateEngagement;
 
-const checkoutSchema = yup.object().shape({
-  stakeholderName: yup.string().required("required"),
-  engagementRate: yup.number().positive().integer().required("required"),
-  project: yup.string().required("required"),
-  engagementDiary: yup.string().required("required"),
-  engagementConclusion: yup.string().required("required"),
-  stakeholderIssues: yup.string().required("required"),
-  stakeholderAssignedTask: yup.string().required("required"),
-});
-const initialValues = {
-  stakeholderName: "",
-  engagementRate: "",
-  project: "",
-  engagementDiary: "",
-  engagementConclusion: "",
-  stakeholderIssues: "",
-  stakeholderAssignedTask: "",
-};
+// const checkoutSchema = yup.object().shape({
+//   stakeholderName: yup.string().required("required"),
+//   engagementRate: yup.number().positive().integer().required("required"),
+//   project: yup.string().required("required"),
+//   engagementDiary: yup.string().required("required"),
+//   engagementConclusion: yup.string().required("required"),
+//   stakeholderIssues: yup.string().required("required"),
+//   stakeholderAssignedTask: yup.string().required("required"),
+// });
+// const initialValues = {
+//   stakeholderName: "",
+//   engagementRate: "",
+//   project: "",
+//   engagementDiary: "",
+//   engagementConclusion: "",
+//   stakeholderIssues: "",
+//   stakeholderAssignedTask: "",
+// };

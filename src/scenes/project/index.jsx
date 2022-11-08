@@ -19,7 +19,7 @@ const Contacts = () => {
   const colors = tokens(theme.palette.mode);
   const [projectVar, setProjectVar] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(100);
   const [msg, setMsg] = useState("")
   const [open, setOpen] = useState(false)
   const [openModal, setOpenModal] = useState(false);
@@ -64,7 +64,7 @@ const Contacts = () => {
       setIsLoaded(false)
       
     }
-    console.log(data, "data");
+    // console.log(data, "data");
     // }else{
     //     alert("something went wro")
     // }
