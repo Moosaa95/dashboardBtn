@@ -53,7 +53,7 @@ label#filled-multiline-flexible-label {
   color: #6E6B7B !important;
 }
 
-.css-ts3t6r-MuiFormLabel-root-MuiInputLabel-root {
+.css-ts3t6r-MuiFormLabel-root-MuiInputLabel-root .css-1rv476z-MuiInputBase-input-MuiFilledInput-input {
   color: #6E6B7B !important;
   font-family: Montserrat,sans-serif;
   font-weight: 400;
@@ -79,6 +79,7 @@ label#filled-multiline-flexible-label {
   z-index: 1;
   pointer-events: none;
 }
+
 
 .css-1rv476z .MuiInputBase-input .MuiFilledInput-input .css-1476h24 {
   font: inherit;
