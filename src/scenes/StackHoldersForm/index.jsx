@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 // import { useTheme } from '@mui/material/styles';
 import { LoadingButton } from "@mui/lab";
 import { tokens } from "../../theme";
+import "../../index.css"
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
