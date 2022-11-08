@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Stack, Typography, Snackbar, TextField, Button } from "@mui/material";
+import { Box, Grid, Stack, Typography, Snackbar, TextField, Button } from "@mui/material";
 import * as yup from "yup";
 import { Form, Formik } from "formik";
 import Header from "../../components/Header";
@@ -89,13 +89,12 @@ const Login = ({setLoggedIn}) => {
   
     return (
       <Box
-        m="20px"
         display="flex"
         width="100%"
         justifyContent="center"
         alignItems="center"
         flexDirection="Column"
-              backgroundColor="#000"
+              backgroundColor="#fff"
               height="100%"
         // mt="200px"
       >
@@ -111,7 +110,10 @@ const Login = ({setLoggedIn}) => {
           color="#000"
           />
        
-        <Header title="Login" subtitle="Login an Account" />
+        <Box sx={{ width: "800px", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+        <Box display="flex" justifyContent="center" alignItems="center">
+            <Header title="Login" subtitle="Welcome Back!"/>
+        </Box>
         <Formik
           onSubmit={handleFormSubmit}
           initialValues={initialValues}
@@ -129,18 +131,13 @@ const Login = ({setLoggedIn}) => {
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                width="550px"
-                gap="30px"
-                // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                display="grid"
+                gap="20px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                 sx={{
-                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
               >
-                <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
                 <TextField
                   fullWidth
                   variant="filled"
@@ -152,11 +149,8 @@ const Login = ({setLoggedIn}) => {
                   name="adminUsername"
                   error={!!touched.adminUsername && !!errors.adminUsername}
                   helperText={touched.adminUsername && errors.adminUsername}
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{ gridColumn: "span 4" }}
                 />
-                </Box>
-                
-                <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
                 <TextField
                   fullWidth
                   variant="filled"
@@ -170,43 +164,44 @@ const Login = ({setLoggedIn}) => {
                   helperText={touched.password && errors.password}
                   sx={{ gridColumn: "span 4" }}
                 />
-                </Box>
-                
               </Box>
-              <Box display="flex" flexDirection="column" width="100%" mr="20px" justifyContent="space-between" mt="20px">
+              <Box display="flex" flexDirection="column" width="100%" mr="20px" justifyContent="space-between" mt="20px" >
               <LoadingButton
               loading={loadingBtn}
               type="submit"
               color="secondary"
-              variant="contained"
+              variant="contained" sx={{ padding: "10px 20px", gridColumn: "span 4"  }}
+              
             >
               Login
             </LoadingButton>
-                <Typography 
-                color="#fff"
-                alignItems="center"
-
-                >
-                     dont have an Account? 
-                     <Link to="/register">
-                   <Typography 
-                   alignItems="center"
-                   mb="20px"
-                   >
-                     Sign up
-                   </Typography>
-                </Link>
-                  </Typography>
-                
-                <Link to="/forgot-password">
-                  <Typography>
-                    forgot password?
-                  </Typography>
-                </Link>
+            <Box sx={{ marginTop: "20px", }}>
+            <Grid container spacing={2}>
+                <Grid item xs={6} sx={{ alignItems: "left",}}>
+                  <Link to="/register">
+                      <Typography 
+                      alignItems="left"
+                      mb="20px"
+                      >
+                      Don't have an Account? <span sx={{ color: "6E6B7B", }}>Sign up</span>
+                    </Typography>
+                    </Link>
+                </Grid>
+                <Grid item xs={6} sx={{ alignItems: "right", }}>
+                  <Link to="/forgot-password">
+                    <Typography>
+                      forgot password?
+                    </Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
               </Box>
             </form>
           )}
         </Formik>
+
+        </Box>
       </Box>
   );
 };
