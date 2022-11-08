@@ -9,6 +9,7 @@ import AuthContext from "../context/AuthContext";
 import "./Login.css";
 import { useMediaQuery } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import Image from "../../../src/images/bg.jpg";
 
 
 const Login = ({setLoggedIn}) => {
@@ -94,9 +95,10 @@ const Login = ({setLoggedIn}) => {
         justifyContent="center"
         alignItems="center"
         flexDirection="Column"
-              backgroundColor="#fff"
+              // backgroundColor="#fff"
               height="100%"
         // mt="200px"
+        sx={{ backgroundImage: `url(${Image})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", }}
       >
          
           <Snackbar
@@ -110,7 +112,7 @@ const Login = ({setLoggedIn}) => {
           color="#000"
           />
        
-        <Box sx={{ width: "800px", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+        <Box sx={{ width: "800px", backgroundColor: "#fff", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
         <Box display="flex" justifyContent="center" alignItems="center">
             <Header title="Login" subtitle="Welcome Back!"/>
         </Box>

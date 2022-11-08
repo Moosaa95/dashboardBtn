@@ -23,6 +23,7 @@ import { useMediaQuery } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import { tokens } from "../../theme";
 import { LoadingButton } from "@mui/lab";
+import Image from "../../../src/images/bg.jpg";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -201,6 +202,7 @@ const SignUp = () => {
       flexDirection="Column"
       backgroundColor="#fff"
       height="100%"
+      sx={{ backgroundImage: `url(${Image})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", }}
     >
       <Snackbar
         
@@ -213,7 +215,7 @@ const SignUp = () => {
         // color="#000"
         />
 
-      <Box sx={{ width: "900px", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+      <Box sx={{ width: "900px", margin: "auto", backgroundColor: "#fff", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
         <Box display="flex" justifyContent="center" alignItems="center">
             <Header title="Registration" subtitle="Sign up a new user"/>
         </Box>
