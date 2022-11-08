@@ -437,7 +437,13 @@ const StackHolderForm = () => {
         <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
       </Box>
 
-      <Box  sx={{ width: "1000px", margin: "auto", marginTop: "20px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+      <Box  sx={{ width: "1000px", margin: "auto", 
+            marginTop: "20px", 
+            padding: "50px",
+            backgroundColor: "#eee",
+            boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}
+            
+            >
         <form onSubmit={(e) => handleSubmit(e)}>
         <Box m="10px" fullWidth>
               <Button
@@ -462,8 +468,9 @@ const StackHolderForm = () => {
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              "& > div": { gridColumn: isNonMobile ? undefined : "span 4", color:"red" },
             }}
+            fontWeight="bold"
           >
             <TextField
               fullWidth

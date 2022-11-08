@@ -80,7 +80,7 @@ label#filled-multiline-flexible-label {
   pointer-events: none;
 }
 
-.css-1rv476z-MuiInputBase-input-MuiFilledInput-input {
+.css-1rv476z .MuiInputBase-input .MuiFilledInput-input .css-1476h24 {
   font: inherit;
   letter-spacing: inherit;
   color: #6E6B7B !important;
@@ -104,7 +104,7 @@ label#filled-multiline-flexible-label {
   padding-left: 12px;
 }
 
-.css-nh22sz-MuiSelect-select-MuiInputBase-input-MuiFilledInput-input.css-nh22sz-MuiSelect-select-MuiInputBase-input-MuiFilledInput-input.css-nh22sz-MuiSelect-select-MuiInputBase-input-MuiFilledInput-input {
+.css-nh22sz .MuiSelect-select .MuiInputBase-input .MuiFilledInput-input .css-nh22sz .MuiSelect-select .MuiInputBase-input .MuiFilledInput-input .css-nh22sz .MuiSelect-select .MuiInputBase-input .MuiFilledInput-input {
   padding-right: 32px;
   color: #6E6B7B !important;
 }
