@@ -90,31 +90,33 @@ export default function EditStakeholder({
     clearSuccess,
   } = useContext(AuthContext);
 
-  useEffect(() => {
-    let stakeHolders = async () => {
-      // if(authTokens){
-      let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-type/list",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + authTokens.token.access,
-          },
-        }
-      );
-      let data = await response.json();
-      // console.log("user", data, 'nowowowo');
-      setStakeholderTypes(data["data"]);
-      if (response.ok) {
-        setIsLoaded(false);
+  let getStakeHolders = async () => {
+    // if(authTokens){
+    let response = await fetch(
+      "https://nest-srm.up.railway.app/stakeholder-type/list",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.token.access,
+        },
       }
-      // console.log(data, 'data');
-      // }else{
-      //     alert("something went wro")
-      // }
-    };
-    stakeHolders();
+    );
+    let data = await response.json();
+    // console.log("user", data, 'nowowowo');
+    setStakeholderTypes(data["data"]);
+    if (response.ok) {
+      setIsLoaded(false);
+    }
+    // console.log(data, 'data');
+    // }else{
+    //     alert("something went wro")
+    // }
+  };
+
+  useEffect(() => {
+    
+    getStakeHolders();
   }, [authTokens]);
 
   const handleStakeholderType = (e) => {
@@ -229,16 +231,18 @@ export default function EditStakeholder({
         setOpen(true);
         setLoadingBtn(false);
 
-        setMsg(data);
+        setMsg(data.message);
+        getStakeHolders()
+        window.location.reload()
 
-        setInterval(() => {
-          setMsg(null)
-          window.location.reload()
-        }, 3000);
+        // setInterval(() => {
+        //   setMsg(null)
+        //   window.location.reload()
+        // }, 3000);
       } else {
         setOpen(true);
         setLoadingBtn(false);
-        setMsg(data);
+        setMsg(data.message);
         setInterval(() => {
           setMsg(null);
         }, 3000);
@@ -662,7 +666,7 @@ export default function EditStakeholder({
                 onClose={handleCloseModal}
                 // onClick={}
               >
-                Add Stakeholder
+                Edit Stakeholder
               </LoadingButton>
               {/* <Button color="danger" onClick={handleCloseModal}>Cancel</Button> */}
             </Box>

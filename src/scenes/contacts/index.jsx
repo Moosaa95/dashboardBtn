@@ -161,7 +161,7 @@ const StakeHolders = () => {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(100);
   const [stakeHolderVarCopy, setStakeHolderVarCopy] = useState([]);
   const [openUploadModal, setopenUploadModal] = useState(false);
   const [canAddStakeholder, setCanAddStakeholder] = useState(false);

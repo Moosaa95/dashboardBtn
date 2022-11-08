@@ -110,7 +110,7 @@ export default function EditProgram({
         aria-describedby="alert-dialog-description"
       >
        
-        <DialogTitle id="alert-dialog-title">{"Edit Stakeholder"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Edit Program"}</DialogTitle>
         <DialogContent>
         <form onSubmit={e=>handleSubmit(e)}>
                 <Box

@@ -189,7 +189,7 @@ const navigate  = useNavigate()
         setLoadingBtn(false)
         setMsg(data.message);
         handleCloseModal()
-        window.location.reload(true);
+        // window.location.reload(true);
         
         // navigate('/user-list')
       } else {
