@@ -48,6 +48,7 @@ export default function EditStakeholder({
   const [isLoaded, setIsLoaded] = useState(false);
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
+  const [permList, setPermList] = useState([])
   
 //   const [nRow, setNRow] = useState() 
   
@@ -66,6 +67,20 @@ const navigate  = useNavigate()
     clearSuccess,
   } = useContext(AuthContext);
 
+
+  useEffect(()=> {
+
+    userPermission.map(perm=> {
+      personName.map(name=> {
+        if ((name in perm) ) {
+          permList.push(perm)
+        }
+      })
+    })
+    
+  }, [permList])
+  
+  console.log('halo', permList);
 
   useEffect(() => {
     const getPermission = async () => {
@@ -201,9 +216,9 @@ const navigate  = useNavigate()
         //   clearError()
         // }, 3000);
       }
-      console.log(data, personName);
     }
   };
+  console.log('datetetewtersgt', personName);
 
   
 
@@ -319,7 +334,7 @@ const navigate  = useNavigate()
                     )}
                     MenuProps={MenuProps}
                   >
-                    {personName.map((name) => (
+                    {permList.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}

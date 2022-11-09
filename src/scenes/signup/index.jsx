@@ -23,6 +23,7 @@ import { useMediaQuery } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import { tokens } from "../../theme";
 import { LoadingButton } from "@mui/lab";
+import Image from "../../../src/images/bg.jpg";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -194,14 +195,14 @@ const SignUp = () => {
   //  }
   return (
     <Box
-      m="20px"
       display="flex"
       width="100%"
-      height="100vh"
       justifyContent="center"
       alignItems="center"
       flexDirection="Column"
-      backgroundColor="#000"
+      backgroundColor="#fff"
+      height="100%"
+      sx={{ backgroundImage: `url(${Image})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", }}
     >
       <Snackbar
         
@@ -213,8 +214,12 @@ const SignUp = () => {
         // key={'top_center'}
         // color="#000"
         />
-      <Header title="Registration" subtitle="Sign up a new user" />
-      <Formik
+
+      <Box sx={{ width: "900px", margin: "auto", backgroundColor: "#fff", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+        <Box display="flex" justifyContent="center" alignItems="center">
+            <Header title="Registration" subtitle="Sign up a new user"/>
+        </Box>
+        <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
@@ -237,19 +242,13 @@ const SignUp = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              width="100%"
-              backgroundColor="#000"
-              gap="30px"
-              // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              display="grid"
+              gap="25px"
+              gridTemplateColumns="repeat(6, minmax(0, 1fr))"
               sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 6" },
               }}
             >
-              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
               <TextField
                 fullWidth
                 variant="filled"
@@ -261,7 +260,7 @@ const SignUp = () => {
                 name="adminFirstName"
                 error={!!touched.adminFirstName && !!errors.adminFirstName}
                 helperText={touched.adminFirstName && errors.adminFirstName}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 3" }}
               />
               <TextField
                 fullWidth
@@ -274,10 +273,8 @@ const SignUp = () => {
                 name="adminLastName"
                 error={!!touched.adminLastName && !!errors.adminLastName}
                 helperText={touched.adminLastName && errors.adminLastName}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 3" }}
               />
-              </Box>
-              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
               <TextField
                 fullWidth
                 variant="filled"
@@ -304,7 +301,6 @@ const SignUp = () => {
                 helperText={touched.companyName && errors.companyName}
                 sx={{ gridColumn: "span 2" }}
               />
-              </Box>
               <TextField
                 fullWidth
                 variant="filled"
@@ -318,7 +314,6 @@ const SignUp = () => {
                 helperText={touched.adminEmail && errors.adminEmail}
                 sx={{ gridColumn: "span 2" }}
               />
-              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
               <TextField
                 fullWidth
                 variant="filled"
@@ -330,7 +325,7 @@ const SignUp = () => {
                 name="adminUsername"
                 error={!!touched.adminUsername && !!errors.adminUsername && !!msg.admin_username}
                 helperText={touched.adminUsername && errors.adminUsername}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 3" }}
               />
               <TextField
                 fullWidth
@@ -344,13 +339,11 @@ const SignUp = () => {
                 name="gender"
                 error={!!touched.gender && !!errors.gender}
                 helperText={touched.gender && errors.gender}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 3" }}
               >
                 <MenuItem value="MALE">MALE</MenuItem>
                   <MenuItem value="FEMALE">FEMALE</MenuItem> 
               </TextField>
-              </Box>
-              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
               <TextField
                 fullWidth
                 variant="filled"
@@ -362,7 +355,7 @@ const SignUp = () => {
                 name="password"
                 error={!!touched.password && !!errors.password}
                 helperText={touched.password && errors.password}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 3" }}
               />
               <TextField
                 fullWidth
@@ -375,10 +368,8 @@ const SignUp = () => {
                 name="confirmPassword"
                 error={!!touched.confirmPassword && !!errors.confirmPassword}
                 helperText={touched.confirmPassword && errors.confirmPassword}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 3" }}
               />
-              </Box>
-              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
               <TextField
                 fullWidth
                 variant="filled"
@@ -390,7 +381,7 @@ const SignUp = () => {
                 name="phoneNumber"
                 error={!!touched.phoneNumber && !!errors.phoneNumber}
                 helperText={touched.phoneNumber && errors.phoneNumber}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 3" }}
               />
               <TextField
                 fullWidth
@@ -403,15 +394,9 @@ const SignUp = () => {
                 name="address"
                 error={!!touched.address && !!errors.address}
                 helperText={touched.address && errors.address}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 3" }}
               />
-              </Box>
               
-              <Box
-              display="flex"
-              width="100%"
-              gap="20px"
-              >
               <TextField
                 fullWidth
                 variant="filled"
@@ -476,9 +461,8 @@ const SignUp = () => {
                   </MenuItem>
                 ))}
               </TextField>
-              </Box>
             </Box>
-            <Box display="flex" width="100%" mr="20px" justifyContent="space-between" mt="20px">
+            <Box sx={{ marginTop: "20px" }}>
             <LoadingButton
               loading={loadingBtn}
               type="submit"
@@ -487,18 +471,19 @@ const SignUp = () => {
             >
               Register
             </LoadingButton>
-              <Typography>
-                   or Already have an Account? 
-                </Typography>
+            </Box>
+            <Box sx={{ marginTop: "20px", justifyContent: "center", alignItems: "center",}}>
               <Link to="/login">
-                 <Typography>
-                   Sign in
-                 </Typography>
-              </Link>
+                  <Typography>
+                    Already have an Account? <span sx={{ color: "#6E6B7B", }}>Sign in</span>
+                  </Typography>
+                </Link>
             </Box>
           </form>
         )}
       </Formik>
+      </Box>
+
     </Box>
   );
 };

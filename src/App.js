@@ -34,6 +34,7 @@ import { ResetPassword } from "./forgotPassword/ResetPassword";
 import Settings from "./scenes/generalsettings";
 import { EngagementDetail } from "./scenes/engagement/EngagementDetail";
 import './index.css'
+import '../src/index.css'
 
 
 
