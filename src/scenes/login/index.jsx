@@ -112,7 +112,7 @@ const Login = ({setLoggedIn}) => {
           color="#000"
           />
        
-        <Box sx={{ width: "800px", backgroundColor: "#fff", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+        <Box sx={{ width: "600px", backgroundColor: "#fff", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
         <Box display="flex" justifyContent="center" alignItems="center">
             <Header title="Login" subtitle="Welcome Back!"/>
         </Box>

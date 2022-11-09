@@ -1,5 +1,6 @@
 import { style } from '@mui/system';
 import React, {useState, useEffect, Fragment, useContext, useRef} from 'react'
+import Header from "../components/Header";
 import {useParams, Link, useNavigate } from "react-router-dom"
 import {
   Box,
@@ -20,6 +21,7 @@ import * as yup from "yup";
 // import AuthContext from '../context/AuthContext'
 import AuthContext from '../scenes/context/AuthContext';
 import { LoadingButton } from "@mui/lab";
+import Image from "../../src/images/bg.jpg";
 
  
 export const ResetPassword = ({setLoggedIn}) => {
@@ -132,30 +134,16 @@ export const ResetPassword = ({setLoggedIn}) => {
   return (
     <>
      <Box
-      m="20px"
       display="flex"
       width="100%"
-      height="100vh"
       justifyContent="center"
       alignItems="center"
       flexDirection="Column"
-      backgroundColor="#000"
+            // backgroundColor="#fff"
+            height="100%"
+      // mt="200px"
+      sx={{ backgroundImage: `url(${Image})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", }}
     >
-       <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Box mb="30px">
-      <Typography
-        variant="h2"
-        color="#fff"
-        fontWeight="bold"
-        sx={{ m: "0 0 5px 0" }}
-      >
-        Password Reset
-      </Typography>
-      <Typography variant="h5" color="#eee">
-        forgot password
-      </Typography>
-    </Box>
-      </Box>
       <Snackbar
         
         anchorOrigin={{ vertical:"top", horizontal:"center" }}
@@ -166,6 +154,68 @@ export const ResetPassword = ({setLoggedIn}) => {
         // key={'top_center'}
         // color="#000"
         />
+        <Box sx={{ width: "600px", backgroundColor: "#fff", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+          <Box display="flex" justifyContent="center" alignItems="center">
+              <Header title="Reset Password" subtitle="Set a new password"/>
+          </Box>
+          <form onSubmit={e=>handleFormSubmit(e)}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              width="100%"
+              backgroundColor="#000"
+              gap="30px"
+              // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              sx={{
+                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              }}
+            > 
+              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
+              <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label="Password"
+                // onBlur={handleBlur}
+                onChange={e=>setPassword(e.target.value)}
+                value={password}
+                name="password"
+                // error={!!touched.password && !!errors.password}
+                // helperText={touched.password && errors.password}
+                sx={{ gridColumn: "span 4" }}
+              />
+              {/* <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label="Confirm Password"
+                // onBlur={handleBlur}
+                onChange={e=>setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+                name="confirmPassword"
+                // error={!!touched.confirmPassword && !!errors.confirmPassword}
+                // helperText={touched.confirmPassword && errors.confirmPassword}
+                sx={{ gridColumn: "span 4" }}
+              /> */}
+              </Box>
+              
+              
+              
+            </Box>
+            <Box display="flex" width="100%" mr="20px" justifyContent="space-between" mt="20px">
+            <LoadingButton
+              loading={loadingBtn}
+              type="submit"
+              color="secondary"
+              variant="contained"
+            >
+              Submit
+            </LoadingButton>
+            </Box>
+          </form>
+        </Box>
       
       {/* <Formik
         onSubmit={handleFormSubmit}

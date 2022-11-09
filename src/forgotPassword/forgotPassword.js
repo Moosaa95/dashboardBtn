@@ -18,6 +18,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../components/Header";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
+import Image from "../../src/images/bg.jpg";
 
 const ForgotPassword = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -72,27 +73,17 @@ const ForgotPassword = () => {
   };
    
   return (
-    <Box m="20px"
-    backgroundColor="#292929"
+    <Box 
+      display="flex"
       width="100%"
-      height="100%"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="Column"
+            // backgroundColor="#fff"
+            height="100%"
+      // mt="200px"
+      sx={{ backgroundImage: `url(${Image})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", }}
     >
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Box mb="30px">
-      <Typography
-        variant="h2"
-        color="#fff"
-        fontWeight="bold"
-        sx={{ m: "0 0 5px 0" }}
-      >
-        Password Reset
-      </Typography>
-      <Typography variant="h5" color="#eee">
-        forgot password
-      </Typography>
-    </Box>
-      </Box>
       <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={msg?open:false}
@@ -101,10 +92,12 @@ const ForgotPassword = () => {
           autoHideDuration={6000}
           // key={vertical + horizontal}
         />
-
-      <Box sx={{ width: "600px", margin: "auto", marginTop: "70px" }}>
-        
-            <form onSubmit={e=>handleFormSubmit(e)}>
+      {/* HEADER */}
+      <Box sx={{ width: "600px", backgroundColor: "#fff", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
+        <Box display="flex" justifyContent="center" alignItems="center">
+            <Header title="Password Reset" subtitle="Forget your password"/>
+        </Box>
+        <form onSubmit={e=>handleFormSubmit(e)}>
               <Box
                 display="grid"
                 gap="30px"
@@ -145,6 +138,7 @@ const ForgotPassword = () => {
               </Box>
             </form>
       </Box>
+      
     </Box>
   );
 };
