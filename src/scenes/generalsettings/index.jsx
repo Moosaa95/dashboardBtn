@@ -57,7 +57,7 @@ export default function BasicCard() {
       let getUsers = async () => {
         // if(authTokens){
         let response = await fetch(
-          "https://nest-srm.up.railway.app/auth/users/",
+          `${process.env.REACT_APP_BASE_API_KEY}/auth/users/`,
           {
             method: "GET",
             headers: {

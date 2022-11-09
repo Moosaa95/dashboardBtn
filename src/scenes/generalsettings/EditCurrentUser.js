@@ -71,7 +71,7 @@ const navigate  = useNavigate()
     const getPermission = async () => {
       try {
         const getPermissionData = await fetch(
-          "https://nest-srm.up.railway.app/auth/sys/permission",
+          `${process.env.REACT_APP_BASE_API_KEY}/auth/sys/permission`,
           {
             method: "GET",
             headers: {
@@ -98,7 +98,7 @@ const navigate  = useNavigate()
       // // console.log('POPO BIG CODE', rowId);
       if(authTokens){
       let response = await fetch(
-        `https://nest-srm.up.railway.app/auth/user/profile/${rowId}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/profile/${rowId}`,
         {
           method: "GET",
           headers: {
@@ -160,7 +160,7 @@ const navigate  = useNavigate()
       setLoadingBtn(true)
     if (rowId) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/auth/users/update/${rowId}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/users/update/${rowId}`,
         {
           method: "PATCH",
           headers: {
