@@ -68,19 +68,19 @@ const navigate  = useNavigate()
   } = useContext(AuthContext);
 
 
-  useEffect(()=> {
+  // useEffect(()=> {
 
-    userPermission.map(perm=> {
-      personName.map(name=> {
-        if ((name in perm) ) {
-          permList.push(perm)
-        }
-      })
-    })
+    // userPermission.map(perm=> {
+  //     personName.map(name=> {
+  //       if ((name in perm) ) {
+  //         permList.push(perm)
+  //       }
+  //     })
+  //   })
     
-  }, [permList])
+  // }, [permList])
   
-  console.log('halo', permList);
+  // console.log('halo', permList);
 
   useEffect(() => {
     const getPermission = async () => {
@@ -151,9 +151,10 @@ const navigate  = useNavigate()
     const {
       target: { value },
     } = event;
+    // console.log(value.codename, 'edit user');
     setPersonName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === 'string' ? value.split(',') : value
       );
      
     }
@@ -184,7 +185,7 @@ const navigate  = useNavigate()
             first_name: firstName,
             last_name:  lastName ,
             gender: gender,
-            user_permission2: personName.map((ind) => ind.id),
+            user_permissions: personName.map((ind) => ind),
             email: email,
             
           }),
@@ -204,7 +205,7 @@ const navigate  = useNavigate()
         setLoadingBtn(false)
         setMsg(data.message);
         handleCloseModal()
-        // window.location.reload(true);
+        window.location.reload(true);
         
         // navigate('/user-list')
       } else {
@@ -218,7 +219,7 @@ const navigate  = useNavigate()
       }
     }
   };
-  console.log('datetetewtersgt', personName);
+  // console.log('datetetewtersgt', personName);
 
   
 
@@ -334,7 +335,7 @@ const navigate  = useNavigate()
                     )}
                     MenuProps={MenuProps}
                   >
-                    {permList.map((name) => (
+                    {userPermission.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}

@@ -174,7 +174,7 @@ export const AuthProvider = ({ children }) => {
         setSuccess(data.message);
         navigate("/user-list");
       } else {
-        setError(data.message);
+        setError(data.email[0]);
       }
       // // console.log(data, 'data');
       // if (response.ok){

@@ -74,6 +74,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
+    // console.log(error);
     if (success) {
       // // console.log('hihhh', success)
       // setMsg(success);
@@ -119,6 +120,7 @@ const Form = () => {
     const {
       target: { value },
     } = event;
+    console.log('add user', value);
     
     setPersonName(
       // On autofill we get a stringified value.
@@ -126,6 +128,7 @@ const Form = () => {
       );
      
     }
+    // console.log(personName, 'new person add', userPermission);
   
 
   return (
@@ -133,7 +136,7 @@ const Form = () => {
       {msg && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={open}
+          open={msg? open : false}
           onClose={handleClose}
           autoHideDuration={6000}
           message={msg}
