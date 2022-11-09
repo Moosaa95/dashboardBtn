@@ -269,6 +269,7 @@ useEffect(() => {
               variant="filled"
               type="text"
               label="Notify Project Manager"
+              select
               // onBlur={handleBlur}
               onChange={(e) => setNotifyManager(e.target.value)}
               value={notifyManager}
@@ -277,7 +278,10 @@ useEffect(() => {
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
               sx={{ gridColumn: "span 4" }}
-            />
+            >
+               <MenuItem value="True">Yes</MenuItem>
+              <MenuItem value="False">No</MenuItem>
+            </TextField>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Stack spacing={10}>
                 <DesktopDatePicker
