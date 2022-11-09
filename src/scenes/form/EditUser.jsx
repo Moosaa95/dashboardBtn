@@ -201,7 +201,7 @@ const navigate  = useNavigate()
         //   clearError()
         // }, 3000);
       }
-      // // console.log(data, "data");
+      console.log(data, personName);
     }
   };
 
@@ -319,7 +319,7 @@ const navigate  = useNavigate()
                     )}
                     MenuProps={MenuProps}
                   >
-                    {userPermission.map((name) => (
+                    {personName.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
