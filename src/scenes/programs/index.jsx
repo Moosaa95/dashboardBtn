@@ -35,7 +35,7 @@ const Programs = () => {
     const [programDescription, setProgramDescription] = useState("")
     const [programName, setProgramName] = useState("")
     const [organizerSponsor, setOrganizerSponsor] = useState("")
-    const [pageSize, setPageSize] = useState(50);
+    const [pageSize, setPageSize] = useState(100);
     const [value, setValue] = useState(dayjs('02-05-2019').format('dd/MM/YYYY'));
     const [rowId, setRowId] = useState()
     const [canAddProgram, setCanAddProgram] = useState(false);
@@ -144,7 +144,7 @@ const Programs = () => {
       }
       let program = async () => {
         // if(authTokens){
-            let response = await fetch('https://nest-srm.up.railway.app/program-list', {
+            let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/program-list`, {
                 method:"GET", 
                 headers: {
                     'Content-Type' : 'application/json',
@@ -195,7 +195,7 @@ const Programs = () => {
         // setRowId(param.id)
         if (param) {
           let response = await fetch(
-            `https://nest-srm.up.railway.app/program-delete/${param.id}`,
+            `${process.env.REACT_APP_BASE_API_KEY}/program-delete/${param.id}`,
             {
               method: "PATCH",
               headers: {
@@ -293,6 +293,9 @@ const Programs = () => {
         }}
       >
         <DataGrid
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}

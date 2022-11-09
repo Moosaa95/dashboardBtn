@@ -46,6 +46,7 @@ export default function EditStakeholder({
   const [countries, setCountries] = useState([]);
   const [countriesId, setCountriesId] = useState("");
   const [statesId, setStatesId] = useState("");
+  const [citiesId, setCitiesId] = useState("");
   const [stateName, setStateName] = useState("");
   const [countryName, setCountryName] = useState("");
   const [cityName, setCityName] = useState("");
@@ -89,87 +90,96 @@ export default function EditStakeholder({
     clearSuccess,
   } = useContext(AuthContext);
 
-  useEffect(() => {
-    let stakeHolders = async () => {
-      // if(authTokens){
-      let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-type/list",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + authTokens.token.access,
-          },
-        }
-      );
-      let data = await response.json();
-      // console.log("user", data, 'nowowowo');
-      setStakeholderTypes(data["data"]);
-      if (response.ok) {
-        setIsLoaded(false);
+  let getStakeHolders = async () => {
+    // if(authTokens){
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-type/list`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.token.access,
+        },
       }
-      // console.log(data, 'data');
-      // }else{
-      //     alert("something went wro")
-      // }
-    };
-    stakeHolders();
+    );
+    let data = await response.json();
+    // console.log("user", data, 'nowowowo');
+    setStakeholderTypes(data["data"]);
+    if (response.ok) {
+      setIsLoaded(false);
+    }
+    // console.log(data, 'data');
+    // }else{
+    //     alert("something went wro")
+    // }
+  };
+
+  useEffect(() => {
+    
+    getStakeHolders();
   }, [authTokens]);
 
   const handleStakeholderType = (e) => {
     const getStakeId = e.target.value;
     // console.log('kfkkjdfjJHBHJF', getStakeId);
     return stakeholderTypes.map((target) => {
+      // if (getStakeId == target["id"]) {
+      //   setStakeholderTypeId({
+      //     ...stakeholderType,
+      //     stakeholdeType: target["id"],
+      //   });
+      // }
       if (getStakeId == target["id"]) {
-        setStakeholderTypeId({
-          ...stakeholderType,
-          stakeholdeType: target["id"],
-        });
+        setStakeholderTypeId(target["id"]);
       }
     });
   };
 
-  let stakeHolders = async () => {
-    // // console.log('POPO BIG CODE', rowId);
-    if (authTokens) {
-      let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder/profile/${rowId.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + authTokens.token.access,
-          },
-        }
-      );
-      let data = await response.json();
-      setFirstName(data["data"].first_name);
-      setLastName(data["data"].last_name);
-      setAddress(data["data"].address);
-      setPhoneNumber(data["data"].phone);
-      setBusinessCategory(data["data"].business_category);
-      setPostalCode(data["data"].postal_code);
-      // setBusinessSector(data["data"].business_sector);
-      setEmail(data["data"].email);
-      // setCountry(data["data"].country);
-      // setState(data["data"].state);
-      // setCity(data["data"].city);
-      setInterest(data["data"].interest);
-      setJobTitle(data["data"].job_title);
-      setStakeholderType(data["data"].stakeholder_type);
-
-      if (response.ok) {
-        setIsLoaded(false);
-
-        // // console.log("DATA IS POWER", stakeholderVar);
-        // setFirstName(stakeholderVar.first_name)
-      }
-      // // console.log(data, "data", 'BIG DATA NEX TITME ');
-    } else {
-      alert("something went wro");
-    }
-  };
+  
   useEffect(() => {
+    let stakeHolders = async () => {
+      // // console.log('POPO BIG CODE', rowId);
+      if (authTokens) {
+        let response = await fetch(
+          `${process.env.REACT_APP_BASE_API_KEY}/stakeholder/profile/${rowId.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authTokens.token.access,
+            },
+          }
+        );
+        let data = await response.json();
+        setFirstName(data["data"].first_name);
+        setLastName(data["data"].last_name);
+        setAddress(data["data"].address);
+        setPhoneNumber(data["data"].phone);
+        setBusinessCategory(data["data"].business_category);
+        setPostalCode(data["data"].postal_code);
+        setPersonName(data["data"].business_sectors); 
+        
+        setEmail(data["data"].email);
+        // setCountry(data["data"].country);
+        setCountriesId(data["data"].country);
+        setStatesId(data["data"].state);
+        setCityId(data["data"].city);
+        setInterest(data["data"].interest);
+        setJobTitle(data["data"].job_title);
+        setStakeholderTypeId(data["data"].stakeholder_type);
+        // setStakeholderTypeId(2)
+  
+        if (response.ok) {
+          setIsLoaded(false);
+  
+          // console.log("DATA IS POWER", data);
+          // setFirstName(stakeholderVar.first_name)
+        }
+        // // console.log(data, "data", 'BIG DATA NEX TITME ');
+      } else {
+        alert("something went wro");
+      }
+    };
     stakeHolders();
 
     // return () => {
@@ -177,25 +187,7 @@ export default function EditStakeholder({
     // }
   }, [rowId]);
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // }
-
-  // useEffect(() => {
-  //   if (rowId) {
-  //     setNRow(rowId)
-  //   }
-
-  //   // return () => {
-  //   //   second
-  //   // }
-  // }, [rowId])
-
-  // // console.log('HIGHEER ID IN THE MAKEING ', nRow)
+ 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -204,7 +196,7 @@ export default function EditStakeholder({
     setLoadingBtn(true);
     if (rowId) {
       let response = await fetch(
-        `https://nest-srm.up.railway.app/stakeholder-update/${rowId.id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-update/${rowId.id}`,
         {
           method: "PATCH",
           headers: {
@@ -214,7 +206,7 @@ export default function EditStakeholder({
           body: JSON.stringify({
             first_name: firstName,
             last_name: lastName,
-            stakeholder_type: stakeholderType,
+            stakeholder_type: stakeholderTypeId,
             business_category: businessCategory,
             business_sector: personName.map((ind) => ind.id),
             job_title: jobTitle,
@@ -231,7 +223,7 @@ export default function EditStakeholder({
       );
       let data = await response.json();
 
-      // // console.log(data, "take seripous");
+      // console.log(data, "take seripous");
       // setStakeHolderVar(data["data"])
       if (response.ok) {
         // // console.log(response, "erresponse", data);
@@ -239,14 +231,18 @@ export default function EditStakeholder({
         setOpen(true);
         setLoadingBtn(false);
 
-        // setMsg(data);
+        setMsg(data.message);
+        getStakeHolders()
+        window.location.reload()
+
         // setInterval(() => {
         //   setMsg(null)
+        //   window.location.reload()
         // }, 3000);
       } else {
         setOpen(true);
         setLoadingBtn(false);
-        setMsg(data);
+        setMsg(data.message);
         setInterval(() => {
           setMsg(null);
         }, 3000);
@@ -259,7 +255,7 @@ export default function EditStakeholder({
     const getCountry = async () => {
       try {
         const getCountryData = await fetch(
-          "https://nest-srm.up.railway.app/location/apibundle"
+          `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle`
         );
         const countryJson = await getCountryData.json();
         // console.log(countryJson["country"], "ppp");
@@ -279,7 +275,7 @@ export default function EditStakeholder({
       const getState = async () => {
         try {
           const getState = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
           // console.log(stateJson, "state");
@@ -298,7 +294,7 @@ export default function EditStakeholder({
       const getCity = async () => {
         try {
           const getCities = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}&state=${statesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}&state=${statesId}`
           );
           const citiesJson = await getCities.json();
           // console.log(citiesJson, "city");
@@ -315,7 +311,7 @@ export default function EditStakeholder({
     const getBusiness = async () => {
       try {
         const getBusinessData = await fetch(
-          "https://nest-srm.up.railway.app/business-sector",
+          `${process.env.REACT_APP_BASE_API_KEY}/business-sector`,
           {
             method: "GET",
             headers: {
@@ -379,21 +375,8 @@ export default function EditStakeholder({
       }
     });
   };
-  // console.log('i am a country name', countryName);
-
-  // const businessOptions = businessSector;
-  // const bus = [];
-
-  // for (let i = 0; i < businessSector.length; i++) {
-  //   // // console.log(businessSector[i], "hello");
-  //   bus.push({ value: businessSector[i].id, label: businessSector[i].id });
-  // }
-
-  // const handleBusinessSector = (e) => {
-  //   getValue(Array.isArray(e)?e.map(x=>x.label):[])
-  //   // // console.log(displayValue, 'poppppppppp')
-
-  // }
+  
+  // console.log(countriesId, 'idname', countriesId);
 
   const handleSelectChange = (event) => {
     const {
@@ -404,7 +387,7 @@ export default function EditStakeholder({
       typeof value === "string" ? value.split(",") : value
     );
   };
-
+  // console.log('person name', personName);
   return (
     <div>
       <Snackbar
@@ -555,32 +538,6 @@ export default function EditStakeholder({
                 sx={{ gridColumn: "span 2" }}
               />
 
-              {/* <label className="form-label" htmlFor="basicSelect">
-                            Business Sector
-                          </label>
-                            {isLoaded && 
-                              <Select
-                              isMulti
-                              name="businessSector"
-                              className="basic-multi-select"
-                              classNamePrefix="select"
-                              onChange={()=>{
-                                setNRow(d=>({...d, business_sector:handleBusinessSector}))}}
-                              theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 0,
-                                colors: {
-                                ...theme.colors,
-                                  text: '#000',
-                                  primary25: 'hotpink',
-                                  primary: '#000',
-                                  
-                                },
-                              })}
-                            
-                              options={bus} />
-                            
-                            } */}
               <TextField
                 fullWidth
                 variant="filled"
@@ -673,6 +630,7 @@ export default function EditStakeholder({
                 onChange={(e) => handleState(e)}
                 name="state"
                 sx={{ gridColumn: "span 2" }}
+                value={statesId}
               >
                 {state.map((stat, index) => (
                   <MenuItem value={stat.pk} key={stat.pk}>
@@ -689,6 +647,7 @@ export default function EditStakeholder({
                 onChange={(e) => handleCity(e)}
                 name="city"
                 sx={{ gridColumn: "span 2" }}
+                value={cityId}
               >
                 {city.map((cit, index) => (
                   <MenuItem value={cit.pk} key={cit.pk}>
@@ -707,7 +666,7 @@ export default function EditStakeholder({
                 onClose={handleCloseModal}
                 // onClick={}
               >
-                Add Stakeholder
+                Edit Stakeholder
               </LoadingButton>
               {/* <Button color="danger" onClick={handleCloseModal}>Cancel</Button> */}
             </Box>

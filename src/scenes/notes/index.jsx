@@ -13,7 +13,7 @@ import EditUser from "./EditUser";
 
 const UserList = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const [stakeHolderVar, setStakeHolderVar] = useState([])
+    const [note, setNote] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
     const [pageSize, setPageSize] = useState(50);
     const [msg, setMsg] = useState("")
@@ -160,7 +160,7 @@ const [openModal, setOpenModal] = useState(false);
         },
       ];
 
-      let stakeHolders = async () => {
+      let noteStake = async () => {
         // if(authTokens){
             let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/users/`, {
                 method:"GET", 
@@ -186,7 +186,7 @@ const [openModal, setOpenModal] = useState(false);
     useEffect(() => {
 
         
-      stakeHolders()
+      noteStake()
     
       }, [authTokens])
 
@@ -262,9 +262,6 @@ const [openModal, setOpenModal] = useState(false);
         }}
       >
         <DataGrid
-          disableColumnFilter
-          disableColumnSelector
-          disableDensitySelector
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}

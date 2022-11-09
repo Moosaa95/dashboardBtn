@@ -17,7 +17,7 @@ const Sectors = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(100);
     const {authTokens, success} = useContext(AuthContext)
 
     useEffect(()=> {
@@ -33,7 +33,12 @@ const Sectors = () => {
     // console.log('lol', stakeHolderVar);
 
     const columns = [
-        { field: "id", headerName: "ID", flex: 0.5 },
+        { field: "id", headerName: "ID", flex: 0.5, hide:true },
+        {
+          field: "index",
+          headerName: "S/N",
+          renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
+        },
         // { field: "registrarId", headerName: "Registrar ID" },
         {
           field: "name",
@@ -47,7 +52,7 @@ const Sectors = () => {
 
         let stakeHolders = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/business-sector', {
+              let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/business-sector`, {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',
@@ -76,7 +81,7 @@ const Sectors = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
+        <Header title="ALl Business Sector" subtitle="stakeholder business sector" />
 
         <Box>
           <Link to="/add-sector">
@@ -132,6 +137,9 @@ const Sectors = () => {
         }}
       >
         <DataGrid
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}

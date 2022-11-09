@@ -14,6 +14,8 @@ import { useMediaQuery, Box, Typography, styled,
     maxWidth: '100%',
     maxHeight: '100%',
   });
+
+
   
 
 export const UserDetail = () => {
@@ -25,6 +27,7 @@ export const UserDetail = () => {
     const { id } = useParams();
 
     const {authTokens} = useContext(AuthContext)
+    
 
     // console.log('stake view page', id);
 
@@ -32,7 +35,7 @@ export const UserDetail = () => {
     let stakeHolders = async () => {
       if(authTokens){
       let response = await fetch(
-        `https://nest-srm.up.railway.app/auth/user/profile/${id}`,
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/profile/${id}`,
         {
           method: "GET",
           headers: {
@@ -92,6 +95,14 @@ export const UserDetail = () => {
                 Name: {`${stakeholderVar.first_name} ${stakeholderVar.last_name}`}
               </Typography>
 
+              <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
+                <span
+                style={{
+                  fontWeight:"bold",
+                  textTransform:"uppercase"
+                }}
+                >Email:</span> {stakeholderVar.email}
+              </Typography>
               <Typography textTransform="uppercase" gutterBottom variant="subtitle1" component="div">
                 <span
                 style={{

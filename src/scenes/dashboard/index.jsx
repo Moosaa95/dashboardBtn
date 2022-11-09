@@ -12,13 +12,19 @@ import AuthContext from "../context/AuthContext";
 
 
 const Dashboard = () => {
+  const [stakeHolderVar, setStakeHolderVar] = useState([]);
   const [open, setOpen] = useState(true)
-  const [msg, setMsg] = useState("")
+  const [stakeLength, setStakeLength] = useState(0);
+  const [msg, setMsg] = useState("");
+  const [userHolder, setUserHolder] =  useState([]);
+  const [userLength, setUserLength] = useState(0)
+  const [businessLength, setBusinessLength] = useState(0);
+  const [businessVar, setBusinessVar] = useState([])
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
 
-  const {success, error, clearSuccess} = useContext(AuthContext)
+  const {success, error, clearSuccess, authTokens} = useContext(AuthContext)
 
 
   const handleClose = () => {
@@ -40,6 +46,103 @@ const Dashboard = () => {
 
     // console.log(success);
 
+    
+
+    
+
+    
+
+
+
+    
+    
+    useEffect(() => {
+
+      let getUserHolders = async () => {
+        // if(authTokens){
+            let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/auth/users/`, {
+                method:"GET", 
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : 'Bearer ' + authTokens.token.access
+                },
+  
+            })
+            let data = await response.json()
+            console.log("user", data, 'nowowowo');
+            setUserHolder(data["data"])
+            
+            if (response.ok){
+              // setIsLoaded(false)
+              setUserLength(data.count)
+            }
+            // console.log(data, 'data');
+        // }else{
+        //     alert("something went wro")
+        // }
+        
+    }
+    getUserHolders()
+
+    let stakeHolders = async () => {
+      // if(authTokens){
+      let response = await fetch(
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-list`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+        }
+      );
+      let data = await response.json();
+      setStakeHolderVar(data["data"]);
+      // console.log(stakeHolderVar.length, 'count');
+      if (response.ok) {
+        setStakeLength(data.count)
+        // setIsLoaded(false);
+      }
+      // console.log(data, "stake");
+      // }else{
+      //     alert("something went wro")
+      // }
+    };
+    
+    stakeHolders();
+
+    let getBusinessSector = async () => {
+      // if(authTokens){
+          let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/business-sector`, {
+              method:"GET", 
+              headers: {
+                  'Content-Type' : 'application/json',
+                  'Authorization' : 'Bearer ' + authTokens.token.access
+              },
+
+          })
+          let data = await response.json()
+          // console.log("user", data, 'nowowowo');
+          setBusinessVar(data["data"])
+          if (response.ok){
+            // setIsLoaded(false)
+            setBusinessLength(data.count)
+          }
+          // console.log(data, 'data');
+      // }else{
+      //     alert("something went wro")
+      // }
+      
+  }
+  getBusinessSector()
+
+
+
+
+      
+  }, [stakeLength, userLength, businessLength]);
+
+
   
   return (
     <Box m="20px">
@@ -58,7 +161,7 @@ const Dashboard = () => {
           key={'top_center'}
           color="#000"
           />}
-        <Box>
+        {/* <Box>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -71,7 +174,7 @@ const Dashboard = () => {
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       {/* GRID & CHARTS */}
@@ -164,37 +267,46 @@ const Dashboard = () => {
           gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
+          width="500px"
         >
           <Box
             mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
+            p="0 20px"
+            display="flex"
+            // justifyContent="space-between"
             alignItems="center"
+            width="100%"
+            
+            
           >
             <Box>
               <Typography
                 variant="h5"
                 fontWeight="600"
-                color={colors.grey[100]}
+                color={colors.grey[500]}
+                borderBottom={`4px solid ${colors.primary[500]}`}
+                width="100%"
+                alignItems="center"
               >
-                Revenue Generated
+                Total No. of Stakeholders
               </Typography>
               <Typography
-                variant="h3"
+                variant="h2"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
+                textAlign="center"
+
               >
-                $59,342.32
+                {stakeLength}
               </Typography>
             </Box>
-            <Box>
+            {/* <Box>
               <IconButton>
                 <DownloadOutlinedIcon
                   sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
                 />
               </IconButton>
-            </Box>
+            </Box> */}
           </Box>
           {/* <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
@@ -215,40 +327,40 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Total no. of Users
             </Typography>
           </Box>
-          {/* {mockTransactions.map((transaction, i) => (
+          
             <Box
-              key={`${transaction.txId}-${i}`}
               display="flex"
-              justifyContent="space-between"
+              justifyContent="center"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              // borderBottom={`4px solid ${colors.primary[500]}`}
               p="15px"
             >
               <Box>
                 <Typography
                   color={colors.greenAccent[500]}
-                  variant="h5"
+                  variant="h2"
                   fontWeight="600"
+                  textAlign="center"
                 >
-                  {transaction.txId}
+                  {userLength}
                 </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
+                {/* <Typography color={colors.grey[100]}>
+                  old
+                </Typography> */}
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              {/* <Box color={colors.grey[100]}>date</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
-              </Box>
+                new
+              </Box> */}
             </Box>
-          ))} */}
+          
         </Box>
 
         {/* ROW 3 */}
@@ -258,25 +370,39 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
-          </Typography>
-          {/* <Box
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[500]}`}
+            colors={colors.grey[100]}
+            p="15px"
+          >
+          <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+              Total no. of Business Sectors
+            </Typography>
+            </Box>
+         
+          <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
+             {/* <Typography variant="h5" fontWeight="600" >
+            Campaign
+          </Typography> */}
+            {/* <ProgressCircle size="125" /> */}
             <Typography
-              variant="h5"
+              variant="h2"
               color={colors.greenAccent[500]}
+              fontWeight="600"
               sx={{ mt: "15px" }}
             >
-              $48,352 revenue generated
+              {businessLength}
             </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box> */}
+            {/* <Typography>Includes extra misc expenditures and costs</Typography> */}
+          </Box>
         </Box>
         <Box
           gridColumn="span 4"

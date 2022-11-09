@@ -1,4 +1,16 @@
-import { Box, Button, IconButton, Typography, useTheme, TextField, Snackbar, MenuItem, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useTheme,
+  TextField,
+  Snackbar,
+  MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
 import { tokens } from "../../theme";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -9,321 +21,350 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import React, { useState, useEffect } from "react";
 import { LoadingButton } from "@mui/lab";
+import Engagements from ".";
 
+const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [stakeholders, setStakeholders] = useState([]);
+  const [stakeholderId, setStakeholderId] = useState("");
+  const [engagementRate, setengagementRate] = useState("");
+  const [loadingBtn, setLoadingBtn] = useState(false);
+  const [engagementDiary, setEngagementDiary] = useState("");
+  const [stakeholderIssues, setStakeholderIssues] = useState("");
+  const [stakeholderAssignedTask, setStakeholderAssignedTask] = useState("");
+  const [engagementConclusion, setEngagementConclusion] = useState("");
+  const [project, setProject] = useState([]);
+  const [projectId, setProjectId] = useState("");
+  const [stakeholderName, setStakeholderName] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [msg, setMsg] = useState("");
+  const [isLoaded, setIsLoaded] = useState("");
+  const [engagementsList, setEngagementsList] = useState([]);
+  const [stakeholderVar, setStakeHolderVar]  = useState([])
 
-const UpdateEngagement = ({handleCloseModal, openModal, rowId}) => {
-    const isNonMobile = useMediaQuery("(min-width:600px)");
-    const [open, setOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [stakeholders, setStakeholders] = useState([]);
-    const [stakeholderId, setStakeholderId] = useState("");
-    const [engagementRate, setengagementRate] = useState([]);
-    const [loadingBtn, setLoadingBtn] = useState(false);
-    const [projects, setProjects] = useState([])
-    const [msg, setMsg] = useState("")
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+  const { addEngagement, authTokens, success, error, clearError, clearSuccess } =
+    useContext(AuthContext);
 
-    const {addEngagement, authTokens, success, error, clearError} = useContext(AuthContext)
+  // console.log('engagement ENGAGEMENT');
 
+  
+  
 
-
-    // console.log('engagement ENGAGEMENT');
-
-    useEffect(() => {
-      if(success) {
-        // setMsg(success)
-        setLoadingBtn(false);
-      }
-      else if (error) {
-        setMsg(error);
-        setOpen(true);
-        setLoadingBtn(false);
-        setInterval(() => {
-          clearError();
-        }, 6000);
-      }
-    }, [success, error])
-
-    useEffect(() => {
-        const getStakeholder = async () => {
-          try {
-            const getStakeholderData = await fetch(
-              "https://nest-srm.up.railway.app/stakeholder-list",
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + authTokens.token.access,
-                },
-              }
-            );
-            const stakeholderJson = await getStakeholderData.json();
-            //console.log(stakeholderJson["data"], "ppp");
-            // setStakeholder(await stakeholderJson["stakeholder"]);
-            if (getStakeholderData.ok) {
-              setStakeholders(await stakeholderJson["data"])
-            }
-          } catch (error) {
-            setErrorMessage(error);
+  useEffect(() => {
+    let stakeHolders = async () => {
+      // // console.log('POPO BIG CODE', rowId);
+      if (authTokens) {
+        let response = await fetch(
+          `https://nest-srm.up.railway.app/stakeholder/engagement/profile/${rowId.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authTokens.token.access,
+            },
           }
-        };
-        getStakeholder();
-      }, []);
-
-      useEffect(() => {
-        const getProject = async () => {
-          try {
-            const getProjectData = await fetch(
-              "https://nest-srm.up.railway.app/project-list",
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + authTokens.token.access,
-                },
-              }
-            );
-            const projectJson = await getProjectData.json();
-            // //console.log(projectJson, "jrtfnhjkrn");
-            // setStakeholder(await stakeholderJson["stakeholder"]);
-            if (getProjectData.ok) {
-              setProjects(await projectJson["data"])
-            }
-          } catch (error) {
-            setErrorMessage(error);
-          }
-        };
-        getProject();
-      }, []);
-
+        );
+        let data = await response.json();
+        setEngagementConclusion(data["data"].engagement_conclusion);
+        setEngagementDiary(data["data"].engagement_diary);
+        setengagementRate(data["data"].engagement_rate);
+        setProjectId(data["data"].project);
+        // setStakeholderId(data["data"].stakeholder_name);
+        setStakeholderIssues(data["data"].stakeholder_issues);
+        setStakeholderAssignedTask(data["data"].stakeholder_assigned_task);
       
-    
+        if (response.ok) {
+          setIsLoaded(false);
+          // // console.log("DATA IS POWER", stakeholderVar);
+          // setFirstName(stakeholderVar.first_name)
+        }
+        // // console.log(data, "data", 'BIG DATA NEX TITME ');
+      } else {
+        alert("something went wro");
+      }
+    };
+    stakeHolders();
 
-//   const handleClick = () => {
-//     setOpen(true);
-//   };
+    // return () => {
+    //   second
+    // }
+  }, [rowId]);
+  const getProject = async () => {
+    try {
+      const getProjectData = await fetch(
+        `${process.env.REACT_APP_BASE_API_KEY}/project-list`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+        }
+      );
+      const projectJson = await getProjectData.json();
+      // //console.log(projectJson, "jrtfnhjkrn");
+      // setStakeholder(await stakeholderJson["stakeholder"]);
+      if (getProjectData.ok) {
+        setProjects(await projectJson["data"]);
+      }
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  };
+
+  useEffect(() => {
+   
+    getProject();
+  }, []);
+
+  
+
+  //   const handleClick = () => {
+  //     setOpen(true);
+  //   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
 
-    const handleFormSubmit = (values) => {
-        // values.preventDefault()
-        setLoadingBtn(true);
-        [values].map(value => {
-        addEngagement({
-            stakeholder_name : value.stakeholderName,
-            engagement_rate : value.engagementRate,
-            project : value.project,
-            engagement_diary : value.engagementDiary,
-            engagement_conclusion : value.engagementConclusion,
-            stakeholder_issues : value.stakeholderIssues,
-            stakeholder_assigned_task : value.stakeholderAssignedTask,
-        })
-        })
-        // //console.log(values);
-    };
+  
 
-    // //console.log('i m a stake ', stakeholders);
+  const handleProjects = (e) => {
+    const getProjectId = e.target.value;
+    // console.log('kfkkjdfjJHBHJF', getProjectId);
+    return projects.map((target) => {
+      if (getProjectId == target["id"]) {
+        setProjectId(target["id"]);
+      }
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoadingBtn(true);
+    if (rowId) {
+      let response = await fetch(
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-engagement-update/${rowId.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+          body: JSON.stringify({
+            engagement_conclusion: engagementConclusion,
+            engagement_diary: engagementDiary,
+            engagement_rate: engagementRate,
+            project: projectId,
+            stakeholder_issues: stakeholderIssues,
+            stakeholder_assigned_task: stakeholderAssignedTask,
+          }),
+        }
+      );
+      let data = await response.json();
+
+      // console.log(data, "take seripous");
+      // setStakeHolderVar(data["data"])
+      if (response.ok) {
+        setOpen(true);
+        setLoadingBtn(false);
+        setMsg(data.message);
+        clearSuccess()
+        getProject()
+        // setInterval(() => {
+        //   setMsg(null)
+        window.location.reload() 
+          
+        // }, 3000);
+      } else {
+        setOpen(true);
+        setLoadingBtn(false);
+        setMsg(data.message);
+        // setInterval(() => {
+        //   setMsg(null);
+        // }, 3000);
+      }
+      // // console.log(data, "data");
+    }
+    else{
+      setMsg("does not match")
+    }
+  };
+
+  // //console.log('i m a stake ', stakeholders);
   return (
-     <div>
-          <Dialog
+    <div>
+      <Dialog
         open={openModal}
         onClose={handleCloseModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-       
-        <DialogTitle id="alert-dialog-title">{"Edit Stakeholder"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Edit Engagement"}</DialogTitle>
         <DialogContent>
-
-      <Box 
-        sx={{ width: "600px", margin: "auto", marginTop: "70px" }}
-        >
-              <Formik
-            onSubmit={e=>handleFormSubmit(e)}
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            sx={{padding: "50px",}}
-        >
-            {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            }) => (
-            <form onSubmit={handleSubmit}>
-                <Box
+          <Box sx={{ width: "400px", margin: "auto", marginTop: "70px" }}>
+          <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={msg ? open : false}
+          onClose={handleClose}
+          message={msg}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
+        />
+            
+            <form onSubmit={e=>handleSubmit(e)}>
+              <Box
                 display="grid"
                 gap="30px"
                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                 sx={{
-                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
-                >
+              >
                 <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    select
-                    label="Select Stakeholder"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.stakeholderName}
-                    name="stakeholderName"
-                    error={!!touched.stakeholderName && !!errors.stakeholderName}
-                    helperText={touched.stakeholderName && errors.stakeholderName}
-                    sx={{ gridColumn: "span 4" }}
-                    onClick={setStakeholderId(values.stakeholderName)}
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  select
+                  label="Engagement Rate"
+                  // onBlur={handleBlur}
+                  onChange={e=>setengagementRate(e.target.value)}
+                  value={engagementRate}
+                  name="engagementRate"
+                  // error={!!touched.engagementRate && !!errors.engagementRate}
+                  // helperText={touched.stakeholderName && errors.engagementRate}
+                  sx={{ gridColumn: "span 2" }}
+                  // onClick={setengagementRate(values.engagementRate)}
                 >
-                    {stakeholders && stakeholders.map((stakeholder, index) => (
-                    <MenuItem value={stakeholder.id} key={stakeholder.id}>
-                        {`${stakeholder.first_name} ${stakeholder.last_name}`}
-                    </MenuItem>
-                    ))}
+                  <MenuItem value={1}>1 Poor Performance</MenuItem>
+                  <MenuItem value={2}>2 Fair Performance</MenuItem>
+                  <MenuItem value={3}>3 Good Performance</MenuItem>
+                  <MenuItem value={4}>4 Very Good Performance</MenuItem>
+                  <MenuItem value={5}>5 Excellent Performance</MenuItem>
                 </TextField>
                 <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    select
-                    label="Engagement Rate"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.engagementRate}
-                    name="engagementRate"
-                    error={!!touched.engagementRate && !!errors.engagementRate}
-                    helperText={touched.stakeholderName && errors.engagementRate}
-                    sx={{ gridColumn: "span 2" }}
-                    onClick={setengagementRate(values.engagementRate)}
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  select
+                  label="Project"
+                  // onBlur={handleBlur}
+                  onChange={e=>handleProjects(e)}
+                  value={projectId}
+                  name="project"
+                  // error={!!touched.project && !!errors.project}
+                  // helperText={touched.project && errors.project}
+                  sx={{ gridColumn: "span 2" }}
                 >
-                    <MenuItem value={1}>1  Poor Performance</MenuItem>
-                    <MenuItem value={2}>2  Fair Performance</MenuItem>
-                    <MenuItem value={3}>3  Good Performance</MenuItem>
-                    <MenuItem value={4}>4  Very Good Performance</MenuItem>
-                    <MenuItem value={5}>5  Excellent Performance</MenuItem>
-                </TextField>
-                <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    select
-                    label="Project"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.project}
-                    name="project"
-                    error={!!touched.project && !!errors.project}
-                    helperText={touched.project && errors.project}
-                    sx={{ gridColumn: "span 2" }}
-                >
-                 {projects && projects.map((proj, index) => (
-                    <MenuItem value={proj.id} key={proj.id}>
+                  {projects &&
+                    projects.map((proj, index) => (
+                      <MenuItem value={proj.id} key={proj.id}>
                         {proj.project_name}
-                    </MenuItem>
+                      </MenuItem>
                     ))}
-                    </TextField>
+                </TextField>
                 <TextField
-                    fullWidth
-                    variant="filled"
-                    multiline
-                    maxRows={3}
-                    label="Engagement Diary"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.engagementDiary}
-                    name="engagementDiary"
-                    error={!!touched.engagementDiary && !!errors.engagementDiary}
-                    helperText={touched.engagementDiary && errors.engagementDiary}
-                    sx={{ gridColumn: "span 4" }}
+                  fullWidth
+                  variant="filled"
+                  multiline
+                  // maxRows={3}
+                  label="Engagement Diary"
+                  // onBlur={handleBlur}
+                  onChange={e=>setEngagementDiary(e.target.value)}
+                  value={engagementDiary}
+                  name="engagementDiary"
+                  // error={!!touched.engagementDiary && !!errors.engagementDiary}
+                  // helperText={touched.engagementDiary && errors.engagementDiary}
+                  sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Engagement Conclusion"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.engagementConclusion}
-                    name="engagementConclusion"
-                    error={!!touched.engagementConclusion && !!errors.engagementConclusion}
-                    helperText={touched.engagementConclusion && errors.engagementConclusion}
-                    sx={{ gridColumn: "span 4" }}
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Engagement Conclusion"
+                  // onBlur={handleBlur}
+                  onChange={e=>setEngagementConclusion(e.target.value)}
+                  value={engagementConclusion}
+                  name="engagementConclusion"
+                  // error={!!touched.engagementConclusion && !!errors.engagementConclusion}
+                  // helperText={touched.engagementConclusion && errors.engagementConclusion}
+                  sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Stakeholder Issues"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.stakeholderIssues}
-                    name="stakeholderIssues"
-                    error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
-                    helperText={touched.stakeholderIssues && errors.stakeholderIssues}
-                    sx={{ gridColumn: "span 4" }}
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Stakeholder Issues"
+                  // onBlur=/e={handleChange}
+                  onChange={e=>setStakeholderIssues(e.target.value)}
+                  value={stakeholderIssues}
+                  name="stakeholderIssues"
+                  // error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
+                  // helperText={touched.stakeholderIssues && errors.stakeholderIssues}
+                  sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Stakeholder Assigned Task"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.stakeholderAssignedTask}
-                    name="stakeholderAssignedTask"
-                    error={!!touched.stakeholderAssignedTask && !!errors.stakeholderAssignedTask}
-                    helperText={touched.stakeholderAssignedTask && errors.stakeholderAssignedTask}
-                    sx={{ gridColumn: "span 4" }}
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Stakeholder Assigned Task"
+                  // onBlur={handleBlur}
+                  // onChange={handleChange}
+                  onChange={e=>setStakeholderAssignedTask(e.target.value)}
+                  value={stakeholderAssignedTask}
+                  name="stakeholderAssignedTask"
+                  // error={!!touched.stakeholderAssignedTask && !!errors.stakeholderAssignedTask}
+                  // helperText={touched.stakeholderAssignedTask && errors.stakeholderAssignedTask}
+                  sx={{ gridColumn: "span 4" }}
                 />
-                </Box>
-                <Box display="flex" justifyContent="center" mt="20px">
+              </Box>
+              <Box display="flex" justifyContent="center" mt="20px">
                 <LoadingButton
-              loading={loadingBtn}
-              type="submit"
-              color="secondary"
-              variant="contained"
-            >
-              Add Engagememt 
-            </LoadingButton>
-              <Button onClick={handleClose}>Disagree</Button>
-                </Box>
+                  loading={loadingBtn}
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
+                >
+                  Update Engagememt
+                </LoadingButton>
+                {/* <Button onClick={handleClose}>Disagree</Button> */}
+              </Box>
             </form>
-            )}
-        </Formik>
-      </Box>
+            {/* )}
+        </Formik> */}
+          </Box>
         </DialogContent>
-        </Dialog>
-     </div>
-    )
-}
+      </Dialog>
+    </div>
+  );
+};
 
-export default UpdateEngagement
+export default UpdateEngagement;
 
-const checkoutSchema = yup.object().shape({
-    stakeholderName: yup.string().required("required"),
-    engagementRate: yup.number().positive().integer().required("required"),
-    project: yup.string().required("required"),
-    engagementDiary: yup.string().required("required"),
-    engagementConclusion: yup.string().required("required"),
-    stakeholderIssues: yup.string().required("required"),
-    stakeholderAssignedTask: yup.string().required("required"),
-    
-  });
-  const initialValues = {
-    stakeholderName: "",
-    engagementRate: "",
-    project: "",
-    engagementDiary: "",
-    engagementConclusion: "",
-    stakeholderIssues: "",
-    stakeholderAssignedTask: "",
-  };
+// const checkoutSchema = yup.object().shape({
+//   stakeholderName: yup.string().required("required"),
+//   engagementRate: yup.number().positive().integer().required("required"),
+//   project: yup.string().required("required"),
+//   engagementDiary: yup.string().required("required"),
+//   engagementConclusion: yup.string().required("required"),
+//   stakeholderIssues: yup.string().required("required"),
+//   stakeholderAssignedTask: yup.string().required("required"),
+// });
+// const initialValues = {
+//   stakeholderName: "",
+//   engagementRate: "",
+//   project: "",
+//   engagementDiary: "",
+//   engagementConclusion: "",
+//   stakeholderIssues: "",
+//   stakeholderAssignedTask: "",
+// };

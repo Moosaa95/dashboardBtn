@@ -14,7 +14,7 @@ const StakeholderType = () => {
     const [stakeHolderVar, setStakeHolderVar] = useState([])
     const [isLoaded, setIsLoaded] = useState(true)
     const [msg, setMsg] = useState("")
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(100);
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -31,7 +31,7 @@ const StakeholderType = () => {
         }
     }, [success])
 
-    console.log('lol', stakeHolderVar);
+    // console.log('lol', stakeHolderVar);
 
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5, hide:true },
@@ -53,7 +53,7 @@ const StakeholderType = () => {
 
         let stakeHolders = async () => {
           // if(authTokens){
-              let response = await fetch('https://nest-srm.up.railway.app/stakeholder-type/list', {
+              let response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/stakeholder-type/list`, {
                   method:"GET", 
                   headers: {
                       'Content-Type' : 'application/json',
@@ -82,7 +82,7 @@ const StakeholderType = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Stakeholder Type" subtitle="Add your stakeholder type" />
+        <Header title="Stakeholder Type" subtitle="stakeholder type" />
 
         <Box>
           <Link to="/add-stakeholder-type">
@@ -138,6 +138,9 @@ const StakeholderType = () => {
         }}
       >
         <DataGrid
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
           loading={isLoaded}
           rows={stakeHolderVar}
           columns={columns}

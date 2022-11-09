@@ -48,7 +48,7 @@ export default function EditProgram({
 
       if (rowId) {
         let response = await fetch(
-          `https://nest-srm.up.railway.app/program-update/${rowId.id}`,
+          `${process.env.REACT_APP_BASE_API_KEY}/program-update/${rowId.id}`,
           {
             method: "PATCH",
             headers: {
@@ -110,7 +110,7 @@ export default function EditProgram({
         aria-describedby="alert-dialog-description"
       >
        
-        <DialogTitle id="alert-dialog-title">{"Edit Stakeholder"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Edit Program"}</DialogTitle>
         <DialogContent>
         <form onSubmit={e=>handleSubmit(e)}>
                 <Box

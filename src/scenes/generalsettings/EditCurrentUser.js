@@ -32,7 +32,7 @@ const MenuProps = {
 };
 
 
-export default function EditStakeholder({
+export default function EditCurrentUser({
   openModal,
   handleCloseModal,
   handleStakeEdit,
@@ -48,7 +48,6 @@ export default function EditStakeholder({
   const [isLoaded, setIsLoaded] = useState(false);
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
-  const [permList, setPermList] = useState([])
   
 //   const [nRow, setNRow] = useState() 
   
@@ -60,7 +59,7 @@ const navigate  = useNavigate()
 
   const {
     addStakeHolder,
-    error,
+    error, 
     success,
     authTokens,
     clearError,
@@ -68,25 +67,11 @@ const navigate  = useNavigate()
   } = useContext(AuthContext);
 
 
-  // useEffect(()=> {
-
-    // userPermission.map(perm=> {
-  //     personName.map(name=> {
-  //       if ((name in perm) ) {
-  //         permList.push(perm)
-  //       }
-  //     })
-  //   })
-    
-  // }, [permList])
-  
-  // console.log('halo', permList);
-
   useEffect(() => {
     const getPermission = async () => {
       try {
         const getPermissionData = await fetch(
-          `${process.env.REACT_APP_BASE_API_KEY}/auth/sys/permission`,
+          "https://nest-srm.up.railway.app/auth/sys/permission",
           {
             method: "GET",
             headers: {
@@ -113,7 +98,7 @@ const navigate  = useNavigate()
       // // console.log('POPO BIG CODE', rowId);
       if(authTokens){
       let response = await fetch(
-        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/profile/${rowId.id}`,
+        `https://nest-srm.up.railway.app/auth/user/profile/${rowId}`,
         {
           method: "GET",
           headers: {
@@ -151,13 +136,14 @@ const navigate  = useNavigate()
     const {
       target: { value },
     } = event;
-    // console.log(value.codename, 'edit user');
     setPersonName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === 'string' ? value.split(',') : value,
       );
      
     }
+
+    // console.log(rowId, 'row id row');
 
 
 
@@ -174,7 +160,7 @@ const navigate  = useNavigate()
       setLoadingBtn(true)
     if (rowId) {
       let response = await fetch(
-        `${process.env.REACT_APP_BASE_API_KEY}/auth/users/update/${rowId.id}`,
+        `https://nest-srm.up.railway.app/auth/users/update/${rowId}`,
         {
           method: "PATCH",
           headers: {
@@ -185,7 +171,7 @@ const navigate  = useNavigate()
             first_name: firstName,
             last_name:  lastName ,
             gender: gender,
-            user_permissions: personName.map((ind) => ind),
+            user_permission2: personName.map((ind) => ind.id),
             email: email,
             
           }),
@@ -217,9 +203,9 @@ const navigate  = useNavigate()
         //   clearError()
         // }, 3000);
       }
+      // // console.log(data, "data");
     }
   };
-  // console.log('datetetewtersgt', personName);
 
   
 

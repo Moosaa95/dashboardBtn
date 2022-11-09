@@ -18,6 +18,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { Bookmark } from "@mui/icons-material";
 import AuthContext from "../context/AuthContext";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -44,17 +45,35 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isGlobalAdmin, setIsGlobalAdmin] = useState(false);
+  const [isAdminAssistant, setIsAdminAssistant] = useState(false);
 
 
   const { user, authTokens, logoutUser } = useContext(AuthContext);
 
   // console.log('USER BIG MAN', user);
+  // useEffect(() => {
+  //   if (user){
+  //     setFirstName(user?.user["first_name"])
+  //     setLastName(user?.user["last_name"])
+  //   }
+  // }, [user])
+
   useEffect(() => {
-    if (user){
-      setFirstName(user?.user["first_name"])
-      setLastName(user?.user["last_name"])
+    if (authTokens){
+      if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin") ||  authTokens.user.get_user_permissions_list.includes("admin_assistant")){
+        setIsAdmin(true)
+        setIsGlobalAdmin(true)
+        setIsAdminAssistant(true)
+        
+      }
+      setFirstName(authTokens.user["first_name"])
+      setLastName(authTokens.user["last_name"])
     }
-  }, [user])
+  }, [authTokens])
+
+
   
   
 
@@ -97,13 +116,13 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                {/* <img
+                <img
                   alt="profile-user"
                   width="104px"
                   height="48px"
                   src={`../../assets/nest-logo.png`}
                   // style={{ cursor: "pointer", borderRadius: "50%" }}
-                /> */}
+                />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)} sx={{ color: "#122582 !important", }}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -199,13 +218,17 @@ const Sidebar = () => {
             >
               Settings
             </Typography>
-            <Item
+           {
+             (isAdmin || isGlobalAdmin  ) && (
+              <Item
               title="Users"
               to="/user-list"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+             )
+           }
             <Item
               title="Project"
               to="/project"
@@ -220,17 +243,19 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {
+              (isAdmin || isGlobalAdmin  || isAdminAssistant) && 
+              <Item
               title="Stakeholder Type"
               to="/stakeholder-types"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            />}
             <Item
               title="General Settings"
               to="/settings"
-              icon={<HelpOutlineOutlinedIcon />}
+              icon={<SettingsIcon />}
               selected={selected}
               setSelected={setSelected}
             />

@@ -62,11 +62,11 @@ const Users = ({ params, handleDelete, handleClickModal, handleUserEdit }) => {
           <Edit />
         </IconButton>
       </Tooltip>}
-      {(isAdmin ||  isGlobalAdmin || canDeactivateUser) && <Tooltip title="delete User" sx={{color:"red"}}>
+      {/* {(isAdmin ||  isGlobalAdmin || canDeactivateUser) && <Tooltip title="delete User" sx={{color:"#000"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
-      </Tooltip>}
+      </Tooltip>} */}
       {/* <EditStakeholder rowId={rowId} /> */}
     </Box>
   );

@@ -24,7 +24,7 @@ const BusinessSector = () => {
     useEffect(() => {
       if(success) {
         // setMsg(success)
-        alert(success)
+        setMsg(success)
       }
     }, [success])
 
@@ -49,7 +49,7 @@ const BusinessSector = () => {
             name : value.name,
         })
         })
-        console.log(values);
+        // console.log(values);
     };
   return (
     <Box m="20px">
@@ -60,7 +60,7 @@ const BusinessSector = () => {
       </Box>
       <Button onClick={handleClick}>Open simple snackbar</Button>
       <Snackbar
-        open={open}
+        open={msg? open : false}
         autoHideDuration={6000}
         onClose={handleClose}
         message={msg}

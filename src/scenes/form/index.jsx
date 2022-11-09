@@ -52,7 +52,7 @@ const Form = () => {
     const getPermission = async () => {
       try {
         const getPermissionData = await fetch(
-          "https://nest-srm.up.railway.app/auth/sys/permission",
+          `${process.env.REACT_APP_BASE_API_KEY}/auth/sys/permission`,
           {
             method: "GET",
             headers: {
@@ -74,6 +74,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
+    // console.log(error);
     if (success) {
       // // console.log('hihhh', success)
       // setMsg(success);
@@ -106,7 +107,7 @@ const Form = () => {
         last_name: lastName,
         email: email,
         gender: gender,
-        all_user_permissions_display:personName.map(ind=>ind)
+        user_permissions:personName.map(ind=>ind)
       });
     // });
     // console.log(personName, 'USER VALUES');
@@ -119,16 +120,15 @@ const Form = () => {
     const {
       target: { value },
     } = event;
+    console.log('add user', value);
     
-    // console.log('target value', value);
-    // console.log("================")
-    // console.log(userPermission)
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
       );
      
     }
+    // console.log(personName, 'new person add', userPermission);
   
 
   return (
@@ -136,7 +136,7 @@ const Form = () => {
       {msg && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={open}
+          open={msg? open : false}
           onClose={handleClose}
           autoHideDuration={6000}
           message={msg}
@@ -241,9 +241,9 @@ const Form = () => {
                       <OutlinedInput id="select-multiple-chip" label="Chip" />
                     }
                     renderValue={(selected) => (
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      <Box sx={{ display: "flex", gap: 0.5 }}>
                         {selected.map((value, index) => (
-                          <Chip key={index} label={value} />
+                          <Chip key={value} label={value} />
                         ))}
                       </Box>
                     )}

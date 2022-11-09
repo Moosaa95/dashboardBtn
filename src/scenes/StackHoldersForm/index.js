@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 // import { useTheme } from '@mui/material/styles';
 import { LoadingButton } from "@mui/lab";
 import { tokens } from "../../theme";
+// import "../../index.css"
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -108,6 +109,8 @@ const StackHolderForm = () => {
 
   const handleClose = () => {
     setOpen(false);
+    clearError();
+    setMsg("");
   };
 
   // const handleOpen = () => {
@@ -118,6 +121,7 @@ const StackHolderForm = () => {
 
   const handleChangeImage = (e) => {
     if (e.target.files[0]) {
+      setImgName(e.target.files[0].name)
       setImages(e.target.files[0]);
     }
     // const reader = new FileReader();
@@ -126,33 +130,7 @@ const StackHolderForm = () => {
     //   setImages(reader.result)
     // }
   };
-  // let base64code = ""
-  // const handleChangeImage = (e) => {
-  //   const file = e.target.files[0]
-  //   // const reader = new FileReader()
-  //   // console.log(reader, 'reader');
-  //   getbase64(file)
-  // }
-  // const onLoad = (fileString) => {
-
-  //   setImages(fileString)
-  // }
-
-  // const getbase64 = (file) => {
-  //   let reader = new FileReader()
-  //   reader.readAsDataURL(file)
-  //   reader.onload = () => {
-  //     onLoad(reader.result)
-  //   }
-  // }
-  // if (images){
-  //   console.log(images, 'IMAGES');
-  // }
-
-  // const formData = new FormData(form);
-  // if (formData){
-  //   console.log(formData, 'formdata');
-  // }
+ 
 
   useEffect(() => {
     if (success) {
@@ -168,9 +146,9 @@ const StackHolderForm = () => {
       // setLoadingBtn(false);
       setOpen(true);
       // clearError();
-      setInterval(() => {
-        clearError();
-      }, 6000);
+      // setInterval(() => {
+      //   clearError();
+      // }, 6000);
     }
   }, [error, success]);
 
@@ -178,7 +156,7 @@ const StackHolderForm = () => {
     const getCountry = async () => {
       try {
         const getCountryData = await fetch(
-          "https://nest-srm.up.railway.app/location/apibundle"
+          `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle`
         );
         const countryJson = await getCountryData.json();
         // console.log(countryJson["country"], "ppp");
@@ -196,7 +174,7 @@ const StackHolderForm = () => {
     let stakeHolders = async () => {
       // if(authTokens){
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-type/list",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-type/list`,
         {
           method: "GET",
           headers: {
@@ -225,7 +203,7 @@ const StackHolderForm = () => {
       const getState = async () => {
         try {
           const getState = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
           // console.log(stateJson, "state");
@@ -244,7 +222,7 @@ const StackHolderForm = () => {
       const getCity = async () => {
         try {
           const getCities = await fetch(
-            `https://nest-srm.up.railway.app/location/apibundle?country=${countriesId}&state=${statesId}`
+            `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}&state=${statesId}`
           );
           const citiesJson = await getCities.json();
           // console.log(citiesJson, "city");
@@ -261,7 +239,7 @@ const StackHolderForm = () => {
     const getBusiness = async () => {
       try {
         const getBusinessData = await fetch(
-          "https://nest-srm.up.railway.app/business-sector",
+          `${process.env.REACT_APP_BASE_API_KEY}/business-sector`,
           {
             method: "GET",
             headers: {
@@ -336,13 +314,13 @@ const StackHolderForm = () => {
   };
   // console.log('i am a country name', countryName);
 
-  const businessOptions = businessSector;
-  const bus = [];
+  // const businessOptions = businessSector;
+  // const bus = [];
 
-  for (let i = 0; i < businessSector.length; i++) {
-    // console.log(businessSector[i], "hello");
-    bus.push({ value: businessSector[i].id, label: businessSector[i].id });
-  }
+  // for (let i = 0; i < businessSector.length; i++) {
+  //   // console.log(businessSector[i], "hello");
+  //   bus.push({ value: businessSector[i].id, label: businessSector[i].id });
+  // }
   // // console.log(
   //   "i am a business optioon",
   //   businessOptions,
@@ -361,10 +339,11 @@ const StackHolderForm = () => {
     formData.append("last_name", lastName);
     formData.append("stakeholder_type", stakeholderTypeId);
     formData.append("business_category", businessCategory);
-    formData.append(
-      "business_sector",
-      personName.map((ind) => ind.id)
-    );
+    personName.map(item => {
+      formData.append('business_sector', item.id);
+     });
+    // formData.append(
+    //   "business_sector", personName.map(ind=>ind.id));
     formData.append("job_title", jobTitle);
     formData.append("email", email);
     formData.append("phone", phoneNumber);
@@ -376,7 +355,7 @@ const StackHolderForm = () => {
     formData.append("interest", interest);
     formData.append("stakeholder_image", images);
 
-    console.log('alfa work', formData.get("stakeholder_image"));
+    console.log('alfa work', formData.get("business_sector"));
 
     addStakeHolder(
       // {
@@ -402,10 +381,10 @@ const StackHolderForm = () => {
 
   // console.log("country id", statesId);
   // // console.log(ref.current.values, 'lopghjnjk');
-  const handleBusinessSector = (e) => {
-    getValue(Array.isArray(e) ? e.map((x) => x.label) : []);
-    // console.log(displayValue, 'poppppppppp')
-  };
+  // const handleBusinessSector = (e) => {
+  //   getValue(Array.isArray(e) ? e.map((x) => x.label) : []);
+  //   // console.log(displayValue, 'poppppppppp')
+  // };
   //   const initialValues = {
   //     firstName : "",
   //     lastName : "",
@@ -441,9 +420,7 @@ const StackHolderForm = () => {
     );
   };
 
-  if (personName) {
-    // console.log("I AM A PERSON NAME", personName)
-  }
+ 
   return (
     <Box m="20px" width="100%" height="100%">
       {msg && (
@@ -460,21 +437,53 @@ const StackHolderForm = () => {
         <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
       </Box>
 
-      <Box  sx={{ width: "1000px", margin: "auto", marginTop: "20px", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
-        <form onSubmit={(e) => handleSubmit(e)} encType="multipart/form-data">
+      <Box  sx={{ width: "1000px", margin: "auto", 
+            marginTop: "20px", 
+            padding: "50px",
+            // backgroundColor: "#eee",
+            boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem",
+            color: "#000 !important",
+            fontWeight:"bold"
+          
+          }}
+            
+            >
+        <form onSubmit={(e) => handleSubmit(e)} >
+        <Box m="10px" fullWidth>
+              <Button
+                variant="contained"
+                component="label"
+                // startIcon={<Add />}
+
+                color="secondary"
+              >
+                {imgName}
+                <input
+                  hidden
+                  // accept="image/png"
+                  // multiple
+                  type="file"
+                  onChange={handleChangeImage}
+                />
+              </Button>
+            </Box>
           <Box
             display="grid"
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              "& > div": { gridColumn: isNonMobile ? undefined : "span 4", color:"red" },
             }}
+            fontWeight="bold"
           >
             <TextField
+              style={{
+                color:"#000"
+              }}
               fullWidth
               variant="filled"
               type="text"
-              label="First Name"
+              label={<span style={{color:"#000 "}}>First Name</span>}
               // onBlur={handleBlur}
               onChange={(e) => setFirstName(e.target.value)}
               value={firstName}
@@ -590,42 +599,7 @@ const StackHolderForm = () => {
               // helperText={touched.postalCode && errors.postalCode}
               sx={{ gridColumn: "span 2", borderBottom: "1px solid #6E6B7B", }}
             />
-            {/* <label className="form-label" htmlFor="basicSelect">
-                            Business Sector
-                          </label> */}
-            {/* <select className="form-select" id="basicSelect" */}
-            {/* // onChange={e=>handleBusinessSector(e)} */}
-            {/* / name="business_sector" */}
-            {/* > */}
-            {/* <option>Select a Business Sector</option> */}
-            {/* {isLoaded && 
-                              <Select
-                              isMulti
-                              name="businessSector" */}
-            {/* // defaultInputValue={[businessOptions["value"]]}
-                              className="basic-multi-select"
-                              classNamePrefix="select"
-                              onChange={handleBusinessSector}
-                              // getOptionValue={displayValue}
-                              // onClick={handleClick}
-                              // value={displayValue}
-                              
-                              // value={multiSelect}
-                              theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 0,
-                                colors: {
-                                ...theme.colors,
-                                  text: '#000',
-                                  primary25: 'hotpink',
-                                  primary: '#000',
-                                  
-                                },
-                              })}
-                            
-                              options={bus} /> */}
-
-            {/* } */}
+          
 
             <TextField
               fullWidth
@@ -760,24 +734,7 @@ const StackHolderForm = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Box ml="150px">
-              <Button
-                variant="contained"
-                component="label"
-                // startIcon={<Add />}
-
-                color="secondary"
-              >
-                add Image
-                <input
-                  hidden
-                  // accept="image/png"
-                  multiple
-                  type="file"
-                  onChange={handleChangeImage}
-                />
-              </Button>
-            </Box>
+            
           </Box>
           <Box display="flex" justifyContent="center" mt="20px">
             <LoadingButton

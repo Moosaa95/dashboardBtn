@@ -34,7 +34,7 @@ body,
   background: #555;
 }
 
-label#\:r3\:-label {
+/* label#\:r3\:-label {
   color: #6E6B7B !important;
 }
 
@@ -43,7 +43,7 @@ label#\:r2\:-label {
 }
 label#\:r1\:-label {
   color: #6E6B7B !important;
-}
+} */
 
 .MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.Mui-error.MuiInputBase-fullWidth.MuiInputBase-formControl.css-u42pxl-MuiInputBase-root-MuiFilledInput-root {
   background-color: #535353;
@@ -53,7 +53,7 @@ label#filled-multiline-flexible-label {
   color: #6E6B7B !important;
 }
 
-.css-ts3t6r-MuiFormLabel-root-MuiInputLabel-root {
+.css-ts3t6r-MuiFormLabel-root-MuiInputLabel-root .css-1rv476z-MuiInputBase-input-MuiFilledInput-input {
   color: #6E6B7B !important;
 }
 
@@ -72,6 +72,18 @@ label#filled-multiline-flexible-label {
 
 .css-1aeamf1-MuiFormLabel-root-MuiInputLabel-root {
   color: #122582 !important;
+}
+
+.MuiBox-root .css-hkoid6{
+  color:red;
+}
+
+.MuiInputBase-input .MuiFilledInput-input .css-1rv476z-MuiInputBase-input-MuiFilledInput-input{
+  color: #000 !important;
+}
+
+.MuiInputBase-input .MuiFilledInput-input .css-1rv476z-MuiInputBase-input-MuiFilledInput-input{
+  color: #000 !important;
 }
 
 .css-1wu7ecg-MuiSvgIcon-root-MuiSelect-icon {
@@ -152,3 +164,8 @@ label#filled-multiline-flexible-label {
 .css-1ktfdg8-MuiFormControl-root-MuiTextField-root-MuiDataGrid-toolbarQuickFilter .MuiInput-underline:before {
   border-bottom: 1px solid #6E6B7B;
 }
+
+
+
+
+
