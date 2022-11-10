@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+// import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -33,8 +33,12 @@ import { UserDetail } from "./scenes/form/UserDetails";
 import { ResetPassword } from "./forgotPassword/ResetPassword";
 import Settings from "./scenes/generalsettings";
 import { EngagementDetail } from "./scenes/engagement/EngagementDetail";
+import {ProjectDetail} from "./scenes/project/ProjectDetails";
+import React, { useState, useEffect, useContext } from "react";
+import AuthContext from "./scenes/context/AuthContext"
 import './index.css'
 import '../src/index.css'
+
 
 
 
@@ -44,7 +48,8 @@ function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const { authTokens } = useContext(AuthContext);
+  // const navigate  = useNavigate()
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -83,6 +88,7 @@ function App() {
                 <Route path="/user-list" element={<UserList />} />
                 <Route path="/user-profile/:id" element={<UserDetail />} />
                 <Route path="/engagement-detail/:id" element={<EngagementDetail />} />
+                <Route path="/project-detail/:id" element={<ProjectDetail />} />
                 <Route path="/add-program" element={<AddProgram />} />
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/add-engagement" element={<AddEngagement />} />
@@ -91,18 +97,18 @@ function App() {
               </Route>
               <Route
                 path="/login"
-                element={<Login setLoggedIn={setLoggedIn} />}
+                element={authTokens? <Navigate to="/" /> : <Login setLoggedIn={setLoggedIn} />}
               />
               <Route
                 path="/register"
-                element={<SignUp setLoggedIn={setLoggedIn} />}
+                element={authTokens? <Navigate to="/" /> : <SignUp setLoggedIn={setLoggedIn} />}
               />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/forgot-password" element={authTokens? <Navigate to="/" /> : <ForgotPassword />} />
               <Route
                 path="/auth/user/:uuid64/verify/:token"
-                element={<EmailVerify setLoggedIn={setLoggedIn} />}
+                element={authTokens? <Navigate to="/" /> : <EmailVerify setLoggedIn={setLoggedIn} />}
               />
-              <Route path="/auth/reset-password/:uuid64/:token" element={<ResetPassword setLoggedIn={setLoggedIn} />} />
+              <Route path="/auth/reset-password/:uuid64/:token" element={authTokens? <Navigate to="/" /> : <ResetPassword setLoggedIn={setLoggedIn} />} />
             </Routes>
           </main>
         </div>

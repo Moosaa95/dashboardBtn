@@ -195,7 +195,7 @@ const handleClose = (event, reason) => {
 
   const handleProjectEdit = async (param) => {
     // console.log("ENGAGEMENT, ", param)
-    setRowId(param);
+    setRowId({...param});
     handleClickModal();
   };
 

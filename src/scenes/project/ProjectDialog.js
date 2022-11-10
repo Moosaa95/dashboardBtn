@@ -44,14 +44,16 @@ const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProjectE
 
   return (
     <Box>
-      {/* <Tooltip title="view project details">
+      <Tooltip title="View Project Details">
         <IconButton onClick={()=> handleViewClick(params)}>
+        <Link to={`/project-detail/${params.id}`} >
           <Preview />
+        </Link>
         </IconButton>
-      </Tooltip> */}
-      {/* {
+      </Tooltip>
+      {
         (isAdmin || canEditProject || isGlobalAdmin) &&
-        <Tooltip title="edit project">
+        <Tooltip title="Edit Project">
         <IconButton onClick={()=>{
           // handleClickModal()
           handleProjectEdit(params.row)
@@ -59,10 +61,10 @@ const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProjectE
         }}>
           <Edit />
         </IconButton>
-      </Tooltip>} */}
+      </Tooltip>}
       {
         (isAdmin || canDeleteProject || isGlobalAdmin) &&
-        <Tooltip title="delete project" sx={{color:"red"}}>
+        <Tooltip title="Delete Project" sx={{color:"red"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />
         </IconButton>
