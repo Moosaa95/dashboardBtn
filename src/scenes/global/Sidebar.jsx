@@ -62,9 +62,15 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (authTokens){
-      if (authTokens.user.get_user_permissions_list.includes("admin") || authTokens.user.get_user_permissions_list.includes("global_admin") ||  authTokens.user.get_user_permissions_list.includes("admin_assistant")){
+      if (authTokens.user.get_user_permissions_list.includes("admin")){
         setIsAdmin(true)
+        
+      }
+      if (authTokens.user.get_user_permissions_list.includes("global_admin")){
         setIsGlobalAdmin(true)
+        
+      }
+      if (authTokens.user.get_user_permissions_list.includes("admin_assistant")){
         setIsAdminAssistant(true)
         
       }
@@ -244,7 +250,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             {
-              (isAdmin || isGlobalAdmin  || isAdminAssistant) && 
+              (isGlobalAdmin) && 
               <Item
               title="Stakeholder Type"
               to="/stakeholder-types"

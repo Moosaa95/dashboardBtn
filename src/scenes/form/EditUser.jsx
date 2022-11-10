@@ -285,6 +285,7 @@ const navigate  = useNavigate()
                   variant="filled"
                   type="text"
                   label="Email"
+                  disabled
                   // onBlur={handleBlur}
                   onChange={e=>setEmail(e.target.value)}
                   value={email}
@@ -300,6 +301,7 @@ const navigate  = useNavigate()
                   select
                   label="Gender"
                   // onBlur={handleBlur}
+                  disabled
                   onChange={e=>setGender(e.target.value)}
                   value={gender}
                   name="gender"
