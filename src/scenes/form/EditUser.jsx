@@ -5,11 +5,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {Snackbar, Box, TextField, MenuItem, useMediaQuery, Typography, 
     Select,
     OutlinedInput,
   InputLabel,
   FormControl,
+  Input, 
   Chip,
 
 } from "@mui/material";
@@ -19,6 +21,27 @@ import {useNavigate} from "react-router-dom"
 import { LoadingButton } from '@mui/lab';
 
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    maxWidth: 300
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  chip: {
+    margin: 2
+  },
+  noLabel: {
+    marginTop: theme.spacing(3)
+  }
+}));
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -26,10 +49,29 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
+      width: 250
+    }
+  }
 };
+
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium
+  };
+}
+// const ITEM_HEIGHT = 48;
+// const ITEM_PADDING_TOP = 8;
+// const MenuProps = {
+//   PaperProps: {
+//     style: {
+//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+//       width: 250,
+//     },
+//   },
+// };
 
 
 export default function EditStakeholder({
@@ -49,6 +91,9 @@ export default function EditStakeholder({
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
   const [permList, setPermList] = useState([])
+
+  const classes = useStyles();
+  const theme = useTheme();
   
 //   const [nRow, setNRow] = useState() 
   
@@ -127,8 +172,8 @@ const navigate  = useNavigate()
       setLastName(data["data"].last_name);
       setGender(data["data"].gender);
       setEmail(data["data"].email);
-      setPersonName(data["data"].user_permission2)
-      // setEmail(data["data"].email);
+      setPersonName(data["data"].user_permission2.map(ind=>ind.codename))
+    
       if (response.ok) {
         setIsLoaded(false);
         // // console.log("DATA IS POWER", stakeholderVar);
@@ -147,16 +192,31 @@ const navigate  = useNavigate()
   }, [rowId])
 
   const handleSelectChange = (event) => {
+    // setPersonName(event.target.value);
+  
+    // setPersonName(value);
+    
+    
     
     const {
       target: { value },
     } = event;
-    // console.log(value.codename, 'edit user');
+    console.log(personName, 'PERSON NAME ', event.target.value);
+    // console.log(value, 'edit user', typeof value, value.map(ind=>ind.name));
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
       );
+    //   console.log(event.target.value, 'targeter value', personName);
      
+    // const { options } = event.target;
+    // const value = [];
+    // for (let i = 0, l = options.length; i < l; i += 1) {
+    //   if (options[i].selected) {
+    //     value.push(options[i].value);
+    //   }
+    // }
+    // setPersonName(value);
     }
 
 
@@ -312,6 +372,53 @@ const navigate  = useNavigate()
                   <MenuItem value="MALE">MALE</MenuItem>
                   <MenuItem value="FEMALE">FEMALE</MenuItem>
                 </TextField>
+                {/* <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="select-multiple-chip">Chip</InputLabel>
+                <Select
+                  multiple
+                  value={personName}
+                  onChange={handleSelectChange}
+                  input={<Input id="select-multiple-chip" />}
+                  renderValue={selected => (
+                    <div className={classes.chips}>
+                      {selected.map(value => (
+                        <Chip key={value.id} label={value.name} className={classes.chip} />
+                      ))}
+                    </div>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {userPermission.map(name => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      style={getStyles(name, personName, theme)}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl> */}
+                {/* <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="select-multiple">User Permission</InputLabel>
+                <Select
+                  multiple
+                  value={personName}
+                  onChange={e=>handleSelectChange(e)}
+                  input={<Input id="select-multiple" />}
+                  MenuProps={MenuProps}
+                >
+                  {userPermission.map(name => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      style={getStyles(name, personName, theme)}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl> */}
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-chip-label">
                     User Permission
@@ -331,7 +438,7 @@ const navigate  = useNavigate()
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", gap: 0.5 }}>
                         {selected.map((value, index) => (
-                          <Chip key={value.id} label={value.name} />
+                          <Chip key={value} label={value} />
                         ))}
                       </Box>
                     )}

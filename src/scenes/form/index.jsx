@@ -120,7 +120,7 @@ const Form = () => {
     const {
       target: { value },
     } = event;
-    console.log('add user', value);
+    console.log(typeof value, 'add user', value);
     
     setPersonName(
       // On autofill we get a stringified value.

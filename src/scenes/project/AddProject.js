@@ -122,6 +122,7 @@ useEffect(() => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.value);
+    console.log(endValue.format("MM/DD/YYYY"), 'convert', startValue, 'dates', 'addd')
     // [values].map(value => {
     setLoadingBtn(true);
     addProject({

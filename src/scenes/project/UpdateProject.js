@@ -51,6 +51,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [programName, setProgramName] = useState("")
 
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -95,13 +96,9 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
         setProjectManagerEmail(data["data"].project_manager_email)
         setNotifyManager(data["data"].notify_project_manager)
         setProjectName(data["data"].project_name)
+        setEndValue(data["data"].end_date);
+        setStartValue(data["data"].start_date);
         
-        // setFirstName(data["data"].first_name);
-        // setLastName(data["data"].last_name);
-        // setGender(data["data"].gender);
-        // setEmail(data["data"].email);
-        // setPersonName(data["data"].user_permission2)
-        // setEmail(data["data"].email);
         if (response.ok) {
           setIsLoaded(false);
           // // console.log("DATA IS POWER", stakeholderVar);
@@ -145,31 +142,31 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   //   getProject();
   // }, []);
 
-  // useEffect(() => {
-  //   // let stakeHolders = async () => {
-  //   //   // if(authTokens){
-  //   //   let response = await fetch(
-  //   //     "https://nest-srm.up.railway.app/stakeholder-list",
-  //   //     {
-  //   //       method: "GET",
-  //   //       headers: {
-  //   //         "Content-Type": "application/json",
-  //   //         Authorization: "Bearer " + authTokens.token.access,
-  //   //       },
-  //   //     }
-  //   //   );
-  //   //   let data = await response.json();
-  //   //   setStakeHolderVar(data["data"]);
-  //   //   if (response.ok) {
-  //   //     setIsLoaded(false);
-  //   //   }
-  //   //   // //console.log(data, "data");
-  //   //   // }else{
-  //   //   //     alert("something went wro")
-  //   //   // }
-  //   // };
-  //   // stakeHolders();
-  // }, [authTokens]);
+  useEffect(() => {
+    let ProgramList = async () => {
+      // if(authTokens){
+      let response = await fetch(
+        `${process.env.REACT_APP_BASE_API_KEY}/program-list`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+        }
+      );
+      let data = await response.json();
+      setProgramVar(data["data"]);
+      if (response.ok) {
+        setIsLoaded(false);
+      }
+      // //console.log(data, "data");
+      // }else{
+      //     alert("something went wro")
+      // }
+    };
+    ProgramList();
+  }, [authTokens]);
 
   //   const handleClick = () => {
   //     setOpen(true);
@@ -214,61 +211,99 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   //     }
   //   });
   // };
+  const handleProgram =  (e) => {
+    const getProjectId = e.target.value;
+    setProgramName(getProjectId)
+    // console.log(getProjectId, 'id project');
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoadingBtn(true);
-  //   if (rowId) {
-  //     let response = await fetch(
-  //       `https://nest-srm.up.railway.app/stakeholder-engagement-update/${rowId.id}`,
-  //       {
-  //         method: "PATCH",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Bearer " + authTokens.token.access,
-  //         },
-  //         body: JSON.stringify({
-  //           // engagement_conclusion: engagementConclusion,
-  //           // engagement_diary: engagementDiary,
-  //           // engagement_rate: engagementRate,
-  //           // project: projectId,
-  //           // stakeholder_name: stakeholderId,
-  //           // stakeholder_issues: stakeholderIssues,
-  //           // stakeholder_assigned_task: stakeholderAssignedTask,
-  //         }),
-  //       }
-  //     );
-  //     let data = await response.json();
+  }
 
-  //     // console.log(data, "take seripous");
-  //     // setStakeHolderVar(data["data"])
-  //     if (response.ok) {
-  //       // // console.log(response, "erresponse", data);
-  //       // e.target.reset();
-  //       setOpen(true);
-  //       setLoadingBtn(false);
 
-  //       setMsg(data);
+  // function getFormattedDate(date) {
+  //   var year = date.getFullYear();
+  
+  //   var month = (1 + date.getMonth()).toString();
+  //   month = month.length > 1 ? month : '0' + month;
+  
+  //   var day = date.getDate().toString();
+  //   day = day.length > 1 ? day : '0' + day;
+    
+  //   return month + '/' + day + '/' + year;
+  // }
 
-  //       setInterval(() => {
-  //         setMsg(null);
-  //         window.location.reload();
-  //       }, 6000);
-  //     } else {
-  //       setOpen(true);
-  //       setLoadingBtn(false);
-  //       setMsg(data);
-  //       setInterval(() => {
-  //         setMsg(null);
-  //       }, 3000);
-  //     }
-  //     // // console.log(data, "data");
-  //   }
-  // };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoadingBtn(true);
+    // console.log(endValue, startValue, 'dates')
+    // console.dir(endValue)
+    if (rowId) {
+      let response = await fetch(
+        `${process.env.REACT_APP_BASE_API_KEY}/project-update/${rowId.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authTokens.token.access,
+          },
+          body: JSON.stringify({
+            project_name: projectName,
+            program: programName,
+            project_description: projectDescription,
+            end_date: endValue.format("MM/DD/YYYY"),
+            start_date: startValue.format("MM/DD/YYYY"),
+            is_active: isActive,
+            project_manager: projectManager,
+            project_manager_email: projectManagerEmail,
+            notify_project_manager: notifyManager,
+          }),
+        }
+      );
+      let data = await response.json();
+
+      // console.log(data, "take seripous");
+      // setStakeHolderVar(data["data"])
+      if (response.ok) {
+        // // console.log(response, "erresponse", data);
+        // e.target.reset();
+        setOpen(true);
+        setLoadingBtn(false);
+
+        setMsg(data.message);
+
+        setInterval(() => {
+          setMsg(null);
+          window.location.reload();
+        }, 3000);
+      } else {
+        setOpen(true);
+        setLoadingBtn(false);
+        const first_key = Object.keys(data)[0];
+        const messages = {
+          message:
+          first_key.charAt(0).toUpperCase() +
+          first_key.slice(1) +
+          ": " +
+          data[first_key][0],
+        };
+        setMsg(messages.message);
+      }
+      // // console.log(data, "data");
+    }
+  };
 
   // //console.log('i m a stake ', stakeholders);
   return (
     <div>
+       <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={msg ? open : false}
+          onClose={handleClose}
+          message={msg}
+          autoHideDuration={6000}
+          // key={vertical + horizontal}
+        />
       <Dialog
         open={openModal}
         onClose={handleCloseModal}
@@ -277,40 +312,22 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
       >
         <DialogTitle id="alert-dialog-title">{"Edit Engagement"}</DialogTitle>
         <DialogContent>
-          <Box sx={{ width: "400px", margin: "auto", marginTop: "70px" }}>
-          <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={msg ? open : false}
-          onClose={handleClose}
-          message={msg}
-          autoHideDuration={6000}
-          // key={vertical + horizontal}
-        />
-            {/* <Formik
-            onSubmit={e=>handleFormSubmit(e)}
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            sx={{padding: "50px",}}
+          <Box sx={{ width: "80%", margin: "auto", marginTop: "70px" }}>
+         
+            
+            {/* <Box sx={{ width: "800px", margin: "auto", marginTop: "20px",  padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem"  }}> */}
+        <form 
+         onSubmit={(e) => handleSubmit(e)}
         >
-            {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            }) => ( */}
-            {/* <Box sx={{ width: "800px", margin: "auto", marginTop: "20px",  padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem"  }}>
-        <form> */}
-          {/* <Box
+          <Box
             display="grid"
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
-          > */}
-              {/* <TextField
+          >
+              <TextField
                     fullWidth
                     variant="filled"
                     type="text"
@@ -333,21 +350,21 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
                         {prog.program_name}
                       </MenuItem>
                     ))}
-                  </TextField> */}
-            {/* <TextField
+                  </TextField>
+            <TextField
               fullWidth
               variant="filled"
               type="text"
-              label="Program"
+              label="Project Name"
               // onBlur={handleBlur}
-              onChange={(e) => setProgram(e.target.value)}
-              value={program}
+              onChange={(e) => setProjectName(e.target.value)}
+              value={projectName}
               // value={values.programName}
-              name="program"
+              name="Project Name"
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
               sx={{ gridColumn: "span 4" }}
-            /> */}
+            />
             {/* <TextField
               fullWidth
               variant="filled"
@@ -408,6 +425,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               fullWidth
               variant="filled"
               type="text"
+              select
               label="Notify Project Manager"
               // onBlur={handleBlur}
               onChange={(e) => setNotifyManager(e.target.value)}
@@ -417,7 +435,11 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
               sx={{ gridColumn: "span 4" }}
-            />
+            >
+             <MenuItem value="True">Yes</MenuItem>
+              <MenuItem value="False">No</MenuItem>
+
+            </TextField>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Stack spacing={10}>
                 <DesktopDatePicker
@@ -463,13 +485,8 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
             >
               Add Programs
             </LoadingButton>
-          {/* </Box>
-        </form> */}
-        {/* )}
-        </Formik> */}
-      {/* </Box> */}
-            {/* )}
-        </Formik> */}
+          </Box>
+        </form>
           </Box>
         </DialogContent>
       </Dialog>
@@ -479,21 +496,3 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
 
 export default UpdateProject;
 
-// const checkoutSchema = yup.object().shape({
-//   stakeholderName: yup.string().required("required"),
-//   engagementRate: yup.number().positive().integer().required("required"),
-//   project: yup.string().required("required"),
-//   engagementDiary: yup.string().required("required"),
-//   engagementConclusion: yup.string().required("required"),
-//   stakeholderIssues: yup.string().required("required"),
-//   stakeholderAssignedTask: yup.string().required("required"),
-// });
-// const initialValues = {
-//   stakeholderName: "",
-//   engagementRate: "",
-//   project: "",
-//   engagementDiary: "",
-//   engagementConclusion: "",
-//   stakeholderIssues: "",
-// //   stakeholderAssignedTask: "",
-// };
