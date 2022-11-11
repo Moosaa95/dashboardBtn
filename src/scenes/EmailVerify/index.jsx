@@ -2,6 +2,7 @@ import { style } from '@mui/system';
 import React, {useState, useEffect, Fragment, useContext} from 'react'
 import {useParams, Link } from "react-router-dom"
 import AuthContext from '../context/AuthContext'
+import { Box, } from "@mui/material";
 import styles from "./style.module.css";
 import successful from "./assets/approved-icon-profile-verification-accept-badge-vector-26934469.jpg"
 
