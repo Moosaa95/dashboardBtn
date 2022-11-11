@@ -27,6 +27,7 @@ import AddEngagement from "./scenes/engagement/add-engagement";
 import Engagements from "./scenes/engagement";
 import StakeHolders from "./scenes/contacts";
 import { EmailVerify } from "./scenes/EmailVerify";
+import { CheckMail } from "./scenes/EmailVerify/CheckMail";
 import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
 import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
@@ -107,6 +108,10 @@ function App() {
               <Route
                 path="/auth/user/:uuid64/verify/:token"
                 element={authTokens? <Navigate to="/" /> : <EmailVerify setLoggedIn={setLoggedIn} />}
+              />
+              <Route
+                path="/auth/check-mail"
+                element={authTokens? <Navigate to="/" /> : <CheckMail />}
               />
               <Route path="/auth/reset-password/:uuid64/:token" element={authTokens? <Navigate to="/" /> : <ResetPassword setLoggedIn={setLoggedIn} />} />
             </Routes>

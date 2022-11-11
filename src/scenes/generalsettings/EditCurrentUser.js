@@ -90,7 +90,7 @@ const navigate  = useNavigate()
       }
     };
     getPermission();
-  }, []);
+  }, [userPermission]);
 
  
   useEffect(() => {
@@ -191,7 +191,7 @@ const navigate  = useNavigate()
         setLoadingBtn(false)
         setMsg(data.message);
         handleCloseModal()
-        window.location.reload(true);
+        window.location.reload();
         
         // navigate('/user-list')
       } else {
@@ -199,11 +199,7 @@ const navigate  = useNavigate()
         setOpen(true);
         setLoadingBtn(false)
         setMsg(data.message);
-        // setInterval(() => {
-        //   clearError()
-        // }, 3000);
       }
-      // // console.log(data, "data");
     }
   };
 
@@ -271,6 +267,7 @@ const navigate  = useNavigate()
                   variant="filled"
                   type="text"
                   label="Email"
+                  disabled
                   // onBlur={handleBlur}
                   onChange={e=>setEmail(e.target.value)}
                   value={email}
@@ -279,7 +276,7 @@ const navigate  = useNavigate()
                   // helperText={touched.email && errors.email}
                   sx={{ gridColumn: "span 4" }}
                 />
-                <TextField
+                {/* <TextField
                   fullWidth
                   variant="filled"
                   type="text"
@@ -295,7 +292,7 @@ const navigate  = useNavigate()
                 >
                   <MenuItem value="MALE">MALE</MenuItem>
                   <MenuItem value="FEMALE">FEMALE</MenuItem>
-                </TextField>
+                </TextField> */}
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-chip-label">
                     User Permission

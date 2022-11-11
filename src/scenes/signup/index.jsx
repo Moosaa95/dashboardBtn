@@ -109,7 +109,7 @@ const SignUp = () => {
           `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle`
         );
         const countryJson = await getCountryData.json();
-        console.log(countryJson["country"], "ppp");
+        // console.log(countryJson["country"], "ppp");
         setCountries(await countryJson["country"]);
         if (getCountryData.ok) {
         }
@@ -124,14 +124,14 @@ const SignUp = () => {
 
   useEffect(() => {
     if (countriesId) {
-      console.log("hi i am inside", countriesId);
+      // console.log("hi i am inside", countriesId);
       const getState = async () => {
         try {
           const getState = await fetch(
             `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}`
           );
           const stateJson = await getState.json();
-          console.log(stateJson, "state");
+          // console.log(stateJson, "state");
           setState(await stateJson["state"]);
         } catch (error) {
           setErrorMessage(error);
@@ -143,14 +143,14 @@ const SignUp = () => {
 
   useEffect(() => {
     if (statesId){
-      console.log('hi i am inside states', statesId);
+      // console.log('hi i am inside states', statesId);
       const getCity = async () => {
         try {
           const getCities = await fetch(
             `${process.env.REACT_APP_BASE_API_KEY}/location/apibundle?country=${countriesId}&state=${statesId}`
             );
             const citiesJson = await getCities.json();
-            console.log(citiesJson, "city");
+            // console.log(citiesJson, "city");
             setCity(await citiesJson["city"]);
           } catch (error) {
             setErrorMessage(error);
@@ -505,7 +505,7 @@ const checkoutSchema = yup.object().shape({
     .required("Required"),
   phoneNumber: yup
     .string()
-    .matches(phoneRegExp, "Phone number can not start with zero")
+    .matches(phoneRegExp, "Phone number can only start with number")
     .required("required"),
   confirmPassword: yup
     .string()

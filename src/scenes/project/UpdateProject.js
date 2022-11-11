@@ -310,7 +310,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Edit Engagement"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Edit Project"}</DialogTitle>
         <DialogContent>
           <Box sx={{ width: "80%", margin: "auto", marginTop: "70px" }}>
          

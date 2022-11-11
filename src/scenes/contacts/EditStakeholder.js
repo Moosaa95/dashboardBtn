@@ -5,11 +5,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+// import Select from 'react-select';
 import {
   Snackbar,
   Box,
   TextField,
-  Select,
+   Select,
   Chip,
   OutlinedInput,
   MenuItem,
@@ -76,6 +77,7 @@ export default function EditStakeholder({
   const [stakeholderTypes, setStakeholderTypes] = useState([]);
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
+  const [busyDay, setBusyDay] = useState([]);
 
   const [nRow, setNRow] = useState();
 
@@ -157,7 +159,7 @@ export default function EditStakeholder({
         setPhoneNumber(data["data"].phone);
         setBusinessCategory(data["data"].business_category);
         setPostalCode(data["data"].postal_code);
-        setPersonName(data["data"].business_sectors); 
+        setPersonName(data["data"].business_sectors.map(ind=>ind)); 
         
         setEmail(data["data"].email);
         // setCountry(data["data"].country);
@@ -306,7 +308,8 @@ export default function EditStakeholder({
       getCity();
     }
   }, [statesId]);
-
+  
+  let busy = []
   useEffect(() => {
     const getBusiness = async () => {
       try {
@@ -323,6 +326,7 @@ export default function EditStakeholder({
         const businessJson = await getBusinessData.json();
         // console.log(businessJson, "business ppp");
         setBusinessSector(businessJson["data"]);
+       
         if (getBusinessData.ok) {
           // console.log("iron man");
           // setIsLoaded(true);
@@ -333,6 +337,13 @@ export default function EditStakeholder({
     };
     getBusiness();
   }, []);
+
+  // businessSector.map(ind=>{
+  //   console.log("busy dat", ind.name);
+  //   busy.push({value:ind.id, label:ind.name})
+  // })
+
+  // console.log(busy, 'busies');
 
   const handleCountry = (event) => {
     const getCountryId = event.target.value;
@@ -376,9 +387,14 @@ export default function EditStakeholder({
     });
   };
   
-  // console.log(countriesId, 'idname', countriesId);
+  console.log(businessSector, 'idname', personName);
 
   const handleSelectChange = (event) => {
+    console.log(businessSector, 'business', event)
+    console.log('==============++++=======');
+    console.dir(event);
+
+    console.log(personName, 'pouytewson');
     const {
       target: { value },
     } = event;
@@ -387,6 +403,9 @@ export default function EditStakeholder({
       typeof value === "string" ? value.split(",") : value
     );
   };
+  // const handleSelectChange = (e) => {
+  //   setPersonName(Array.isArray(e) ? e.map(x => x.value) : []);
+  // }
   // console.log('person name', personName);
   return (
     <div>
@@ -582,7 +601,7 @@ export default function EditStakeholder({
                     <OutlinedInput id="select-multiple-chip" label="Chip" />
                   }
                   renderValue={(selected) => (
-                    <Box sx={{ display: "flex", flexWrap: "no-wrap", gap: 0.5 }}>
+                    <Box sx={{ display: "flex", gap: 0.5 }}>
                       {selected.map((value) => (
                         <Chip key={value.id} label={value.name} />
                       ))}
@@ -590,7 +609,7 @@ export default function EditStakeholder({
                   )}
                   MenuProps={MenuProps}
                 >
-                  {businessSector.map((name) => (
+                  {businessSector.map((name, index) => (
                     <MenuItem
                       key={name}
                       value={name}
@@ -603,6 +622,20 @@ export default function EditStakeholder({
                   ))}
                 </Select>
               </FormControl>
+              {/* <Select
+              className="dropdown"
+              placeholder="Select Option"
+              value={busy.filter(obj => personName.includes(obj.value))} // set selected values
+              options={busy} // set list of the data
+              onChange={handleSelectChange} // assign onChange function
+              isMulti
+              isClearable
+            >
+
+            {personName && <div style={{ marginTop: 20, lineHeight: '25px' }}>
+              <div><b>Selected Value: </b> {JSON.stringify(personName, null, 2)}</div>
+            </div>}
+            </Select> */}
 
               <TextField
                 fullWidth

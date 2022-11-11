@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import { Link, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import EditCurrentUser from "./EditCurrentUser";
+import ChangeCurrentUserPassword from "./ChangeCurrentUserPassword";
 
 const bull = (
   <Box
@@ -30,6 +31,7 @@ export default function BasicCard() {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [gender, setGender] = useState("")
+  const [passwordOpenModal, setPasswordOpenModal] = useState(false)
 
   const { authTokens } = useContext(AuthContext);
 
@@ -37,8 +39,16 @@ export default function BasicCard() {
     setOpenModal(false);
   };
 
+  const handlePasswordCloseModal = () => {
+    setPasswordOpenModal(false);
+  };
+
   const handleClickModal = () => {
     setOpenModal(true);
+  };
+
+  const handlePasswordClickModal = () => {
+    setPasswordOpenModal(true);
   };
   // useEffect(() => {
   const handleUserEdit = () => {
@@ -47,6 +57,10 @@ export default function BasicCard() {
     // setRowId({ ...param });
     handleClickModal();
   };
+
+const handleChangePassword =() => {
+  handlePasswordClickModal()
+}
 
   //   getUsers()
 
@@ -175,11 +189,27 @@ export default function BasicCard() {
         >
           Edit
         </Button>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => {
+            // handleClickModal()
+            handleChangePassword();
+            // setRowId(params.id)
+          }}
+        >
+          Change Password
+        </Button>
       </CardActions>
       <EditCurrentUser
         openModal={openModal}
         handleCloseModal={handleCloseModal}
         rowId={id}
+      />
+      <ChangeCurrentUserPassword
+      passwordOpenModal={passwordOpenModal}
+      handlePasswordCloseModal={handlePasswordCloseModal}
+      rowId={id}
       />
     </Card>
   );

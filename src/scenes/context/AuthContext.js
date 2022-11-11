@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
     // // console.log(data, 'data');
     if (response.ok) {
       setSuccess(data);
-      navigate("/login");
+      navigate("/auth/check-mail");
     } else {
       // console.log("sign up", data);
       // setError(data)
