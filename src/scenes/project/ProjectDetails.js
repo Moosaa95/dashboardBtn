@@ -60,7 +60,7 @@ export const ProjectDetail = () => {
       if (response.ok) {
         setIsLoaded(false);
         setProjectName(data["data"].project_name)
-        setProgramName(data["data"].program)
+        setProgramName(data["data"].program["program_name"])
         setProjectManager(data["data"].project_manager)
         setProjectManagerEmail(data["data"].project_manager_email)
         setNotifyManager(data["data"].notify_project_manager)
@@ -97,7 +97,7 @@ export const ProjectDetail = () => {
          width="100%"
          height="100%"
        >
-         <Header title="STAKEHOLDER DETAILS" subtitle="Stakeholder Profile Page"/>
+         <Header title="PROJECT DETAILS" subtitle="Project Profile Page"/>
            <Stack
            display="flex"
            justifyContent="space-between"
