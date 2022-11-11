@@ -90,7 +90,7 @@ const navigate  = useNavigate()
       }
     };
     getPermission();
-  }, [userPermission]);
+  }, []);
 
  
   useEffect(() => {

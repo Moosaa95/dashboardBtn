@@ -65,6 +65,14 @@ const navigate  = useNavigate()
   } = useContext(AuthContext);
 
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
  
 
   // // console.log('HIGHEER ID IN THE MAKEING ', nRow)
@@ -76,7 +84,7 @@ const navigate  = useNavigate()
       setLoadingBtn(true)
     if (rowId) {
       let response = await fetch(
-        `${process.env.REACT_APP_BASE_API_KEY}/auth/users/change-password`,
+        `${process.env.REACT_APP_BASE_API_KEY}/auth/user/change-password`,
         {
           method: "PATCH",
           headers: {
@@ -96,11 +104,11 @@ const navigate  = useNavigate()
 
       let data = await response.json();
       
-      // // console.log(data, "take seripous");
+      console.log(data, "take seripous");
       // setStakeHolderVar(data["data"])
       if (response.ok) {
         // stakeHolders()
-        // console.log(success, 'succeess');
+        console.log('succeess');
 
         setOpen(true);
         setLoadingBtn(false)
@@ -113,7 +121,15 @@ const navigate  = useNavigate()
         //   console.log(data);
         setOpen(true);
         setLoadingBtn(false)
-        setMsg(data.message);
+        const first_key = Object.keys(data)[0];
+        const messages = {
+          message:
+          first_key.charAt(0).toUpperCase() +
+          first_key.slice(1) +
+          ": " +
+          data[first_key][0],
+        };
+        setMsg(messages.message);
       }
     }
   };
@@ -125,7 +141,7 @@ const navigate  = useNavigate()
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={msg?open : false}
-          onClose={handlePasswordCloseModal}
+          onClose={handleClose}
           message={msg}
           autoHideDuration={6000}
           // key={vertical + horizontal}

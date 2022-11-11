@@ -107,7 +107,7 @@ const handleChangePassword =() => {
       setEmail(authTokens.user["email"]);
       //   setUsername(authTokens.user["username"])
     }
-  }, [stakeHolderVar]);
+  }, []);
 
   return (
     <Card
@@ -178,7 +178,7 @@ const handleChangePassword =() => {
         </Typography> */}
       </CardContent>
       <CardActions>
-        <Button
+        {/* <Button
           size="large"
           variant="contained"
           onClick={() => {
@@ -188,7 +188,7 @@ const handleChangePassword =() => {
           }}
         >
           Edit
-        </Button>
+        </Button> */}
         <Button
           size="large"
           variant="contained"
