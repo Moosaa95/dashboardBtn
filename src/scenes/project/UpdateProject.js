@@ -213,7 +213,12 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   // };
   const handleProgram =  (e) => {
     const getProjectId = e.target.value;
-    setProgramName(getProjectId)
+    return programVar.map(target=> {
+      if (getProjectId == target["id"]){
+        setProgramId(target["id"])
+      }
+    })
+    // setProgramName(getProjectId)
     // console.log(getProjectId, 'id project');
 
   }
@@ -249,7 +254,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
           },
           body: JSON.stringify({
             project_name: projectName,
-            program: programName,
+            program: programId,
             project_description: projectDescription,
             end_date: endValue.format("MM/DD/YYYY"),
             start_date: startValue.format("MM/DD/YYYY"),
@@ -335,14 +340,15 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
                     label="Program"
                     // onBlur={handleBlur}
                     onChange={e=>handleProgram(e)}
-                    value={programName}
+                    value={programId}
                     name="program"
                     // error={!!touched.country && !!errors.country}
                     // helperText={touched.country && errors.country}
                     sx={{ gridColumn: "span 2" }}
                     // onClick={setCountriesId(values.country)}
                   >
-                    {programVar.map((prog, index) => (
+                    {programVar && 
+                    programVar.map((prog, index) => (
                       <MenuItem
                         value={prog.id}
                         key={prog.id}
