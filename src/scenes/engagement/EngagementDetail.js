@@ -70,146 +70,213 @@ export const EngagementDetail = () => {
 
   return (
     <>
-      {!isLoaded? (
+     <Box m="20px">
+     {!isLoaded? (
         <Stack 
-        color="#000"
-          backgroundColor="#eee"
+        color="#6E6B7B"
+          backgroundColor="#fff"
           width="100%"
           height="100%"
         >
-          <Header title="ENGAGEMENT" subtitle="Engagement Profile Page"/>
+          <Header title="STAKEHOLDER DETAILS" subtitle="Stakeholder Profile Page"/>
             <Stack
             display="flex"
-            justifyContent="center"
+            justifyContent="space-between"
             flexDirection="row"
-            alignItems="center"
-            m="100px"
-            boxShadow="-18px 9px 17px 9px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)"
+            // alignItems="center"
+            m="50px"
+            boxShadow="rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem"
             border="none"
             width="90%"
-            borderRadius="20px"
-            height="50%"
+            borderRadius="10px"
+            padding="50px 20px"
+            height="700px"
+            
   
             >
-              {/* <Box>
-              <Grid item width="50%">
-             <ButtonBase sx={{ width: 128, height: 128 }}>
-               <Img alt="complex" src={stakeholderVar.stakeholder_image} />
-             </ButtonBase>
-           </Grid>
-              </Box> */}
-              <Box 
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              >
-              <Typography
-                variant="h3"
-                textAlign="center"
-                textTransform="uppercase"
-                fontWeight="bold"
-                mb="20px"
-                color="#e99592"
-                >
-                  Engagement Detail
-                </Typography>
-                <Typography 
-                variant='h4'
-                 textTransform="uppercase" 
-                 fontWeight="bold"
-                 color="#70d8bd"
-  
-                
-                >
-                {`conclusions : ${stakeholderVar.engagement_conclusion}`}
-                </Typography>
-                <Typography
-                textAlign="center"
-                variant="h5"
-                >
-                Engagement Diary  : {stakeholderVar.engagement_diary}
-                </Typography>
-                
-                <Typography
-                textAlign="center"
-                variant="h5"
-                >Rating : 
-                {stakeholderVar.engagement_rate}
-                </Typography>
-               
-                <Typography
-                textAlign="center"
-                variant="h5"
-                >
-                  StakeHolder Assigned Task
-                {stakeholderVar.stakeholder_assigned_task}
-                </Typography>
-                <Typography
-                 textAlign="center"
-                 variant="h5"
-                >
-                    Project Name : 
-                {projectName}
-                </Typography>
-                <Typography
-                 textAlign="center"
-                 variant="h5"
-                >
-                    StakeHolder Issue: 
-                {stakeholderVar.stakeholder_issues}
-                </Typography>
-                
 
-              </Box>
-              {/* <Box
-               display="flex"
-               flexDirection="column"
-               alignItems="center"
-               justifyContent="start"
-              >
+              <Grid item xs={5}>
+                <Grid container spacing={1}>
+                <Grid item xs={12}>
                 <Typography
-                variant="h3"
-                textAlign="center"
-                textTransform="uppercase"
-                fontWeight="bold"
-                mb="20px"
-                color="#e99592"
-                >
-                  Stakeholder More Info
-                </Typography>
-                <Typography 
-                 textAlign="left"
-                 variant="h5"
-                >
-                {stakeholderVar.country}
-                </Typography>
-               
-               
-                
-                <Typography>
-                {stakeholderVar.state}
-                </Typography>
-                <Typography>
-                {stakeholderVar.city}
-                </Typography>
-                <Typography>
-                {stakeholderVar.phone}
-                </Typography>
-                <Typography
-                >
-                {stakeholderVar.email}
-                </Typography>
-                <Typography>
-                {stakeholderVar.postal_code}
-                </Typography>
-              </Box> */}
+                  variant="h3"
+                  textAlign="left"
+                  fontWeight="medium"
+                  mb="20px"
+                  color="#5E5873"
+                  >
+                    Engagememt Details
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+
+                    
+                    >
+                  Stakeholder:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="medium"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    >
+                    {stakeholderFristName} {stakeholderFirstName}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    
+                    >
+                  Project Name:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    >
+                      {projectName}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    
+                    >
+                  Engagememt Diary:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    >
+                      {stakeholderVar.engagement_diary}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    
+                    >
+                  Engagememt Rate:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    >
+                      {stakeholderVar.engagement_rate}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    
+                    >
+                  Engagememt Conclusion:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    marginTop="10px"
+                    marginBottom="10px"
+
+                    >
+                      {`conclusions : ${stakeholderVar.engagement_conclusion}`}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    
+                    >
+                  StakeHolder Issues:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    marginTop="10px"
+                    marginBottom="10px"
+
+                    >
+                      {stakeholderVar.stakeholder_issues}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    fontWeight="Bold"
+                    marginTop="10px"
+                    marginBottom="10px"
+                    
+                    >
+                  Assigned Task:
+                    </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography 
+                    variant='h5'
+                    textAlign="left"
+                    marginTop="10px"
+                    marginBottom="10px"
+
+                    >
+                      {stakeholderVar.stakeholder_assigned_task}
+                    </Typography>
+                </Grid>
+                </Grid>
+              </Grid>
             </Stack>
         </Stack>
       ): (
         <Typography variant="h2" color="#000" justifyContent="center" textAlign="center">Please Wait....</Typography>
       )
       }
+     </Box>
+
     </>
     
   )
