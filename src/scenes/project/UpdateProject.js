@@ -141,32 +141,32 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   //   };
   //   getProject();
   // }, []);
-
-  useEffect(() => {
-    let ProgramList = async () => {
-      // if(authTokens){
-      let response = await fetch(
-        `${process.env.REACT_APP_BASE_API_KEY}/program-list`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + authTokens.token.access,
-          },
-        }
-      );
-      let data = await response.json();
-      setProgramVar(data["data"]);
-      if (response.ok) {
-        setIsLoaded(false);
+  let ProgramList = async () => {
+    // if(authTokens){
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_API_KEY}/program-list`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authTokens.token.access,
+        },
       }
-      // //console.log(data, "data");
-      // }else{
-      //     alert("something went wro")
-      // }
-    };
+    );
+    let data = await response.json();
+    setProgramVar(await data["data"]);
+    if (response.ok) {
+      setIsLoaded(false);
+    }
+    // //console.log(data, "data");
+    // }else{
+    //     alert("something went wro")
+    // }
+  };
+  useEffect(() => {
+    
     ProgramList();
-  }, [authTokens]);
+  }, []);
 
   //   const handleClick = () => {
   //     setOpen(true);
@@ -213,8 +213,11 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   // };
   const handleProgram =  (e) => {
     const getProjectId = e.target.value;
+    console.log(getProjectId);
     return programVar.map(target=> {
+      console.log('target', target["id"]);
       if (getProjectId == target["id"]){
+        console.log(target["id"]);
         setProgramId(target["id"])
       }
     })
