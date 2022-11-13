@@ -189,7 +189,7 @@ const handleChangePassword =() => {
         >
           Edit
         </Button> */}
-        <Button
+        {/* <Button
           size="large"
           variant="contained"
           onClick={() => {
@@ -199,7 +199,7 @@ const handleChangePassword =() => {
           }}
         >
           Change Password
-        </Button>
+        </Button> */}
       </CardActions>
       <EditCurrentUser
         openModal={openModal}

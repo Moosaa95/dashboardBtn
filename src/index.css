@@ -309,3 +309,22 @@ label#filled-multiline-flexible-label {
 .css-1egpgfe {
 color: #122582
 }
+
+.css-vubbuv{
+  color:#000 !important
+}
+.MuiLoadingButton-loadingIndicator{
+  color:#000 !important;
+}
+
+.MuiLoadingButton-colorInherit{
+  color:#000 !important;
+}
+
+.MuiIcon-colorPrimary{
+  color:#000 !important;
+}
+
+.MuiIcon-colorSecondary{
+  color:#000 !important;
+}
