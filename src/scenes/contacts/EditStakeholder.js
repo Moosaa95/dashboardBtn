@@ -212,7 +212,7 @@ export default function EditStakeholder({
             last_name: lastName,
             stakeholder_type: stakeholderTypeId,
             business_category: businessCategory,
-            business_sector: peter,
+            business_sector: personList,
             job_title: jobTitle,
             email: email,
             phone: phoneNumber,
@@ -391,31 +391,39 @@ export default function EditStakeholder({
     });
   };
 
-  console.log(businessSector, "idname", personName);
+  // console.log(businessSector, "idname", personName, 'i am person list', personList);
+// useEffect(()=>{
+  
+// }, [personName])
 
-  let peter = []
   const handleSelectChange = (event) => {
-    console.log(businessSector, "business", event);
-    console.log("==============++++=======");
-    console.dir(event);
+    // console.log(businessSector, "business", event);
+    // console.log("==============++++=======");
+    // console.dir(event);
 
-    console.log(personName, "pouytewson");
+    // console.log(personName, "pouytewson");
     const {
       target: { value },
     } = event;
+    // const preventDuplicate = value.filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i)
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
+      // typeof preventDuplicate === 'string' ? preventDuplicate.split(',') : preventDuplicate
     );
-    personName.map(ind=>{
-      businessSector.map(obj=>{
-        if (ind === obj.name){
-          console.log(obj.id, 'the next id');
-          peter.push(obj.id)
-          console.log(peter, 'peter')
-        }
+    let per = []
+    if (personName){
+      personName.map(person=>{
+        businessSector.map(obj=>{
+          if (obj.name === person) {
+            per.push(obj.id)
+            // console.log(personName, 'personname inside ', per, 'as per');
+            setPersonList(per)
+          }
+        })
       })
-    })
+    }
+      
   };
   // const handleSelectChange = (e) => {
   //   setPersonName(Array.isArray(e) ? e.map(x => x.value) : []);
@@ -640,12 +648,13 @@ export default function EditStakeholder({
                   )}
                 </Select>
               </FormControl> */}
-               <FormControl sx={{ m: 1, width: 300 }}>
+               <FormControl sx={{ m: 1, gridColumn: "span 4", backgroundColor:"#eee", color:"#000" }}>
         <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
+          sx={{color:"#000"}}
           value={personName}
           onChange={handleSelectChange}
           input={<OutlinedInput label="Business Sector" />}
@@ -655,6 +664,11 @@ export default function EditStakeholder({
           {businessSector.map((name) => (
             <MenuItem key={name.id} value={name.name}>
               <Checkbox checked={personName.indexOf(name.name) > -1} />
+              {/* <Checkbox
+                checked={
+                  personName.findIndex(item => item.name === name.name) >= 0
+                }
+            /> */}
               <ListItemText primary={name.name} />
             </MenuItem>
           ))}
