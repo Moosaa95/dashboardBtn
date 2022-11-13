@@ -92,7 +92,8 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
         );
         let data = await response.json();
         // console.log('data new data', data)
-        setProgramId(data["data"].program["program_name"])
+        setProgramName(data["data"].program["program_name"])
+        setProgramId(data["data"].program["id"])
         setProjectDescription(data["data"].project_description)
         setProjectManager(data["data"].project_manager)
         setProjectManagerEmail(data["data"].project_manager_email)
@@ -164,7 +165,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const handleProgram =  (e) => {
     const getProjectId = e.target.value;
     return programVar.map(target=> {
-      if (getProjectId == target["id"]){
+      if (getProjectId == target["program_name"]){
         setProgramId(target["id"])
       }
     })
@@ -291,7 +292,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
                     label="Program Name"
                     // onBlur={handleBlur}
                     onChange={e=>handleProgram(e)}
-                    value={programId}
+                    value={programName}
                     name="program Name"
                     // error={!!touched.country && !!errors.country}
                     // helperText={touched.country && errors.country}
