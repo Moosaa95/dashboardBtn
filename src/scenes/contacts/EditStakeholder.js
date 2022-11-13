@@ -239,7 +239,8 @@ export default function EditStakeholder({
         getStakeHolders();
         handleCloseModal()
         command()
-        // window.location.reload();
+
+        window.location.reload();
 
         // setInterval(() => {
         //   setMsg(null)

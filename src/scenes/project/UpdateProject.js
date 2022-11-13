@@ -47,10 +47,11 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const [projectManagerEmail, setProjectManagerEmail] = useState("");
   const [notifyManager, setNotifyManager] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState("");
   const [errorMessage, setErrorMessage] = useState("")
   const [isLoaded, setIsLoaded] = useState(true);
   const [programName, setProgramName] = useState("")
+
 
 
   const theme = useTheme();
@@ -192,7 +193,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingBtn(true);
-    console.log(endValue, startValue, 'dates', dateFormat(endValue, "mm/dd/yyyy"), 'nice', notifyManager)
+    // console.log(endValue, startValue, 'dates', dateFormat(endValue, "mm/dd/yyyy"), 'nice', isActive)
     // console.dir(endValue)
     if (rowId) {
       let response = await fetch(
@@ -250,7 +251,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
     }
   };
 
-  // //console.log('i m a stake ', stakeholders);
+  //console.log('i m a stake ', stakeholders);
   return (
     <div>
        <Snackbar
@@ -382,7 +383,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               fullWidth
               variant="filled"
               type="text"
-              // select
+              select
               label="Active"
               // onBlur={handleBlur}
               diabled
@@ -393,12 +394,14 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
               sx={{ gridColumn: "span 4" }}
-            />
-             {/* <MenuItem value="True">Yes</MenuItem>
-              <MenuItem value="False">No</MenuItem>
+            >
+             {isActive?
+              <MenuItem value="False">No</MenuItem>:
+              <MenuItem value="True">Yes</MenuItem>
+             }
 
-            </TextField> */}
-            <TextField
+            </TextField>
+            {/* <TextField
               fullWidth
               variant="filled"
               type="text"
@@ -412,7 +415,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
               sx={{ gridColumn: "span 4" }}
-            />
+            /> */}
              {/* <MenuItem value="True">Yes</MenuItem>
               <MenuItem value="False">No</MenuItem>
 
