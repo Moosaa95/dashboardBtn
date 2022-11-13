@@ -71,7 +71,7 @@ import {
     let stakeHolders = async () => {
       // if(authTokens){
       let response = await fetch(
-        "https://nest-srm.up.railway.app/stakeholder-project-map",
+        `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-project-map`,
         {
           method: "GET",
           headers: {
@@ -192,7 +192,7 @@ import {
       // setRowId({...param}.id)
       if (param) {
         let response = await fetch(
-          `https://nest-srm.up.railway.app/stakeholder-delete/${param.id}`,
+          `${process.env.REACT_APP_BASE_API_KEY}/stakeholder-delete/${param.id}`,
           {
             method: "PATCH",
             headers: {

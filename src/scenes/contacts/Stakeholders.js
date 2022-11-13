@@ -61,7 +61,8 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
           </IconButton>
         </Tooltip>
       </Link>
-      {(isAdmin || canEditStakeholder || isGlobalAdmin) && <Tooltip title="edit stakeholder" sx={{
+      {/* {(isAdmin || canEditStakeholder || isGlobalAdmin) &&  */}
+      <Tooltip title="edit stakeholder" sx={{
         color:"#122582"
       }}>
         <IconButton onClick={()=>{
@@ -71,7 +72,8 @@ export const Stakeholders = ({ params, handleDelete, handleClickModal, handleSta
         }}>
           <Edit />
         </IconButton>
-      </Tooltip>}
+      </Tooltip>
+      {/* } */}
       {((isAdmin || canDeleteStakeholder || isGlobalAdmin)) && <Tooltip title="delete Stakeholer" sx={{color:"red"}}>
         <IconButton onClick={()=> handleDelete(params)}>
           <Delete />

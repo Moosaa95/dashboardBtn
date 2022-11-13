@@ -56,7 +56,7 @@ export const ProjectDetail = () => {
       let data = await response.json();
       
       setStakeHolderVar(data["data"]);
-      console.log(stakeholderVar, 'popppooppp')
+      // console.log(stakeholderVar, 'popppooppp')
       if (response.ok) {
         setIsLoaded(false);
         setProjectName(data["data"].project_name)

@@ -268,6 +268,8 @@ const AddEngagement = () => {
                     onChange={e=>setEngagementConclusion(e.target.value)}
                     value={engagementConclusion}
                     name="engagementConclusion"
+                    multiline
+                  maxRows={3}
                     sx={{ gridColumn: "span 4", borderBottom: "1px solid #6E6B7B" }}
                 />
                 <TextField
@@ -275,6 +277,8 @@ const AddEngagement = () => {
                     variant="filled"
                     type="text"
                     label="Stakeholder Issues"
+                    multiline
+                  maxRows={3}
                     // onBlur={handleBlur}
                     onChange={e=>setStakeHolderIssues(e.target.value)}
                     value={stakeholderIssues}

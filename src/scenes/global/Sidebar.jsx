@@ -74,8 +74,8 @@ const Sidebar = () => {
         setIsAdminAssistant(true)
         
       }
-      setFirstName(authTokens.user["first_name"])
-      setLastName(authTokens.user["last_name"])
+      setFirstName(authTokens.user["tenant"])
+      // setLastName(authTokens.user["last_name"])
     }
   }, [authTokens])
 
@@ -154,7 +154,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {`${firstName} ${lastName}`}
+                  {`${firstName}`}
                   
                 </Typography>
                 <Typography variant="h5" color={colors.primary[500]}>

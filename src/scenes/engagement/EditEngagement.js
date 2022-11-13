@@ -116,7 +116,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
       setErrorMessage(error);
     }
   };
-  console.log(projectId, 'porp id');
+  // console.log(projectId, 'porp id');
 
   useEffect(() => {
    
@@ -296,6 +296,9 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   onChange={e=>setEngagementConclusion(e.target.value)}
                   value={engagementConclusion}
                   name="engagementConclusion"
+                  multiline
+                  maxRows={3}
+
                   // error={!!touched.engagementConclusion && !!errors.engagementConclusion}
                   // helperText={touched.engagementConclusion && errors.engagementConclusion}
                   sx={{ gridColumn: "span 4" }}
@@ -309,6 +312,8 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
                   onChange={e=>setStakeholderIssues(e.target.value)}
                   value={stakeholderIssues}
                   name="stakeholderIssues"
+                  multiline
+                  maxRows={3}
                   // error={!!touched.stakeholderIssues && !!errors.stakeholderIssues}
                   // helperText={touched.stakeholderIssues && errors.stakeholderIssues}
                   sx={{ gridColumn: "span 4" }}

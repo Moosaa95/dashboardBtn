@@ -12,7 +12,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataStackholders } from "../../data/mockData";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
+import { useTheme, Tooltip } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -45,7 +45,7 @@ const Modals = ({ open, handleClose, setOpener, onUploadFiles }) => {
 
     
     try{
-      const response = await fetch("https://nest-srm.up.railway.app/stakeholder-bulk-upload", {
+      const response = await fetch(`${process.env.REACT_APP_BASE_API_KEY}/stakeholder-bulk-upload`, {
         method: "POST",
         // mode: "cors",
         headers: {
@@ -168,6 +168,7 @@ const StakeHolders = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isGlobalAdmin, setIsGlobalAdmin] = useState(false);
   const [isAdminAssistant, setIsAdminAssistant] = useState(false);
+  const [reloadData, setReloadData] = useState(false)
   
   
 
@@ -196,7 +197,16 @@ const StakeHolders = () => {
 
   // console.log(authTokens.user.get_user_permissions_list.includes("admin"), 'im user')
  
-  
+  let command = () => {
+    setReloadData(true)
+  }
+
+  useEffect(() => {
+    if (reloadData){
+      stakeHolders()
+      setReloadData(false)
+    }
+  }, [reloadData])
 
   let stakeHolders = async () => {
     // if(authTokens){
@@ -281,6 +291,12 @@ const StakeHolders = () => {
       field: "email",
       headerName: "Email",
       flex: 1,
+      minWidth:400,
+      // renderCell: (params) => (
+      //   <Tooltip title={params.row.email} >
+      //          <span className="csutable-cell-trucate">{params.row.email}</span>
+      //   </Tooltip>
+      // )
     },
     {
       field: "address",
@@ -369,7 +385,7 @@ const StakeHolders = () => {
         />
         <Header title="STAKEHOLDERS" subtitle="List of StakeHolders" />
         {
-          (isAdmin || isGlobalAdmin || canAddStakeholder || isAdminAssistant)  && 
+          // (isAdmin || isGlobalAdmin || canAddStakeholder || isAdminAssistant)  && 
           (
           <>
           {/* <Button
@@ -462,6 +478,7 @@ const StakeHolders = () => {
         rowId={rowId}
         setRowId={setRowId}
         stakeholders={stakeHolders}
+        command={command}
       />
       <Modals open={openUploadModal} handleClose={handleCloseUploadModal} />
     </Box>

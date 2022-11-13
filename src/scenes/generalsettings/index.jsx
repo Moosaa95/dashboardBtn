@@ -210,6 +210,7 @@ const handleChangePassword =() => {
       passwordOpenModal={passwordOpenModal}
       handlePasswordCloseModal={handlePasswordCloseModal}
       rowId={id}
+      username={username}
       />
     </Card>
   );

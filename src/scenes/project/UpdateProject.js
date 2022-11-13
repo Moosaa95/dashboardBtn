@@ -28,6 +28,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
+import dateFormat from 'dateformat'
 
 
 const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
@@ -44,9 +45,9 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const [projectName, setProjectName] = useState("");
   const [projectManager, setProjectManager] = useState("");
   const [projectManagerEmail, setProjectManagerEmail] = useState("");
-  const [notifyManager, setNotifyManager] = useState(true);
+  const [notifyManager, setNotifyManager] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
   const [isLoaded, setIsLoaded] = useState(true);
   const [programName, setProgramName] = useState("")
@@ -55,7 +56,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { addEngagement, authTokens, success, error, clearError } =
+  const {  authTokens, error, clearError, success } =
     useContext(AuthContext);
 
   // console.log('engagement ENGAGEMENT');
@@ -90,7 +91,8 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
           }
         );
         let data = await response.json();
-        setProgramId(data["data"].program)
+        // console.log('data new data', data)
+        setProgramId(data["data"].program["program_name"])
         setProjectDescription(data["data"].project_description)
         setProjectManager(data["data"].project_manager)
         setProjectManagerEmail(data["data"].project_manager_email)
@@ -98,6 +100,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
         setProjectName(data["data"].project_name)
         setEndValue(data["data"].end_date);
         setStartValue(data["data"].start_date);
+        setIsActive(data["data"].is_active)
         
         if (response.ok) {
           setIsLoaded(false);
@@ -116,30 +119,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
     // }
   }, [rowId]);
 
-  // useEffect(() => {
-  //   const getProject = async () => {
-  //     try {
-  //       const getProjectData = await fetch(
-  //         "https://nest-srm.up.railway.app/project-list",
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: "Bearer " + authTokens.token.access,
-  //           },
-  //         }
-  //       );
-  //       const projectJson = await getProjectData.json();
-  //       // //console.log(projectJson, "jrtfnhjkrn");
-  //       // setStakeholder(await stakeholderJson["stakeholder"]);
-  //       if (getProjectData.ok) {
-  //         setProjects(await projectJson["data"]);
-  //       }
-  //     } catch (error) {
-  //       setErrorMessage(error);
-  //     }
-  //   };
-  //   getProject();
+ 
   // }, []);
   let ProgramList = async () => {
     // if(authTokens){
@@ -180,51 +160,18 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
     setOpen(false);
   };
 
-  // const handleStakeholderName = (e) => {
-  //   const getStakeId = e.target.value;
-  //   // console.log('kfkkjdfjJHBHJF', getStakeId);
-  //   return stakeholderVar.map((target) => {
-  //     // if (getStakeId == target["id"]) {
-  //     //   setStakeholderTypeId({
-  //     //     ...stakeholderType,
-  //     //     stakeholdeType: target["id"],
-  //     //   });
-  //     // }
-  //     if (getStakeId == target["id"]) {
-  //       setStakeholderId(target["id"]);
-  //     }
-  //   });
-  // };
 
-  // const handleProjects = (e) => {
-  //   const getProjectId = e.target.value;
-  //   // console.log('kfkkjdfjJHBHJF', getProjectId);
-  //   return projects.map((target) => {
-  //     // if (getProjectId == target["id"]) {
-  //     //   setStakeholderTypeId({
-  //     //     ...stakeholderType,
-  //     //     stakeholdeType: target["id"],
-  //     //   });
-  //     // }
-  //     if (getProjectId == target["id"]) {
-  //       setProjectId(target["id"]);
-  //     }
-  //   });
-  // };
   const handleProgram =  (e) => {
     const getProjectId = e.target.value;
-    console.log(getProjectId);
     return programVar.map(target=> {
-      console.log('target', target["id"]);
       if (getProjectId == target["id"]){
-        console.log(target["id"]);
         setProgramId(target["id"])
       }
     })
     // setProgramName(getProjectId)
-    // console.log(getProjectId, 'id project');
-
+    
   }
+  console.log(notifyManager, programId);
 
 
   // function getFormattedDate(date) {
@@ -244,7 +191,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingBtn(true);
-    // console.log(endValue, startValue, 'dates')
+    console.log(endValue, startValue, 'dates', dateFormat(endValue, "mm/dd/yyyy"), 'nice', notifyManager)
     // console.dir(endValue)
     if (rowId) {
       let response = await fetch(
@@ -259,8 +206,8 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
             project_name: projectName,
             program: programId,
             project_description: projectDescription,
-            end_date: endValue.format("MM/DD/YYYY"),
-            start_date: startValue.format("MM/DD/YYYY"),
+            end_date: endValue?dateFormat(endValue, "mm/dd/yyyy") : endValue.format("MM/DD/YY"),
+            start_date: startValue?dateFormat(startValue, "mm/dd/yyyy") : startValue.format("MM/DD/YY"),
             is_active: isActive,
             project_manager: projectManager,
             project_manager_email: projectManagerEmail,
@@ -279,10 +226,11 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
         setLoadingBtn(false);
 
         setMsg(data.message);
+        ProgramList()
 
         setInterval(() => {
           setMsg(null);
-          window.location.reload();
+          window.location.reload(false);
         }, 3000);
       } else {
         setOpen(true);
@@ -339,19 +287,18 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    select
-                    label="Program"
+                    diabled
+                    label="Program Name"
                     // onBlur={handleBlur}
                     onChange={e=>handleProgram(e)}
                     value={programId}
-                    name="program"
+                    name="program Name"
                     // error={!!touched.country && !!errors.country}
                     // helperText={touched.country && errors.country}
                     sx={{ gridColumn: "span 2" }}
                     // onClick={setCountriesId(values.country)}
-                  >
-                    {programVar && 
-                    programVar.map((prog, index) => (
+                  />
+                    {/* { programVar.map((prog, index) => (
                       <MenuItem
                         value={prog.id}
                         key={prog.id}
@@ -359,7 +306,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
                         {prog.program_name}
                       </MenuItem>
                     ))}
-                  </TextField>
+                  </TextField> */}
             <TextField
               fullWidth
               variant="filled"
@@ -434,7 +381,27 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               fullWidth
               variant="filled"
               type="text"
-              select
+              // select
+              label="Active"
+              // onBlur={handleBlur}
+              diabled
+              onChange={(e) => setIsActive(e.target.value)}
+              value={isActive}
+              // value={values.programName}
+              name="isActive"
+              // error={!!touched.programName && !!errors.programName}
+              // helperText={touched.programName && errors.programName}
+              sx={{ gridColumn: "span 4" }}
+            />
+             {/* <MenuItem value="True">Yes</MenuItem>
+              <MenuItem value="False">No</MenuItem>
+
+            </TextField> */}
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              diabled
               label="Notify Project Manager"
               // onBlur={handleBlur}
               onChange={(e) => setNotifyManager(e.target.value)}
@@ -444,11 +411,11 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               // error={!!touched.programName && !!errors.programName}
               // helperText={touched.programName && errors.programName}
               sx={{ gridColumn: "span 4" }}
-            >
-             <MenuItem value="True">Yes</MenuItem>
+            />
+             {/* <MenuItem value="True">Yes</MenuItem>
               <MenuItem value="False">No</MenuItem>
 
-            </TextField>
+            </TextField> */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Stack spacing={10}>
                 <DesktopDatePicker
@@ -504,4 +471,3 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
 };
 
 export default UpdateProject;
-

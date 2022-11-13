@@ -13,6 +13,7 @@ import moment from "moment/moment";
 import dayjs from "dayjs";
 import { Add, Download } from "@mui/icons-material";
 import UpdateProject from "./UpdateProject";
+import ProjectUpdate from "./UpdateProject";
 
 const Contacts = () => {
   const theme = useTheme();
@@ -114,6 +115,7 @@ const handleClose = (event, reason) => {
       field: "project_manager_email",
       headerName: "Project Manager Eamil",
       flex: 1,
+      minWidth:400
     },
     {
       field: "project_manager",
@@ -130,16 +132,12 @@ const handleClose = (event, reason) => {
     //   headerName: "Tenant",
     //   flex: 1,
     // },
-    // {
-    //   field: "start_date",
-    //   headerName: "Start Date",
-    //   flex: 1,
-    //   cellClassName: "name-column--cell1",
-    //   valueFormatter: (params) => (
-    //     console.log(params, 'date params')
-    //     // moment(params?.value).format("DD-MM-YYYY"),
-    //   )
-    // },
+    {
+      field: "start_date",
+      headerName: "Start Date",
+      flex: 1,
+      cellClassName: "name-column--cell1",
+      valueFormatter: (params) =>  moment(params?.value).format("DD-MM-YYYY")},
 
     {
       field: "end_date",
@@ -294,6 +292,7 @@ const handleClose = (event, reason) => {
       handleCloseModal={handleCloseModal}
       rowId={rowId}
       />
+      
     </Box>
   );
 };

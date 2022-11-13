@@ -53,7 +53,7 @@ export const EngagementDialog = ({ params, handleDelete, handleClickModal, handl
         </IconButton>
       </Tooltip>
       {
-        (isAdmin || canEditEngagement || isGlobalAdmin) &&
+        // (isAdmin || canEditEngagement || isGlobalAdmin) &&
         <Tooltip title="edit project" sx={{color:"#000"}}>
         <IconButton onClick={()=>{
           // handleClickModal()

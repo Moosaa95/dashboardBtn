@@ -5,12 +5,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+
 // import Select from 'react-select';
 import {
   Snackbar,
   Box,
   TextField,
-   Select,
+  Select,
   Chip,
   OutlinedInput,
   MenuItem,
@@ -18,6 +19,8 @@ import {
   Typography,
   FormControl,
   InputLabel,
+  Checkbox,
+  ListItemText
 } from "@mui/material";
 // import Select from "react-select";
 import AuthContext from "../context/AuthContext";
@@ -41,6 +44,7 @@ export default function EditStakeholder({
   rowId,
   stakeholders,
   setRowId,
+  command
 }) {
   const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -78,6 +82,7 @@ export default function EditStakeholder({
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
   const [busyDay, setBusyDay] = useState([]);
+  const [personList, setPersonList] = useState([])
 
   const [nRow, setNRow] = useState();
 
@@ -117,7 +122,6 @@ export default function EditStakeholder({
   };
 
   useEffect(() => {
-    
     getStakeHolders();
   }, [authTokens]);
 
@@ -137,7 +141,6 @@ export default function EditStakeholder({
     });
   };
 
-  
   useEffect(() => {
     let stakeHolders = async () => {
       // // console.log('POPO BIG CODE', rowId);
@@ -159,8 +162,8 @@ export default function EditStakeholder({
         setPhoneNumber(data["data"].phone);
         setBusinessCategory(data["data"].business_category);
         setPostalCode(data["data"].postal_code);
-        setPersonName(data["data"].business_sectors.map(ind=>ind)); 
-        
+        setPersonName(data["data"].business_sectors.map(ind=>ind.name));
+
         setEmail(data["data"].email);
         // setCountry(data["data"].country);
         setCountriesId(data["data"].country);
@@ -170,10 +173,10 @@ export default function EditStakeholder({
         setJobTitle(data["data"].job_title);
         setStakeholderTypeId(data["data"].stakeholder_type);
         // setStakeholderTypeId(2)
-  
+
         if (response.ok) {
           setIsLoaded(false);
-  
+
           // console.log("DATA IS POWER", data);
           // setFirstName(stakeholderVar.first_name)
         }
@@ -189,12 +192,11 @@ export default function EditStakeholder({
     // }
   }, [rowId]);
 
- 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     // // console.log('NROWERS', nRow);
-    // // console.log(e, 'i am form to handle')
+    console.log(personName, 'i am form to handle', personList)
     setLoadingBtn(true);
     if (rowId) {
       let response = await fetch(
@@ -210,7 +212,7 @@ export default function EditStakeholder({
             last_name: lastName,
             stakeholder_type: stakeholderTypeId,
             business_category: businessCategory,
-            business_sector: personName.map((ind) => ind.id),
+            business_sector: peter,
             job_title: jobTitle,
             email: email,
             phone: phoneNumber,
@@ -234,8 +236,10 @@ export default function EditStakeholder({
         setLoadingBtn(false);
 
         setMsg(data.message);
-        getStakeHolders()
-        window.location.reload()
+        getStakeHolders();
+        handleCloseModal()
+        command()
+        // window.location.reload();
 
         // setInterval(() => {
         //   setMsg(null)
@@ -308,8 +312,8 @@ export default function EditStakeholder({
       getCity();
     }
   }, [statesId]);
-  
-  let busy = []
+
+  let busy = [];
   useEffect(() => {
     const getBusiness = async () => {
       try {
@@ -326,7 +330,7 @@ export default function EditStakeholder({
         const businessJson = await getBusinessData.json();
         // console.log(businessJson, "business ppp");
         setBusinessSector(businessJson["data"]);
-       
+
         if (getBusinessData.ok) {
           // console.log("iron man");
           // setIsLoaded(true);
@@ -386,15 +390,16 @@ export default function EditStakeholder({
       }
     });
   };
-  
-  console.log(businessSector, 'idname', personName);
 
+  console.log(businessSector, "idname", personName);
+
+  let peter = []
   const handleSelectChange = (event) => {
-    console.log(businessSector, 'business', event)
-    console.log('==============++++=======');
+    console.log(businessSector, "business", event);
+    console.log("==============++++=======");
     console.dir(event);
 
-    console.log(personName, 'pouytewson');
+    console.log(personName, "pouytewson");
     const {
       target: { value },
     } = event;
@@ -402,6 +407,15 @@ export default function EditStakeholder({
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    personName.map(ind=>{
+      businessSector.map(obj=>{
+        if (ind === obj.name){
+          console.log(obj.id, 'the next id');
+          peter.push(obj.id)
+          console.log(peter, 'peter')
+        }
+      })
+    })
   };
   // const handleSelectChange = (e) => {
   //   setPersonName(Array.isArray(e) ? e.map(x => x.value) : []);
@@ -584,7 +598,7 @@ export default function EditStakeholder({
                 // helperText={touched.address && errors.address}
                 sx={{ gridColumn: "span 2" }}
               />
-              <FormControl sx={{  width: 200, gridColumn: "span 4" }}>
+              {/* <FormControl sx={{ gridColumn: "span 4" }}>
                 <InputLabel id="demo-multiple-chip-label">
                   Business Sector
                 </InputLabel>
@@ -593,6 +607,7 @@ export default function EditStakeholder({
                   id="demo-multiple-chip"
                   multiple
                   value={personName}
+                  fullWidth
                   // itemID={personName}
                   // key={personName}
                   // name={personName}
@@ -603,25 +618,48 @@ export default function EditStakeholder({
                   renderValue={(selected) => (
                     <Box sx={{ display: "flex", gap: 0.5 }}>
                       {selected.map((value) => (
-                        <Chip key={value.id} label={value.name} />
+                        <Chip key={value.id} label={value.id} />
                       ))}
                     </Box>
                   )}
                   MenuProps={MenuProps}
                 >
-                  {businessSector.map((name, index) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                      // id={name.id}
-                      // name={name.id}
-                      // style={getStyles(name, personName, theme)}
-                    >
-                      {name.name}
-                    </MenuItem>
-                  ))}
+                  {businessSector.map((name, index) => 
+                    
+                    (
+                      <MenuItem
+                        key={name}
+                        value={name}
+                        // id={name.id}
+                        // name={name.id}
+                        // style={getStyles(name, personName, theme)}
+                      >
+                        {name.name}
+                      </MenuItem>
+                    )
+                  )}
                 </Select>
-              </FormControl>
+              </FormControl> */}
+               <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={personName}
+          onChange={handleSelectChange}
+          input={<OutlinedInput label="Business Sector" />}
+          renderValue={(selected) =>  selected.join(", ")}
+          MenuProps={MenuProps}
+        >
+          {businessSector.map((name) => (
+            <MenuItem key={name.id} value={name.name}>
+              <Checkbox checked={personName.indexOf(name.name) > -1} />
+              <ListItemText primary={name.name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
               {/* <Select
               className="dropdown"
               placeholder="Select Option"
