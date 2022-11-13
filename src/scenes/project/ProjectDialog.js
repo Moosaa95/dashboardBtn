@@ -51,8 +51,8 @@ const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProjectE
         </Link>
         </IconButton>
       </Tooltip>
-      {/* {
-        (isAdmin || canEditProject || isGlobalAdmin) && */}
+      {
+        (isAdmin || canEditProject || isGlobalAdmin) &&
         <Tooltip title="Edit Project">
         <IconButton onClick={()=>{
           // handleClickModal()
@@ -62,7 +62,7 @@ const  ProjectDialog = ({ params, handleDelete, handleClickModal, handleProjectE
           <Edit />
         </IconButton>
       </Tooltip>
-      {/* } */}
+      }
       {
         (isAdmin || canDeleteProject || isGlobalAdmin) &&
         <Tooltip title="Delete Project" sx={{color:"red"}}>

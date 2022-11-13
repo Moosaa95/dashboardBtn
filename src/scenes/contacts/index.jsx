@@ -385,7 +385,7 @@ const StakeHolders = () => {
         />
         <Header title="STAKEHOLDERS" subtitle="List of StakeHolders" />
         {
-          // (isAdmin || isGlobalAdmin || canAddStakeholder || isAdminAssistant)  && 
+          (isAdmin || isGlobalAdmin || canAddStakeholder || isAdminAssistant)  && 
           (
           <>
           {/* <Button

@@ -119,6 +119,13 @@ const Programs = () => {
             headerClassName: ""
           },
           {
+            field: "program_name",
+            headerName: "Program Name",
+            flex: 1,
+            cellClassName: "name-column--cell",
+            headerClassName: ""
+          },
+          {
             field: "date_approved",
             headerName: "Date Approved",
             flex: 1,
