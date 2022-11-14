@@ -2,7 +2,7 @@ import { style } from '@mui/system';
 import React, {useState, useEffect, Fragment, useContext} from 'react'
 import {useParams, Link } from "react-router-dom"
 import AuthContext from '../context/AuthContext'
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import styles from "./style.module.css";
 import successful from "./assets/approved-icon-profile-verification-accept-badge-vector-26934469.jpg"
 
@@ -58,7 +58,7 @@ export const EmailVerify = ({setLoggedIn}) => {
               </Link>
             </div>
           ):(
-            <h1 sx={{ color: "#000" }}>404 Not Found</h1>
+            <Typography sx={{ color: "#000" }}>404 Not Found</Typography>
           )
         }
       </Box>

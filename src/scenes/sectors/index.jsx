@@ -81,7 +81,7 @@ const Sectors = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ALl Business Sector" subtitle="stakeholder business sector" />
+        <Header title="All Business Sector" subtitle="Stakeholder Business Sector" />
 
         <Box>
           <Link to="/add-sector">

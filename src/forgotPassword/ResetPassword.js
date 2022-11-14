@@ -238,63 +238,7 @@ export const ResetPassword = ({setLoggedIn}) => {
           handleSubmit,
           isSubmitting,
         }) => ( */}
-          <form onSubmit={e=>handleFormSubmit(e)}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              width="100%"
-              backgroundColor="#000"
-              gap="30px"
-              // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}
-            > 
-              <Box display="flex" mr="15px" justifyContent="space-between" width="100%" gap="20px">
-              <TextField
-                fullWidth
-                variant="filled"
-                type="password"
-                label="Password"
-                // onBlur={handleBlur}
-                onChange={e=>setPassword(e.target.value)}
-                value={password}
-                name="password"
-                // error={!!touched.password && !!errors.password}
-                // helperText={touched.password && errors.password}
-                sx={{ gridColumn: "span 4" }}
-              />
-              {/* <TextField
-                fullWidth
-                variant="filled"
-                type="password"
-                label="Confirm Password"
-                // onBlur={handleBlur}
-                onChange={e=>setConfirmPassword(e.target.value)}
-                value={confirmPassword}
-                name="confirmPassword"
-                // error={!!touched.confirmPassword && !!errors.confirmPassword}
-                // helperText={touched.confirmPassword && errors.confirmPassword}
-                sx={{ gridColumn: "span 4" }}
-              /> */}
-              </Box>
-              
-              
-              
-            </Box>
-            <Box display="flex" width="100%" mr="20px" justifyContent="space-between" mt="20px">
-            <LoadingButton
-              loading={loadingBtn}
-              type="submit"
-              color="secondary"
-              variant="contained"
-            >
-              Submit
-            </LoadingButton>
-            </Box>
-          </form>
+         
         {/* )}
       </Formik> */}
     </Box>

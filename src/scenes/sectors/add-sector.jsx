@@ -55,7 +55,7 @@ const BusinessSector = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ALl Business Sector" subtitle="Add your stakeholder business sector" />
+        <Header title="Add Business Sector" subtitle="Add your stakeholder business sector" />
 
       </Box>
       <Button onClick={handleClick}>Open simple snackbar</Button>

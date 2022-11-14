@@ -423,7 +423,7 @@ const StackHolderForm = () => {
         />
       )}
       <Box display="flex" justifyContent="left" alignItems="left">
-        <Header title="Add StakeHolder" subtitle="Add new Stakeholder" />
+        <Header title="Add StakeHolder" subtitle="Add New Stakeholder" />
       </Box>
 
       <Box  sx={{ width: "1000px", margin: "auto", 
