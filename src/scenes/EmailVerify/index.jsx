@@ -56,10 +56,10 @@ export const EmailVerify = ({setLoggedIn}) => {
     <>
     <Fragment>
       <Box sx={{ width: "600px", backgroundColor: "#fff", margin: "auto", padding: "50px", boxShadow: "rgb(0 0 0 / 16%) 0px 0.1875rem 0.375rem" }}>
-          {!validUrl ? (
+          {/* {!validUrl ? (
             <Typography sx={{ color: "red" }}>404 Not Found</Typography>
             
-          ):(
+          ):( */}
             <Stack display="flex" justifyContent="center">
               {/* <img src={successful} alt="success" height="50%" width="50%" className='success-img' /> */}
               <Typography variant="h3" m={5} sx={{ color: "#000 !important", textAlign:"center" }}>{msg}</Typography>
@@ -67,8 +67,8 @@ export const EmailVerify = ({setLoggedIn}) => {
                 <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", alignItems:"center" }}>Login</Button>
               </Link>
             </Stack>
-          )
-        }
+          {/* )
+        } */}
       </Box>
     </Fragment>
     </>
