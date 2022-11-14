@@ -57,7 +57,8 @@ export const ProgramDialog = ({ params, handleDelete, handleClickModal, handlePr
       </Tooltip>
      } */}
      {
-       (isAdmin || canDeleteProgram || isGlobalAdmin ) &&  <Tooltip title="delete Program" sx={{
+       (isAdmin || canDeleteProgram || isGlobalAdmin ) &&  
+       <Tooltip title="delete Program" sx={{
         color:"red"
       }}>
         <IconButton onClick={()=> handleDelete(params)} >

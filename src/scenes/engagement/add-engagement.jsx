@@ -42,9 +42,9 @@ const AddEngagement = () => {
         setMsg(error);
         setOpen(true);
         setLoadingBtn(false);
-        setInterval(() => {
-          clearError();
-        }, 6000);
+        // setInterval(() => {
+        //   clearError();
+        // }, 6000);
       }
     }, [success, error])
 
@@ -166,7 +166,7 @@ const AddEngagement = () => {
       {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
       <Snackbar
         open={msg? open : false}
-        autoHideDuration={6000}
+        // autoHideDuration={6000}
         onClose={handleClose}
         message={msg}
         

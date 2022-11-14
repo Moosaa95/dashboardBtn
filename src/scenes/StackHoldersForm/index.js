@@ -681,7 +681,7 @@ const StackHolderForm = () => {
             </TextField>
 
             <Box width="50%" height="500%">
-              <FormControl sx={{ m: 1, width: 300 }} size="small">
+              <FormControl sx={{ m: 1, gridColumn: "span 4" }} size="small">
                 <InputLabel id="demo-multiple-chip-label">
                   Business Sector
                 </InputLabel>
@@ -700,7 +700,7 @@ const StackHolderForm = () => {
                   }
                   renderValue={(selected) => (
                     <Box
-                      sx={{ display: "flex", flexWrap: "no-wrap", gap: 0.5 }}
+                      sx={{ display: "flex", gap: 0.5 }}
                     >
                       {selected.map((value) => (
                         <Chip key={value.id} label={value.name} />

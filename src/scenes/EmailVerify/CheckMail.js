@@ -19,7 +19,6 @@ const card = (
   <React.Fragment>
     <CardContent sx={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
       <Typography sx={{ fontSize: 14 }} color="#000" gutterBottom>
-        Word of the Day
       </Typography>
       <Typography variant="h5" component="div">
         Thank you for Registrating with us.

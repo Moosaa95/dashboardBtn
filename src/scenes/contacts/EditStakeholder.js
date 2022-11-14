@@ -485,7 +485,7 @@ export default function EditStakeholder({
                 // helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="email"
@@ -498,7 +498,7 @@ export default function EditStakeholder({
                 // error={!!touched.email && !!errors.email}
                 // helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 2" }}
-              />
+              /> */}
               <TextField
                 fullWidth
                 variant="filled"
@@ -581,7 +581,7 @@ export default function EditStakeholder({
                 sx={{ gridColumn: "span 2" }}
               />
 
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="text"
@@ -594,7 +594,7 @@ export default function EditStakeholder({
                 // error={!!touched.phoneNumber && !!errors.phoneNumber}
                 // helperText={touched.phoneNumber && errors.phoneNumber}
                 sx={{ gridColumn: "span 2" }}
-              />
+              /> */}
               <TextField
                 fullWidth
                 variant="filled"
@@ -652,7 +652,7 @@ export default function EditStakeholder({
                 </Select>
               </FormControl> */}
                <FormControl sx={{ m: 1, gridColumn: "span 4", backgroundColor:"#eee", color:"#000" }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <InputLabel id="demo-multiple-checkbox-label">Business Sector</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
@@ -667,11 +667,6 @@ export default function EditStakeholder({
           {businessSector.map((name) => (
             <MenuItem key={name.id} value={name.name}>
               <Checkbox checked={personName.indexOf(name.name) > -1} />
-              {/* <Checkbox
-                checked={
-                  personName.findIndex(item => item.name === name.name) >= 0
-                }
-            /> */}
               <ListItemText primary={name.name} />
             </MenuItem>
           ))}

@@ -21,7 +21,8 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Header from "../../components/Header";
 import React, { useState, useEffect } from "react";
 import { LoadingButton } from "@mui/lab";
-import Engagements from ".";
+// import Engagements from ".";
+import { useNavigate } from "react-router-dom";
 
 const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -49,6 +50,8 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
 
   const { addEngagement, authTokens, success, error, clearError, clearSuccess } =
     useContext(AuthContext);
+
+    const navigate = useNavigate();
 
   // console.log('engagement ENGAGEMENT');
 
@@ -180,6 +183,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
         setLoadingBtn(false);
         setMsg(data.message);
         clearSuccess()
+        // handleCloseModal()
         getProject()
         // setInterval(() => {
         //   setMsg(null)
@@ -211,7 +215,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{`Edit  Engagement`}
-        <Typography textTransform="uppercase" fontSize="14px" textAlign="center" fontWeight="500">Stakeholder Name: {stakeholderId}</Typography>
+        <Typography textTransform="uppercase" fontSize="14px" textAlign="center" fontWeight="500" mt={3}>Stakeholder Name: {stakeholderId}</Typography>
         
         </DialogTitle>
         <DialogContent>

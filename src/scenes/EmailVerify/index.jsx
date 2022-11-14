@@ -2,7 +2,7 @@ import { style } from '@mui/system';
 import React, {useState, useEffect, Fragment, useContext} from 'react'
 import {useParams, Link } from "react-router-dom"
 import AuthContext from '../context/AuthContext'
-import { Box, } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import styles from "./style.module.css";
 import successful from "./assets/approved-icon-profile-verification-accept-badge-vector-26934469.jpg"
 
@@ -23,7 +23,7 @@ export const EmailVerify = ({setLoggedIn}) => {
     setLoggedIn(true)
   }
 
-  console.log(param, 'lol', param.token, param.uuid64);
+  // console.log(param, 'lol', param.token, param.uuid64);
 
   useEffect(() => {
     const verifyEmailUrl = async () => {
@@ -52,13 +52,13 @@ export const EmailVerify = ({setLoggedIn}) => {
           {validUrl ? (
             <div>
               {/* <img src={successful} alt="success" height="50%" width="50%" className='success-img' /> */}
-              <h1 sx={{ color: "#6E6B7B" }}>Email Verified successfully</h1>
+              <h1 sx={{ color: "#000" }}>Email Verified successfully</h1>
               <Link to="/login">
-                <button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>Login</button>
+                <Button color="secondary" variant="contained" sx={{ padding: "10px 20px", }}>Login</Button>
               </Link>
             </div>
           ):(
-            <h1 sx={{ color: "#6E6B7B" }}>404 Not Found</h1>
+            <h1 sx={{ color: "#000" }}>404 Not Found</h1>
           )
         }
       </Box>

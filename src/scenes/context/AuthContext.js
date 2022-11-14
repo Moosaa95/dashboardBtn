@@ -345,9 +345,19 @@ export const AuthProvider = ({ children }) => {
       let data = await response.json();
       if (response.ok) {
         navigate("/engagements");
-        setSuccess("successfully add engagement");
+        // console.log(data, 'p0989');
+        setSuccess("engagement successfully created")
+
       } else {
-        setError("something went wrong");
+        const first_key = Object.keys(data)[0];
+        const messages = {
+          message:
+            first_key.charAt(0).toUpperCase() +
+            first_key.slice(1) +
+            ": " +
+            data[first_key][0],
+        };
+        setError(messages.message);
       }
       // // console.log(data, 'data');
     } else {

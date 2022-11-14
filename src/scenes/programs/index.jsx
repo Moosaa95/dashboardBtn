@@ -106,6 +106,13 @@ const Programs = () => {
           renderCell: (index) => index.api.getRowIndex(index.row.id) + 1
         },
         {
+          field: "program_name",
+          headerName: "Program Name",
+          flex: 1,
+          cellClassName: "name-column--cell",
+          headerClassName: ""
+        },
+        {
           field: "organizer_sponsor",
           headerName: "Organizer Sponsor",
           flex: 1,
@@ -118,13 +125,7 @@ const Programs = () => {
             cellClassName: "name-column--cell",
             headerClassName: ""
           },
-          {
-            field: "program_name",
-            headerName: "Program Name",
-            flex: 1,
-            cellClassName: "name-column--cell",
-            headerClassName: ""
-          },
+          
           {
             field: "date_approved",
             headerName: "Date Approved",
