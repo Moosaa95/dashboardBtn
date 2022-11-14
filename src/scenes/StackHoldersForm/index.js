@@ -681,11 +681,12 @@ const StackHolderForm = () => {
             </TextField>
 
             <Box width="50%" height="500%">
-              <FormControl sx={{ m: 1, gridColumn: "span 4" }} size="small">
+              <FormControl sx={{ m: 1, width:400 }} size="small">
                 <InputLabel id="demo-multiple-chip-label">
                   Business Sector
                 </InputLabel>
                 <Select
+                fullWidth
                   labelId="demo-multiple-chip-label"
                   id="demo-multiple-chip"
                   multiple
@@ -696,7 +697,7 @@ const StackHolderForm = () => {
                   // name={personName}
                   onChange={(e) => handleSelectChange(e)}
                   input={
-                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                    <OutlinedInput id="select-multiple-chip" label="Business Sector" />
                   }
                   renderValue={(selected) => (
                     <Box
