@@ -370,6 +370,7 @@ const UpdateProject = ({ handleCloseModal, openModal, rowId }) => {
               variant="filled"
               type="text"
               label="Project Manager Email"
+              disabled
               // onBlur={handleBlur}
               onChange={(e) => setProjectManagerEmail(e.target.value)}
               value={projectManagerEmail}

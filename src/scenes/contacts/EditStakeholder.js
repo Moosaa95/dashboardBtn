@@ -196,7 +196,7 @@ export default function EditStakeholder({
     e.preventDefault();
 
     // // console.log('NROWERS', nRow);
-    console.log(personName, 'i am form to handle', personList)
+    // console.log(personName, 'i am form to handle', personList)
     setLoadingBtn(true);
     if (rowId) {
       let response = await fetch(
@@ -314,7 +314,7 @@ export default function EditStakeholder({
     }
   }, [statesId]);
 
-  let busy = [];
+
   useEffect(() => {
     const getBusiness = async () => {
       try {
@@ -490,6 +490,7 @@ export default function EditStakeholder({
                 variant="filled"
                 type="email"
                 label="Email"
+                disabled
                 // onBlur={handleBlur}
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
@@ -585,6 +586,7 @@ export default function EditStakeholder({
                 variant="filled"
                 type="text"
                 label="Phone Number"
+                disabled
                 // onBlur={handleBlur}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 value={phoneNumber}

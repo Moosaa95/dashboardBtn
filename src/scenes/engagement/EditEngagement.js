@@ -74,7 +74,7 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
         setEngagementDiary(data["data"].engagement_diary);
         setengagementRate(data["data"].engagement_rate);
         setProjectId(data["data"].project);
-        // setStakeholderId(data["data"].stakeholder_name);
+        setStakeholderId(data["data"].stakeholder["stakeholder_fullname"]);
         setStakeholderIssues(data["data"].stakeholder_issues);
         setStakeholderAssignedTask(data["data"].stakeholder_assigned_task);
       
@@ -210,7 +210,10 @@ const UpdateEngagement = ({ handleCloseModal, openModal, rowId }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Edit Engagement"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{`Edit  Engagement`}
+        <Typography textTransform="uppercase" fontSize="14px" textAlign="center" fontWeight="500">Stakeholder Name: {stakeholderId}</Typography>
+        
+        </DialogTitle>
         <DialogContent>
           <Box sx={{ width: "400px", margin: "auto", marginTop: "70px" }}>
           <Snackbar
