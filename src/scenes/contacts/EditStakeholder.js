@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -20,7 +20,7 @@ import {
   FormControl,
   InputLabel,
   Checkbox,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 // import Select from "react-select";
 import AuthContext from "../context/AuthContext";
@@ -44,7 +44,7 @@ export default function EditStakeholder({
   rowId,
   stakeholders,
   setRowId,
-  command
+  command,
 }) {
   const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -82,7 +82,8 @@ export default function EditStakeholder({
   const [msg, setMsg] = useState("");
   const [personName, setPersonName] = useState([]);
   const [busyDay, setBusyDay] = useState([]);
-  const [personList, setPersonList] = useState([])
+  const [personList, setPersonList] = useState([]);
+  const par = useRef([]);
 
   const [nRow, setNRow] = useState();
 
@@ -162,7 +163,7 @@ export default function EditStakeholder({
         setPhoneNumber(data["data"].phone);
         setBusinessCategory(data["data"].business_category);
         setPostalCode(data["data"].postal_code);
-        setPersonName(data["data"].business_sectors.map(ind=>ind.name));
+        setPersonName(data["data"].business_sectors.map((ind) => ind.name));
 
         setEmail(data["data"].email);
         // setCountry(data["data"].country);
@@ -194,9 +195,14 @@ export default function EditStakeholder({
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     // // console.log('NROWERS', nRow);
-    // console.log(personName, 'i am form to handle', personList)
+    console.log(
+      personName,
+      "i am form to handle",
+      personList,
+      "else",
+      par.current
+    );
     setLoadingBtn(true);
     if (rowId) {
       let response = await fetch(
@@ -212,7 +218,7 @@ export default function EditStakeholder({
             last_name: lastName,
             stakeholder_type: stakeholderTypeId,
             business_category: businessCategory,
-            business_sector: personList,
+            business_sector: par.current,
             job_title: jobTitle,
             email: email,
             phone: phoneNumber,
@@ -238,7 +244,7 @@ export default function EditStakeholder({
         setMsg(data.message);
         getStakeHolders();
         handleCloseModal()
-        command()
+        // command()
 
         window.location.reload();
 
@@ -257,6 +263,10 @@ export default function EditStakeholder({
       // // console.log(data, "data");
     }
   };
+
+  // useEffect(() => {
+  //   setPersonList(par)
+  // }, [par])
 
   useEffect(() => {
     const getCountry = async () => {
@@ -314,7 +324,6 @@ export default function EditStakeholder({
     }
   }, [statesId]);
 
-
   useEffect(() => {
     const getBusiness = async () => {
       try {
@@ -331,6 +340,8 @@ export default function EditStakeholder({
         const businessJson = await getBusinessData.json();
         // console.log(businessJson, "business ppp");
         setBusinessSector(businessJson["data"]);
+        par.current = businessJson["data"];
+        // setPar(businessJson["data"]);
 
         if (getBusinessData.ok) {
           // console.log("iron man");
@@ -393,9 +404,9 @@ export default function EditStakeholder({
   };
 
   // console.log(businessSector, "idname", personName, 'i am person list', personList);
-// useEffect(()=>{
-  
-// }, [personName])
+  // useEffect(()=>{
+
+  // }, [personName])
 
   const handleSelectChange = (event) => {
     // console.log(businessSector, "business", event);
@@ -412,19 +423,26 @@ export default function EditStakeholder({
       typeof value === "string" ? value.split(",") : value
       // typeof preventDuplicate === 'string' ? preventDuplicate.split(',') : preventDuplicate
     );
-    let per = []
-    if (personName){
-      personName.map(person=>{
-        businessSector.map(obj=>{
+
+    let per = [];
+    if (value) {
+      value.map((person) => {
+        businessSector.map((obj) => {
           if (obj.name === person) {
-            per.push(obj.id)
-            // console.log(personName, 'personname inside ', per, 'as per');
-            setPersonList(per)
+            per.push(obj.id);
+            console.log(
+              personName,
+              "personname inside ",
+              per,
+              "as per",
+              "changevalue",
+              event
+            );
           }
-        })
-      })
+        });
+      });
     }
-      
+    par.current = per.join().split(',');
   };
   // const handleSelectChange = (e) => {
   //   setPersonName(Array.isArray(e) ? e.map(x => x.value) : []);
@@ -651,27 +669,36 @@ export default function EditStakeholder({
                   )}
                 </Select>
               </FormControl> */}
-               <FormControl sx={{ m: 1, gridColumn: "span 4", backgroundColor:"#eee", color:"#000" }}>
-        <InputLabel id="demo-multiple-checkbox-label">Business Sector</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          sx={{color:"#000"}}
-          value={personName}
-          onChange={handleSelectChange}
-          input={<OutlinedInput label="Business Sector" />}
-          renderValue={(selected) =>  selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {businessSector.map((name) => (
-            <MenuItem key={name.id} value={name.name}>
-              <Checkbox checked={personName.indexOf(name.name) > -1} />
-              <ListItemText primary={name.name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+              <FormControl
+                sx={{
+                  m: 1,
+                  gridColumn: "span 4",
+                  backgroundColor: "#eee",
+                  color: "#000",
+                }}
+              >
+                <InputLabel id="demo-multiple-checkbox-label">
+                  Business Sector
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-checkbox-label"
+                  id="demo-multiple-checkbox"
+                  multiple
+                  sx={{ color: "#000" }}
+                  value={personName}
+                  onChange={handleSelectChange}
+                  input={<OutlinedInput label="Business Sector" />}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                >
+                  {businessSector.map((name) => (
+                    <MenuItem key={name.id} value={name.name}>
+                      <Checkbox checked={personName.indexOf(name.name) > -1} />
+                      <ListItemText primary={name.name} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               {/* <Select
               className="dropdown"
               placeholder="Select Option"
