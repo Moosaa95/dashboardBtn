@@ -100,7 +100,7 @@ const SignUp = () => {
       // }, 9000);
 
     }
-  }, [error])
+  }, [error, msg])
 
   useEffect(() => {
     const getCountry = async () => {
@@ -167,13 +167,13 @@ const SignUp = () => {
     // values.preventDefault()
     setLoadingBtn(true);
     [values].map((value) => {
-      // console.log(values, "jury values");
+      // console.log(value.phoneNumber.replace(/^0+/, ''), "jury ");
       registerUser({
         admin_email: value.adminEmail,
         admin_first_name: value.adminFirstName,
         address: value.address,
         password: value.password,
-        phone_number: value.phoneNumber,
+        phone_number: value.phoneNumber.replace(/^0+/, ''),
         company_email: value.companyEmail,
         company_name: value.companyName,
         country: value.country,
@@ -501,12 +501,12 @@ const checkoutSchema = yup.object().shape({
   password: yup
     .string()
     .min(5)
-    .matches(passwordRules, { message: "please Create a Stronger Password" })
+    .matches(passwordRules, { message: "please Create a Stronger Password. e," })
     .required("Required"),
-  phoneNumber: yup
-    .string()
-    .matches(phoneRegExp, "Phone number can only start with number")
-    .required("required"),
+  // phoneNumber: yup
+  //   .string()
+  //   .matches(phoneRegExp, "Phone number can only start with number")
+  //   .required("required"),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match")

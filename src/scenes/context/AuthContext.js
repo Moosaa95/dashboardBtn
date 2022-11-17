@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
       setSuccess(data);
       navigate("/auth/check-mail");
     } else {
-      // console.log("sign up", data);
+      console.log("sign up", data, typeof data);
       // setError(data)
       const first_key = Object.keys(data)[0];
       const messages = {
@@ -81,7 +81,15 @@ export const AuthProvider = ({ children }) => {
           ": " +
           data[first_key][0],
       };
-      setError(messages.message);
+      if (data.message){
+        console.log('hey');
+        setError(data.message);
+      }
+      else{
+        console.log("lol");
+
+        setError(messages.message);
+      }
       // for (const item in err const error: {})
     }
   };
