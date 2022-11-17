@@ -167,13 +167,13 @@ const SignUp = () => {
     // values.preventDefault()
     setLoadingBtn(true);
     [values].map((value) => {
-      // console.log(value.phoneNumber.replace(/^0+/, ''), "jury ");
+      console.log(value.phoneNumber.replace(/^0+|\++/, ''), "jury ");
       registerUser({
         admin_email: value.adminEmail,
         admin_first_name: value.adminFirstName,
         address: value.address,
         password: value.password,
-        phone_number: value.phoneNumber.replace(/^0+/, ''),
+        phone_number: value.phoneNumber.replace(/^0+|\++/, ''),
         company_email: value.companyEmail,
         company_name: value.companyName,
         country: value.country,
