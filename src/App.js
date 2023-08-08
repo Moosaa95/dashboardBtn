@@ -61,9 +61,9 @@ function App() {
           <main className="content">
             {/* <Topbar setIsSidebar={setIsSidebar} /> */}
             <Routes>
-              <Route
+              {/* <Route
                 element={<PrivateRoutes setLoggedIn={setLoggedIn} />}
-              ></Route>
+              ></Route> */}
               <Route exact path="/" element={<Dashboard />} />
               <Route path="/users" element={<Team />} />
               <Route path="/stakeholders" element={<StakeHolders />} />
