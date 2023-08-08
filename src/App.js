@@ -29,23 +29,26 @@ import StakeHolders from "./scenes/contacts";
 import { EmailVerify } from "./scenes/EmailVerify";
 import { CheckMail } from "./scenes/EmailVerify/CheckMail";
 import { StakeHoldeDetail } from "./scenes/contacts/StakeHoldeDetail";
-import AddProject from "./scenes/project/AddProject";
+import AddProject from "./scenes/project/AddProject"
 import { UserDetail } from "./scenes/form/UserDetails";
 import { ResetPassword } from "./forgotPassword/ResetPassword";
 import Settings from "./scenes/generalsettings";
 import { EngagementDetail } from "./scenes/engagement/EngagementDetail";
-import { ProjectDetail } from "./scenes/project/ProjectDetails";
+import {ProjectDetail} from "./scenes/project/ProjectDetails";
 import React, { useState, useEffect, useContext } from "react";
-import AuthContext from "./scenes/context/AuthContext";
-import "./index.css";
-import "../src/index.css";
+import AuthContext from "./scenes/context/AuthContext"
+import './index.css'
+import '../src/index.css'
+
+
+
 
 // import { AuthProvider } from "./scenes/context/AuthContext";
 
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const { authTokens } = useContext(AuthContext);
   // const navigate  = useNavigate()
   return (
@@ -61,90 +64,56 @@ function App() {
           <main className="content">
             {/* <Topbar setIsSidebar={setIsSidebar} /> */}
             <Routes>
-              {/* <Route
-                element={<PrivateRoutes setLoggedIn={setLoggedIn} />}
-              ></Route> */}
-              <Route exact path="/" element={<Dashboard />} />
-              <Route path="/users" element={<Team />} />
-              <Route path="/stakeholders" element={<StakeHolders />} />
-              <Route
-                path="/stakeholder-detail/:id"
-                element={<StakeHoldeDetail />}
-              />
-              <Route path="/project" element={<Project />} />
-              <Route path="/add-project" element={<AddProject />} />
-              {/* <Route path="/invoices" element={<Invoices />} /> */}
-              <Route path="/add-user" element={<Form />} />
-              <Route path="/add-stakeholder" element={<StackHolderForm />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/sectors" element={<Sectors />} />
-              <Route path="/add-sector" element={<BusinessSector />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route
-                path="/add-stakeholder-type"
-                element={<AddStakeholderType />}
-              />
-              <Route path="/stakeholder-types" element={<StakeholderType />} />
-              <Route path="/user-list" element={<UserList />} />
-              <Route path="/user-profile/:id" element={<UserDetail />} />
-              <Route
-                path="/engagement-detail/:id"
-                element={<EngagementDetail />}
-              />
-              <Route path="/project-detail/:id" element={<ProjectDetail />} />
-              <Route path="/add-program" element={<AddProgram />} />
-              <Route path="/programs" element={<Programs />} />
-              <Route path="/add-engagement" element={<AddEngagement />} />
-              <Route path="/engagements" element={<Engagements />} />
-              {/* <Route path="/geography" element={<Geography />} /> */}
+              <Route element={<PrivateRoutes setLoggedIn={setLoggedIn} />}>
+                <Route exact path="/" element={<Dashboard />} />
+                <Route path="/users" element={<Team />} />
+                <Route path="/stakeholders" element={<StakeHolders />} />
+                <Route path="/stakeholder-detail/:id" element={<StakeHoldeDetail />} />
+                <Route path="/project" element={<Project />} />
+                <Route path="/add-project" element={<AddProject />} />
+                {/* <Route path="/invoices" element={<Invoices />} /> */}
+                <Route path="/add-user" element={<Form />} />
+                <Route path="/add-stakeholder" element={<StackHolderForm />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/sectors" element={<Sectors />} />
+                <Route path="/add-sector" element={<BusinessSector />} />
+                <Route path="/settings" element={<Settings />} /> 
+                <Route
+                  path="/add-stakeholder-type"
+                  element={<AddStakeholderType />}
+                />
+                <Route
+                  path="/stakeholder-types"
+                  element={<StakeholderType />}
+                />
+                <Route path="/user-list" element={<UserList />} />
+                <Route path="/user-profile/:id" element={<UserDetail />} />
+                <Route path="/engagement-detail/:id" element={<EngagementDetail />} />
+                <Route path="/project-detail/:id" element={<ProjectDetail />} />
+                <Route path="/add-program" element={<AddProgram />} />
+                <Route path="/programs" element={<Programs />} />
+                <Route path="/add-engagement" element={<AddEngagement />} />
+                <Route path="/engagements" element={<Engagements />} />
+                {/* <Route path="/geography" element={<Geography />} /> */}
+              </Route>
               <Route
                 path="/login"
-                element={
-                  authTokens ? (
-                    <Navigate to="/" />
-                  ) : (
-                    <Login setLoggedIn={setLoggedIn} />
-                  )
-                }
+                element={authTokens? <Navigate to="/" /> : <Login setLoggedIn={setLoggedIn} />}
               />
               <Route
                 path="/register"
-                element={
-                  authTokens ? (
-                    <Navigate to="/" />
-                  ) : (
-                    <SignUp setLoggedIn={setLoggedIn} />
-                  )
-                }
+                element={authTokens? <Navigate to="/" /> : <SignUp setLoggedIn={setLoggedIn} />}
               />
-              <Route
-                path="/forgot-password"
-                element={authTokens ? <Navigate to="/" /> : <ForgotPassword />}
-              />
+              <Route path="/forgot-password" element={authTokens? <Navigate to="/" /> : <ForgotPassword />} />
               <Route
                 path="/auth/user/:uuid64/verify/:token"
-                element={
-                  authTokens ? (
-                    <Navigate to="/" />
-                  ) : (
-                    <EmailVerify setLoggedIn={setLoggedIn} />
-                  )
-                }
+                element={authTokens? <Navigate to="/" /> : <EmailVerify setLoggedIn={setLoggedIn} />}
               />
               <Route
                 path="/auth/check-mail"
-                element={authTokens ? <Navigate to="/" /> : <CheckMail />}
+                element={authTokens? <Navigate to="/" /> : <CheckMail />}
               />
-              <Route
-                path="/auth/reset-password/:uuid64/:token"
-                element={
-                  authTokens ? (
-                    <Navigate to="/" />
-                  ) : (
-                    <ResetPassword setLoggedIn={setLoggedIn} />
-                  )
-                }
-              />
+              <Route path="/auth/reset-password/:uuid64/:token" element={authTokens? <Navigate to="/" /> : <ResetPassword setLoggedIn={setLoggedIn} />} />
             </Routes>
           </main>
         </div>
