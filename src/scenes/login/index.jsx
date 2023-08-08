@@ -30,7 +30,7 @@ const Login = ({setLoggedIn}) => {
   const { loginUser, user,success, error,authTokens, clearSuccess, clearError } = useContext(AuthContext);
 
   if (!authTokens){
-    setLoggedIn(false)
+    setLoggedIn(true)
   }
   else{
     setLoggedIn(true)

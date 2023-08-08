@@ -45,7 +45,7 @@ import "../src/index.css";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const { authTokens } = useContext(AuthContext);
   // const navigate  = useNavigate()
   return (
